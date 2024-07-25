@@ -2,10 +2,17 @@ import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
-import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
+
+import FeaturedProducts from "@modules/home/components/featured-products"
+import Hero from "@modules/home/components/hero"
+import BreakfastDishes from "@modules/home/components/breakfast-dishes"
+import LunchDishes from "@modules/home/components/lunch-dishes"
+import DessertsAndDrinks from "@modules/home/components/desserts-and-drinks"
+import WeeklyMenu from "@modules/home/components/weekly-menu"
+import News from "@modules/home/components/news"
+import Promotions from "@modules/home/components/promotions"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -54,6 +61,13 @@ const getCollectionsWithProducts = cache(
   }
 )
 
+const getBreakfastDishes = cache(
+  async (countryCode: string) => {
+    const products = await getProductsList({ countryCode })
+    return products.response.products
+  }
+)
+
 export default async function Home({
   params: { countryCode },
 }: {
@@ -61,6 +75,7 @@ export default async function Home({
 }) {
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
+  const breakfasts = await getBreakfastDishes(countryCode)
 
   if (!collections || !region) {
     return null
@@ -72,6 +87,12 @@ export default async function Home({
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
+          <BreakfastDishes products={breakfasts} region={region}/>
+          {/* <LunchDishes />
+          <DessertsAndDrinks />
+          <WeeklyMenu />
+          <Promotions />
+          <News /> */}
         </ul>
       </div>
     </>

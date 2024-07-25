@@ -7,19 +7,19 @@ import { getProductPrice } from "@lib/util/get-product-price"
 import { Region } from "@medusajs/medusa"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
-import PreviewPrice from "./price"
+import PreviewPrice from "../product-preview/price"
 
-export default async function ProductPreview({
-  productPreview,
+export default async function DishPreview({
+  dishPreview,
   isFeatured,
   region,
 }: {
-  productPreview: ProductPreviewType
+  dishPreview: ProductPreviewType
   isFeatured?: boolean
   region: Region
 }) {
   const pricedProduct = await retrievePricedProductById({
-    id: productPreview.id,
+    id: dishPreview.id,
     regionId: region.id,
   }).then((product) => product)
 
@@ -32,25 +32,30 @@ export default async function ProductPreview({
     region,
   })
 
+  const leftDishes = 10
+
   return (
     <LocalizedClientLink
-      href={`/products/${productPreview.handle}`}
+      href={`/products/${dishPreview.handle}`}
       className="group"
     >
       <div data-testid="product-wrapper">
         <Thumbnail
-          thumbnail={productPreview.thumbnail}
+          thumbnail={dishPreview.thumbnail}
           size="full"
           isFeatured={isFeatured}
         />
         <div className="flex txt-compact-medium mt-4 justify-between">
           <Text className="text-ui-fg-subtle" data-testid="product-title">
-            {productPreview.title}
+            {dishPreview.title}
           </Text>
           <div className="flex items-center gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
         </div>
+        {leftDishes > 0 && (
+          <Text className="text-ui-fg-muted">{leftDishes} left</Text>
+        )}
       </div>
     </LocalizedClientLink>
   )
