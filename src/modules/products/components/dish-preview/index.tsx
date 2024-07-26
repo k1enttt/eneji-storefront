@@ -2,27 +2,24 @@ import { Text } from "@medusajs/ui"
 
 import { ProductPreviewType } from "types/global"
 
-import { retrievePricedProductById } from "@lib/data"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { Region } from "@medusajs/medusa"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "../product-preview/price"
+import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 
-export default async function DishPreview({
+export default function DishPreview({
   dishPreview,
+  pricedProduct,
   isFeatured,
   region,
 }: {
   dishPreview: ProductPreviewType
+  pricedProduct: PricedProduct | null
   isFeatured?: boolean
   region: Region
 }) {
-  const pricedProduct = await retrievePricedProductById({
-    id: dishPreview.id,
-    regionId: region.id,
-  }).then((product) => product)
-
   if (!pricedProduct) {
     return null
   }

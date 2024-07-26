@@ -1,8 +1,13 @@
-import { Product } from "@medusajs/medusa"
+import { Product, Region } from "@medusajs/medusa"
 import { Metadata } from "next"
 
-import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
-import { ProductCollectionWithPreviews } from "types/global"
+import {
+  getCollectionsList,
+  getProductsList,
+  getRegion,
+  retrievePricedProductById,
+} from "@lib/data"
+import { ProductCollectionWithPreviews, ProductPreviewType } from "types/global"
 import { cache } from "react"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
@@ -61,10 +66,36 @@ const getCollectionsWithProducts = cache(
   }
 )
 
-const getBreakfastDishes = cache(
-  async (countryCode: string) => {
-    const products = await getProductsList({ countryCode })
-    return products.response.products
+const getBreakfastDishes = cache(async (countryCode: string) => {
+  const queryParams = { limit: 4 }
+  const products = await getProductsList({ queryParams, countryCode })
+  return products.response.products
+})
+
+const getLunchDishes = cache(async (countryCode: string) => {
+  const queryParams = { limit: 4 }
+  const products = await getProductsList({ queryParams, countryCode })
+  return products.response.products
+})
+
+const getDessertsAndDrinks = cache(async (countryCode: string) => {
+  const queryParams = { limit: 4 }
+  const products = await getProductsList({ queryParams, countryCode })
+  return products.response.products
+})
+
+const getPricedProducts = cache(
+  async (products: ProductPreviewType[], region: Region) => {
+    const pricedProducts = await Promise.all(
+      products.map((product) =>
+        retrievePricedProductById({
+          id: product.id,
+          regionId: region.id,
+        }).then((product) => product)
+      )
+    )
+
+    return pricedProducts
   }
 )
 
@@ -75,11 +106,20 @@ export default async function Home({
 }) {
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
-  const breakfasts = await getBreakfastDishes(countryCode)
-
+  const breakfastList = await getBreakfastDishes(countryCode)
+  const lunchList = await getLunchDishes(countryCode)
+  const dessertsAndDrinks = await getDessertsAndDrinks(countryCode)
+  
   if (!collections || !region) {
     return null
   }
+  
+  const pricedBreakfastList = await getPricedProducts(breakfastList, region);
+  const pricedLunchList = await getPricedProducts(lunchList, region);
+  const pricedDesertsAndDrinks = await getPricedProducts(
+    dessertsAndDrinks,
+    region
+  )
 
   return (
     <>
@@ -87,10 +127,16 @@ export default async function Home({
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
-          <BreakfastDishes products={breakfasts} region={region}/>
-          {/* <LunchDishes />
-          <DessertsAndDrinks />
-          <WeeklyMenu />
+          {/* Hình sản phẩm vuông */}
+          <BreakfastDishes products={breakfastList} pricedProducts={pricedBreakfastList} region={region} />
+          <LunchDishes products={lunchList} pricedProducts={pricedLunchList} region={region} />
+          {/* Lấy tráng miệng và đồ uống cùng một danh sách */}
+          <DessertsAndDrinks
+            products={dessertsAndDrinks}
+            pricedProducts={pricedDesertsAndDrinks}
+            region={region}
+          />
+          {/* <WeeklyMenu />
           <Promotions />
           <News /> */}
         </ul>
