@@ -23,6 +23,8 @@ const DishesList = ({
             dishPreview={product}
             pricedProduct={pricedProducts[index]}
             region={region}
+            thumbnailSize="square-small"
+            category="dessertsAndDrinks"
           />
         </li>
       ))}

@@ -84,6 +84,12 @@ const getDessertsAndDrinks = cache(async (countryCode: string) => {
   return products.response.products
 })
 
+const getWeeklyMenu = cache(async (countryCode: string) => {
+  const queryParams = { limit: 5 }
+  const products = await getProductsList({ queryParams, countryCode })
+  return products.response.products
+})
+
 const getPricedProducts = cache(
   async (products: ProductPreviewType[], region: Region) => {
     const pricedProducts = await Promise.all(
@@ -109,6 +115,7 @@ export default async function Home({
   const breakfastList = await getBreakfastDishes(countryCode)
   const lunchList = await getLunchDishes(countryCode)
   const dessertsAndDrinks = await getDessertsAndDrinks(countryCode)
+  const weeklyMenu = await getWeeklyMenu(countryCode)
   
   if (!collections || !region) {
     return null
@@ -120,6 +127,7 @@ export default async function Home({
     dessertsAndDrinks,
     region
   )
+  const pricedWeeklyMenu = await getPricedProducts(weeklyMenu, region)
 
   return (
     <>
@@ -127,18 +135,29 @@ export default async function Home({
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
-          {/* Hình sản phẩm vuông */}
-          <BreakfastDishes products={breakfastList} pricedProducts={pricedBreakfastList} region={region} />
-          <LunchDishes products={lunchList} pricedProducts={pricedLunchList} region={region} />
-          {/* Lấy tráng miệng và đồ uống cùng một danh sách */}
+          <BreakfastDishes
+            products={breakfastList}
+            pricedProducts={pricedBreakfastList}
+            region={region}
+          />
+          <LunchDishes
+            products={lunchList}
+            pricedProducts={pricedLunchList}
+            region={region}
+          />
           <DessertsAndDrinks
             products={dessertsAndDrinks}
             pricedProducts={pricedDesertsAndDrinks}
             region={region}
           />
-          {/* <WeeklyMenu />
-          <Promotions />
-          <News /> */}
+          <WeeklyMenu
+            products={weeklyMenu}
+            pricedProducts={pricedWeeklyMenu}
+            region={region}
+          />
+          {/* Cài thêm extension Blog, sử dụng cho cả Promotions và News */}
+          {/* <Promotions /> */}
+          {/* <News /> */}
         </ul>
       </div>
     </>
