@@ -1,5 +1,41 @@
-const WeeklyMenu = () => {
-  return ( <div>This is Weekly Menu section</div> );
+import { Region } from "@medusajs/medusa"
+import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { Text } from "@medusajs/ui"
+import DishPreview from "@modules/products/components/dish-preview"
+import Link from "next/link"
+import { ProductPreviewType } from "types/global"
+
+const WeeklyMenu = ({
+  products,
+  pricedProducts,
+  region,
+}: {
+  products: ProductPreviewType[]
+  pricedProducts: (PricedProduct | null)[]
+  region: Region
+}) => {
+  return (
+    <div className="content-container py-6">
+      <div className="flex justify-between">
+        <Text className="txt-xlarge mb-6 font-[500]">Thực đơn tuần này 🍴</Text>
+        <Link href="/products/weekly-menu" className="text-[#20419A] font-[500]">Xem thêm</Link>
+      </div>
+
+      <ul className="flex flex-nowrap gap-x-6 gap-y-8 overflow-x-auto pb-4">
+        {products.map((product, index) => (
+          <li key={product.id} className="flex-none w-1/5">
+            <DishPreview
+              dishPreview={product}
+              pricedProduct={pricedProducts[index]}
+              region={region}
+              thumbnailSize="square"
+              category="weeklyMenu"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
- 
-export default WeeklyMenu;
+
+export default WeeklyMenu

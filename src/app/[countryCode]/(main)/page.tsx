@@ -79,7 +79,7 @@ const getLunchDishes = cache(async (countryCode: string) => {
 })
 
 const getDessertsAndDrinks = cache(async (countryCode: string) => {
-  const queryParams = { limit: 4 }
+  const queryParams = { limit: 6 }
   const products = await getProductsList({ queryParams, countryCode })
   return products.response.products
 })
@@ -116,13 +116,14 @@ export default async function Home({
   const lunchList = await getLunchDishes(countryCode)
   const dessertsAndDrinks = await getDessertsAndDrinks(countryCode)
   const weeklyMenu = await getWeeklyMenu(countryCode)
-  
+  // const promotions = await getPromotions(countryCode)
+
   if (!collections || !region) {
     return null
   }
-  
-  const pricedBreakfastList = await getPricedProducts(breakfastList, region);
-  const pricedLunchList = await getPricedProducts(lunchList, region);
+
+  const pricedBreakfastList = await getPricedProducts(breakfastList, region)
+  const pricedLunchList = await getPricedProducts(lunchList, region)
   const pricedDesertsAndDrinks = await getPricedProducts(
     dessertsAndDrinks,
     region

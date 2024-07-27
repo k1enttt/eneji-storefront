@@ -34,6 +34,17 @@ export default function DishPreview({
   })
 
   const leftDishes = 10
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]
+  const today = new Date()
+  const dayOfWeek = daysOfWeek[today.getDay()]
 
   if (category === "breakfastAndLunch") {
     return (
@@ -101,7 +112,10 @@ export default function DishPreview({
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="flex txt-compact-medium mt-4 justify-between">
+          <div className="flex items-center gap-x-2 text-gray bullet gap-1 mt-2">
+            <Text className="text-ui-fg-muted">{dayOfWeek}</Text>
+          </div>
+          <div className="txt-compact-medium mt-2">
             <Text className="text-ui-fg-subtle" data-testid="product-title">
               {dishPreview.title}
             </Text>
