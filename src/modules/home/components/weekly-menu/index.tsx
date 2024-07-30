@@ -16,9 +16,12 @@ const WeeklyMenu = ({
 }) => {
   return (
     <div className="content-container py-6">
-      <div className="flex justify-between">
+      <div className="flex justify-start md:justify-between">
         <Text className="txt-xlarge mb-6 font-[500]">Thực đơn tuần này 🍴</Text>
-        <Link href="/products/weekly-menu" className="text-[#20419A] font-[500]">Xem thêm</Link>
+        <div className="block md:hidden">
+          <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
+        </div>
+        <Link href="/view-more" className="text-[#20419A] font-[500] hidden md:block">Xem thêm</Link>
       </div>
 
       <ul className="flex flex-nowrap gap-x-4 lg:gap-x-5 gap-y-8 overflow-x-auto pb-4 no-scrollbar">
