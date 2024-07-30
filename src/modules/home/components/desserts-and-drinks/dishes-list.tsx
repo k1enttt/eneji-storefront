@@ -16,7 +16,7 @@ const DishesList = ({
     return null
   }
   return (
-    <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
+    <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-x-6 gap-y-8">
       {products.map((product, index) => (
         <li key={product.id}>
           <DishPreview

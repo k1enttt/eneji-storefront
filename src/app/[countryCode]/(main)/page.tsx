@@ -134,7 +134,7 @@ export default async function Home({
   const pricedWeeklyMenu = await getPricedProducts(weeklyMenu, region)
 
   return (
-    <main>
+    <>
       {/* <Hero /> */}
       <MyHero />
       <div className="py-12">
@@ -173,6 +173,6 @@ export default async function Home({
           />
         </ul>
       </div>
-    </main>
+    </>
   )
 }
