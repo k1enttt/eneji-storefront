@@ -23,7 +23,7 @@ const BreakfastDishes = ({
           <TimeBlock time="10:00:00" />
         </div>
       </div>
-      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
+      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5">
         {products.map((product, index) => (
           <li key={product.id}>
             <DishPreview

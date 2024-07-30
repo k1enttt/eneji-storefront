@@ -8,7 +8,7 @@ import PlaceholderImage from "@modules/common/icons/placeholder-image"
 type ThumbnailProps = {
   thumbnail?: string | null
   images?: MedusaImage[] | null
-  size?: "small" | "medium" | "large" | "full" | "square" | "square-small" | "square-medium" | "rectangle" | "rectangle-small"
+  size?: "small" | "medium" | "large" | "full" | "square" | "square-small" | "square-medium" | "rectangle" | "rectangle-small" | "rectangle-medium"
   isFeatured?: boolean
   className?: string
   'data-testid'?: string
@@ -39,8 +39,8 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
           "w-full": size === "full",
           "h-[11.25rem] w-[11.25rem]": size === "square-small",
           "h-[8.5rem] w-[8.5rem] md:h-[10rem] md:w-[10rem] lg:h-[16rem] lg:w-[16rem]": size === "square-medium",
-          "aspect-[16/9]": size === "rectangle",
-          "h-[180px] aspect-[16/9]": size === "rectangle-small",
+          "aspect-[16/9] min-w-[10rem] min-h-[6rem]": size === "rectangle",
+          "w-[14rem] h-[7rem] md:w-[19rem] md:h-[9rem] lg:w-[29rem] lg:h-[15rem]": size === "rectangle-small",
         }
       )}
       data-testid={dataTestid}

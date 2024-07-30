@@ -27,6 +27,7 @@ export default function PostPreview({
     | "square-medium"
     | "rectangle"
     | "rectangle-small"
+    | "rectangle-medium"
     | undefined
   category?:
     | "promotions"
