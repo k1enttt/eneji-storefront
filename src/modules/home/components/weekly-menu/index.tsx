@@ -21,9 +21,9 @@ const WeeklyMenu = ({
         <Link href="/products/weekly-menu" className="text-[#20419A] font-[500]">Xem thêm</Link>
       </div>
 
-      <ul className="flex flex-nowrap gap-x-6 gap-y-8 overflow-x-auto pb-4 no-scrollbar">
+      <ul className="flex flex-nowrap gap-x-4 lg:gap-x-5 gap-y-8 overflow-x-auto pb-4 no-scrollbar">
         {products.map((product, index) => (
-          <li key={product.id} className="flex-none w-1/5">
+          <li key={product.id}>
             <DishPreview
               dishPreview={product}
               pricedProduct={pricedProducts[index]}
