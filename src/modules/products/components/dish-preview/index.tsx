@@ -67,14 +67,23 @@ export default function DishPreview({
         href={`/products/${dishPreview.handle}`}
         className="group"
       >
-        <div data-testid="product-wrapper">
-          <Thumbnail
-            thumbnail={dishPreview.thumbnail}
-            size={thumbnailSize}
-            isFeatured={isFeatured}
-          />
+        <div data-testid="product-wrapper" className="">
+          <div className="relative">
+            <Thumbnail
+              thumbnail={dishPreview.thumbnail}
+              size={thumbnailSize}
+              isFeatured={isFeatured}
+            />
+            <div className="h-8 w-8 bg-[#20419A] rounded-circle flex items-center justify-center absolute right-2 bottom-2">
+              <i className="fas fa-plus text-white text-lg"></i>
+            </div>
+          </div>
+
           <div className="flex flex-col txt-compact-medium mt-4 justify-between">
-            <Text className="text-ui-fg-subtle font-semibold" data-testid="product-title">
+            <Text
+              className="text-ui-fg-subtle font-semibold"
+              data-testid="product-title"
+            >
               {dishPreview.title}
             </Text>
             <div className="flex items-center gap-x-2 font-bold">
@@ -94,14 +103,24 @@ export default function DishPreview({
         href={`/products/${dishPreview.handle}`}
         className="group"
       >
-        <div data-testid="product-wrapper" className="flex bg-white rounded-md">
+        <div
+          data-testid="product-wrapper"
+          className="flex gap-4 bg-white rounded-md relative min-w-[22rem]"
+        >
           <Thumbnail
             thumbnail={dishPreview.thumbnail}
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="flex flex-col gap-2 justify-start txt-compact-medium mt-4 px-4 w-8">
-            <Text className="text-ui-fg-subtle font-semibold lg:min-w-[calc()]" data-testid="product-title">
+          <div className="h-8 w-8 bg-[#20419A] rounded-circle flex items-center justify-center absolute right-2 bottom-2">
+            <i className="fas fa-plus text-white text-lg"></i>
+          </div>
+
+          <div className="flex flex-col gap-2 justify-start txt-compact-medium mt-4">
+            <Text
+              className="text-ui-fg-subtle font-semibold"
+              data-testid="product-title"
+            >
               {dishPreview.title}
             </Text>
             <div className="items-center gap-x-2">
@@ -127,11 +146,11 @@ export default function DishPreview({
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="flex items-center gap-x-2 text-gray bullet gap-1 mt-2">
+          <div className="flex items-center gap-x-1 text-gray bullet gap-1 mt-2">
             <Text className="text-ui-fg-muted">{dayOfWeek}</Text>
           </div>
-          <div className="txt-compact-medium mt-2">
-            <Text className="text-ui-fg-subtle" data-testid="product-title">
+          <div className="txt-compact-medium mt-1">
+            <Text className="text-ui-fg-subtle font-semibold" data-testid="product-title">
               {dishPreview.title}
             </Text>
           </div>
