@@ -36,8 +36,6 @@ export default function DishPreview({
     | "breakfastAndLunch"
     | "dessertsAndDrinks"
     | "weeklyMenu"
-    | "promotions"
-    | "news"
 }) {
   if (!pricedProduct) {
     return null
@@ -151,43 +149,6 @@ export default function DishPreview({
           </div>
           <div className="txt-compact-medium mt-1">
             <Text className="text-ui-fg-subtle font-semibold" data-testid="product-title">
-              {dishPreview.title}
-            </Text>
-          </div>
-        </div>
-      </LocalizedClientLink>
-    )
-  }
-  if (category === "promotions") {
-    return (
-      <LocalizedClientLink
-        href={`/products/${dishPreview.handle}`}
-        className="group"
-      >
-        <div data-testid="product-wrapper">
-          <Thumbnail
-            thumbnail={dishPreview.thumbnail}
-            size={thumbnailSize}
-            isFeatured={isFeatured}
-          />
-        </div>
-      </LocalizedClientLink>
-    )
-  }
-  if (category === "news") {
-    return (
-      <LocalizedClientLink
-        href={`/products/${dishPreview.handle}`}
-        className="group"
-      >
-        <div data-testid="product-wrapper">
-          <Thumbnail
-            thumbnail={dishPreview.thumbnail}
-            size={thumbnailSize}
-            isFeatured={isFeatured}
-          />
-          <div className="flex txt-compact-medium mt-4 justify-between">
-            <Text className="text-ui-fg-subtle" data-testid="product-title">
               {dishPreview.title}
             </Text>
           </div>
