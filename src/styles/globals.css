@@ -51,7 +51,7 @@
 
 @layer components {
   .content-container {
-    @apply max-w-[1440px] w-full mx-auto px-6;
+    @apply max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-12;
   }
 
   .contrast-btn {
@@ -113,5 +113,6 @@
 
 .bullet::before {
   content: "•";
+  font-size: 1.5em;
   color: gray;
 }

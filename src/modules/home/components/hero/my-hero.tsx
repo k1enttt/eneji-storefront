@@ -17,7 +17,7 @@ import { Keyboard, Pagination, Navigation } from "swiper/modules"
 const Hero = () => {
   return (
     <div className="h-[60vh] w-full border-b border-ui-border-base relative bg-[#1875F0] rounded-b-3xl">
-      <div className="absolute inset-0 text-center px-6 small:px-16">
+      <div className="content-container absolute inset-0 text-center">
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
