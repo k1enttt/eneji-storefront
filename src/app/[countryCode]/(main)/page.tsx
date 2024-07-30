@@ -12,12 +12,14 @@ import { cache } from "react"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import MyHero from "@modules/home/components/hero/my-hero"
 import BreakfastDishes from "@modules/home/components/breakfast-dishes"
 import LunchDishes from "@modules/home/components/lunch-dishes"
 import DessertsAndDrinks from "@modules/home/components/desserts-and-drinks"
 import WeeklyMenu from "@modules/home/components/weekly-menu"
 import News from "@modules/home/components/news"
 import Promotions from "@modules/home/components/promotions"
+import { promotions, news } from "@lib/data/data"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -116,7 +118,8 @@ export default async function Home({
   const lunchList = await getLunchDishes(countryCode)
   const dessertsAndDrinks = await getDessertsAndDrinks(countryCode)
   const weeklyMenu = await getWeeklyMenu(countryCode)
-  // const promotions = await getPromotions(countryCode)
+  const promotionsList = promotions;
+  const newsList = news;
 
   if (!collections || !region) {
     return null
@@ -131,8 +134,9 @@ export default async function Home({
   const pricedWeeklyMenu = await getPricedProducts(weeklyMenu, region)
 
   return (
-    <>
-      <Hero />
+    <main>
+      {/* <Hero /> */}
+      <MyHero />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
@@ -151,16 +155,24 @@ export default async function Home({
             pricedProducts={pricedDesertsAndDrinks}
             region={region}
           />
+          {/* Lỗi responsive, width của thẻ không giảm khi width cửa sổ nhỏ lại */}
           <WeeklyMenu
             products={weeklyMenu}
             pricedProducts={pricedWeeklyMenu}
             region={region}
           />
           {/* Cài thêm extension Blog, sử dụng cho cả Promotions và News */}
-          {/* <Promotions /> */}
-          {/* <News /> */}
+          {/* Dùng plugin Strapi */}
+          <Promotions
+            products={weeklyMenu}
+            region={region}
+          />
+          <News
+            products={weeklyMenu}
+            region={region}
+          />
         </ul>
       </div>
-    </>
+    </main>
   )
 }

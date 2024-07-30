@@ -4,16 +4,117 @@ import { getCategoriesList, getCollectionsList } from "@lib/data"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
+import Image from "next/image"
+import enejiLogo from "./enejistation-logo.png"
+import Link from "next/link"
+import zaloIcon from "./zalo.svg"
+import "@fortawesome/fontawesome-free/css/all.min.css"
 
 export default async function Footer() {
   const { collections } = await getCollectionsList(0, 6)
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
+    <footer className="border-t border-ui-border-base w-full bg-[#101828] text-white">
       <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
+        <div className="flex flex-col gap-y-6 items-start justify-between pt-10 pb-20">
+          <div className="flex gap-x-6">
+            <Image
+              src={enejiLogo}
+              alt="Eneji Station logo"
+              width={247}
+              height={86}
+              className=""
+            ></Image>
+          </div>
+
+          <div className="w-full flex flex-wrap gap-x-6 gap-y-10 mt-4">
+            <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
+              <div className="font-bold">Công ty Cổ phần TMDV Quả Táo</div>
+              <div className="space-y-4">
+                <div className="">
+                  <b>Địa chỉ:</b> Số 2/29 Cao Thắng, Phường 05, Quận 3, Thành
+                  phố Hồ Chí Minh, Việt Nam.
+                </div>
+                <div className="">
+                  <b>Hotline:</b> (028) 3535 2563
+                </div>
+                <div className="">
+                  <b>Mã số doanh nghiệp:</b> 0317034495 do Sở Kế hoạch & Đầu tư
+                  TP Hồ Chí Minh cấp ngày 17/11/2021
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
+              <div className="font-bold">Về Eneji Station</div>
+              <div className="flex flex-col">
+                <Link className="" href={""}>
+                  Giới thiệu về Eneji Station
+                </Link>
+                <Link className="" href={""}>
+                  Chính sách bảo mật
+                </Link>
+                <Link className="" href={""}>
+                  Chính sách trả hàng và hoàn tiền
+                </Link>
+                <Link className="" href={""}>
+                  Chính sách vận chuyển
+                </Link>
+                <Link className="" href={""}>
+                  Giải quyết khiếu nại
+                </Link>
+                <Link className="" href={""}>
+                  Hướng dẫn mua hàng
+                </Link>
+              </div>
+            </div>
+            <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
+              <div className="font-bold">Phương thức thanh toán</div>
+              <div className="flex flex-row gap-1">
+                <div className="w-16 h-12">Tiền mặt</div>
+                <div className="w-16 h-12">Thẻ Eneji</div>
+                <div className="w-16 h-12">ACB</div>
+                <div className="w-16 h-12">MOMO</div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
+              <div className="font-bold">Mạng xã hội</div>
+              <div className="flex flex-row gap-3">
+                <Link
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <i className="fab fa-facebook-square text-blue-600 text-4xl"></i>
+                </Link>
+                <Link
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <i className="fab fa-instagram-square text-pink-500 text-4xl"></i>
+                </Link>
+                <Link
+                  href="https://zalo.me"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <Image
+                    src={zaloIcon}
+                    alt="Zalo"
+                    width={33}
+                    height={33}
+                    className="w-[2.063rem] h-[2.063rem] p-0 m-0"
+                  ></Image>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* <div>
             <LocalizedClientLink
               href="/"
               className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
@@ -21,13 +122,17 @@ export default async function Footer() {
               Medusa Store
             </LocalizedClientLink>
           </div>
+
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
             {product_categories && product_categories?.length > 0 && (
               <div className="flex flex-col gap-y-2">
                 <span className="txt-small-plus txt-ui-fg-base">
                   Categories
                 </span>
-                <ul className="grid grid-cols-1 gap-2" data-testid="footer-categories">
+                <ul
+                  className="grid grid-cols-1 gap-2"
+                  data-testid="footer-categories"
+                >
                   {product_categories?.slice(0, 6).map((c) => {
                     if (c.parent_category) {
                       return
@@ -138,13 +243,14 @@ export default async function Footer() {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
+        <div className="flex w-full mb-16 justify-start text-ui-fg-muted">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
+            © {new Date().getFullYear()} - Bản quyền thuộc về Công ty Cổ phần
+            TMDV Quả Táo
           </Text>
-          <MedusaCTA />
+          {/* <MedusaCTA /> */}
         </div>
       </div>
     </footer>

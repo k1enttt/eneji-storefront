@@ -10,9 +10,17 @@ export default async function PreviewPrice({ price }: { price: PriceType }) {
           {price.original_price}
         </Text>
       )}
-      <Text
+      {/* <Text
         className={clx("text-ui-fg-muted", {
           "text-ui-fg-interactive": price.price_type === "sale",
+        })}
+        data-testid="price"
+      >
+        {price.calculated_price}
+      </Text> */}
+      <Text
+        className={clx("text-[#20419A] font-semibold", {
+          "text-[#20419A] font-semibold": price.price_type === "sale",
         })}
         data-testid="price"
       >

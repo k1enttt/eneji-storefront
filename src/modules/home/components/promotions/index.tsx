@@ -2,32 +2,33 @@ import { Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Text } from "@medusajs/ui"
 import DishPreview from "@modules/products/components/dish-preview"
+import PostPreview from "@modules/products/components/post-review"
 import Link from "next/link"
 import { ProductPreviewType } from "types/global"
 
 const Promotions = ({
   products,
-  pricedProducts,
   region,
 }: {
   products: ProductPreviewType[]
-  pricedProducts: (PricedProduct | null)[]
   region: Region
 }) => {
   return (
     <div className="content-container py-6">
-      <Text className="txt-xlarge mb-6 font-[500]">Khuyến mãi 🎁</Text>
+      <div className="flex justify-between">
+        <Text className="txt-xlarge mb-6 font-[500]">Kho khuyến mãi 🎁</Text>
+        <Link
+          href="/products/weekly-menu"
+          className="text-[#20419A] font-[500]"
+        >
+          Xem thêm
+        </Link>
+      </div>
 
-      <ul className="flex flex-nowrap gap-x-6 gap-y-8 overflow-x-auto pb-4">
+      <ul className="flex flex-nowrap gap-x-6 gap-y-8 overflow-x-auto pb-4 no-scrollbar">
         {products.map((product, index) => (
           <li key={product.id} className="flex-none w-1/5">
-            <DishPreview
-              dishPreview={product}
-              pricedProduct={pricedProducts[index]}
-              region={region}
-              thumbnailSize="square"
-              category="weeklyMenu"
-            />
+            <PostPreview postPreview={product} category="promotions" />
           </li>
         ))}
       </ul>

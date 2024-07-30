@@ -1,4 +1,5 @@
 const path = require("path")
+const flowbite = require("flowbite-react/tailwind");
 
 module.exports = {
   darkMode: "class",
@@ -9,6 +10,7 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/modules/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}",
+    flowbite.content(),
   ],
   theme: {
     extend: {
@@ -158,5 +160,19 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-radix")()],
+  plugins: [
+    require("tailwindcss-radix")(),
+    flowbite.plugin(),
+    function ({addUtilities}) {
+      addUtilities({
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',  /* IE and Edge */
+          'scrollbar-width': 'none',  /* Firefox */
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          'display': 'none',  /* Chrome, Safari, and Opera */
+        },
+      });
+    }
+  ],
 }
