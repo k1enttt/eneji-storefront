@@ -33,7 +33,7 @@ export const promotions: Blog[] = [
 export const news: Blog[] = [
   {
     id: "1",
-    title: "News 1",
+    title: "News 1, make the title longer to see the ellipsis, much longer, much much longer, much much much longer",
     description: "This is a news",
     image: "https://placehold.co/150",
     date: "2022-01-01",

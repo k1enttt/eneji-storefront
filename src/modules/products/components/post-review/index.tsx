@@ -70,7 +70,7 @@ export default function PostPreview({
       <LocalizedClientLink
         // href={`/products/${postPreview.handle}`}
         href={`/products/#`}
-        className="group"
+        className="group relative"
       >
         <div data-testid="product-wrapper">
           <Thumbnail
@@ -78,11 +78,10 @@ export default function PostPreview({
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="flex txt-compact-medium mt-4 justify-between">
-            <Text className="text-ui-fg-subtle" data-testid="product-title">
+          <div className="flex justify-between absolute bottom-0 w-full gradient-div">
+            <Text className="text-white font-semibold px-2 py-1 lg:px-4 lg:py-2 flex items-end" data-testid="product-title">
               {postPreview.title}
             </Text>
-
           </div>
         </div>
       </LocalizedClientLink>

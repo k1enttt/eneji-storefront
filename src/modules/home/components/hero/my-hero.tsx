@@ -14,7 +14,7 @@ import "./my-hero.css"
 // import required modules
 import { Keyboard, Pagination, Navigation } from "swiper/modules"
 import Image from "next/image"
-import heroPhoto from "./hero-photo.png"
+import heroPhoto from "../../../../../public/images/hero-photo.png"
 
 const Hero = () => {
   return (

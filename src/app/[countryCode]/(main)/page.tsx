@@ -12,7 +12,7 @@ import { cache } from "react"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import MyHero from "@modules/home/components/hero/my-hero"
+import MyHero from "../../../modules/home/components/hero/my-hero"
 import BreakfastDishes from "@modules/home/components/breakfast-dishes"
 import LunchDishes from "@modules/home/components/lunch-dishes"
 import DessertsAndDrinks from "@modules/home/components/desserts-and-drinks"

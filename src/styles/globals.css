@@ -116,3 +116,10 @@
   font-size: 1.5em;
   color: gray;
 }
+
+.gradient-div {
+  width: 100%;
+  height: 50px; /* Adjust the height as needed */
+  background: linear-gradient(to top, black, transparent);
+  border-radius: 0 0 8px 8px;
+}
