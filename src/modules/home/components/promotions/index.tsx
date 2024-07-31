@@ -1,3 +1,4 @@
+import { Blog } from "@lib/data/data"
 import { Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Text } from "@medusajs/ui"
@@ -10,7 +11,7 @@ const Promotions = ({
   products,
   region,
 }: {
-  products: ProductPreviewType[]
+  products: Blog[]
   region: Region
 }) => {
   return (
@@ -21,7 +22,7 @@ const Promotions = ({
           <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
         </div>
         <Link
-          href="/products/weekly-menu"
+          href="/view-more"
           className="text-[#20419A] font-[500] hidden md:block"
         >
           Xem thêm

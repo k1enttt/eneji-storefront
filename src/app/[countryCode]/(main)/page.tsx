@@ -164,11 +164,11 @@ export default async function Home({
           {/* Cài thêm extension Blog, sử dụng cho cả Promotions và News */}
           {/* Dùng plugin Strapi */}
           <Promotions
-            products={weeklyMenu}
+            products={promotionsList}
             region={region}
           />
           <News
-            products={weeklyMenu}
+            products={newsList}
             region={region}
           />
         </ul>

@@ -8,6 +8,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "../product-preview/price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { Blog } from "@lib/data/data"
 
 export default function PostPreview({
   postPreview,
@@ -15,7 +16,7 @@ export default function PostPreview({
   thumbnailSize = "full",
   category = "promotions",
 }: {
-  postPreview: ProductPreviewType
+  postPreview: Blog
   isFeatured?: boolean
   thumbnailSize?:
     | "small"
@@ -50,12 +51,13 @@ export default function PostPreview({
   if (category === "promotions") {
     return (
       <LocalizedClientLink
-        href={`/products/${postPreview.handle}`}
+        // href={`/products/${postPreview.handle}`}
+        href={`/products/#`}
         className="group"
       >
         <div data-testid="product-wrapper">
           <Thumbnail
-            thumbnail={postPreview.thumbnail}
+            thumbnail={postPreview.image}
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
@@ -66,12 +68,13 @@ export default function PostPreview({
   if (category === "news") {
     return (
       <LocalizedClientLink
-        href={`/products/${postPreview.handle}`}
+        // href={`/products/${postPreview.handle}`}
+        href={`/products/#`}
         className="group"
       >
         <div data-testid="product-wrapper">
           <Thumbnail
-            thumbnail={postPreview.thumbnail}
+            thumbnail={postPreview.image}
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
