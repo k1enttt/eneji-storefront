@@ -6,12 +6,12 @@ import Link from "next/link"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
 import Image from "next/image"
-import enejiLogo from "./images/enejistation-logo.png"
-import zaloIcon from "./images/zalo.svg"
-import cashIcon from "./images/tien-mat.png"
-import enejiCardIcon from "./images/the-eneji.png"
-import acbIcon from "./images/acb.png"
-import momoIcon from "./images/momo.png"
+import enejiLogo from "../../../../../public/images/enejistation-logo.png"
+import zaloIcon from "../../../../../public/images/zalo.svg"
+import cashIcon from "../../../../../public/images/tien-mat.png"
+import enejiCardIcon from "../../../../../public/images/the-eneji.png"
+import acbIcon from "../../../../../public/images/acb.png"
+import momoIcon from "../../../../../public/images/momo.png"
 import "@fortawesome/fontawesome-free/css/all.min.css"
 
 export default async function Footer() {
@@ -32,7 +32,7 @@ export default async function Footer() {
             ></Image>
           </div>
 
-          <div className="w-full flex flex-wrap gap-x-6 gap-y-10 mt-4">
+          {/* <div className="w-full flex flex-wrap gap-x-6 gap-y-10 mt-4">
             <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
               <div className="font-bold">Công ty Cổ phần TMDV Quả Táo</div>
               <div className="space-y-4">
@@ -139,6 +139,129 @@ export default async function Footer() {
                   ></Image>
                 </Link>
               </div>
+            </div>
+          </div> */}
+          {/* <div className="w-full flex flex-wrap gap-x-5 gap-y-10 mt-4">
+            <div className="min-w-[600px] bg-red-500 flex-1 p-1 flex justify-around gap-x-5 gap-y-10">
+              <div className="h-8 bg-yellow-500 flex-1">
+                <div className="font-bold">Công ty Cổ phần TMDV Quả Táo</div>
+                <div className="space-y-4">
+                  <div className="">
+                    <b>Địa chỉ:</b> Số 2/29 Cao Thắng, Phường 05, Quận 3, Thành
+                    phố Hồ Chí Minh, Việt Nam.
+                  </div>
+                  <div className="">
+                    <b>Hotline:</b> (028) 3535 2563
+                  </div>
+                  <div className="">
+                    <b>Mã số doanh nghiệp:</b> 0317034495 do Sở Kế hoạch & Đầu
+                    tư TP Hồ Chí Minh cấp ngày 17/11/2021
+                  </div>
+                </div>
+              </div>
+              <div className="h-8 lg:max-w-[230px] max-w-full bg-green-500 flex-1">
+                <div className="font-bold">Về Eneji Station</div>
+                <div className="flex flex-col">
+                  <Link className="" href={""}>
+                    Giới thiệu về Eneji Station
+                  </Link>
+                  <Link className="" href={""}>
+                    Chính sách bảo mật
+                  </Link>
+                  <Link className="" href={""}>
+                    Chính sách trả hàng và hoàn tiền
+                  </Link>
+                  <Link className="" href={""}>
+                    Chính sách vận chuyển
+                  </Link>
+                  <Link className="" href={""}>
+                    Giải quyết khiếu nại
+                  </Link>
+                  <Link className="" href={""}>
+                    Hướng dẫn mua hàng
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="min-w-[440px] lg:max-w-lg max-w-full bg-blue-500 flex-1 p-1 flex justify-around gap-x-5 gap-y-10">
+              <div className="h-8 bg-yellow-500 flex-1">
+              <div className="font-bold">Phương thức thanh toán</div>
+              <div className="flex flex-row gap-2">
+                  <Image
+                    src={cashIcon}
+                    alt="Tiền mặt"
+                    width={70}
+                    height={46}
+                    className="rounded-md"
+                  />
+                  <Image
+                    src={enejiCardIcon}
+                    alt="Thẻ Eneji"
+                    width={83}
+                    height={46}
+                    className="rounded-md"
+                  />
+                  <Image
+                    src={acbIcon}
+                    alt="ACB"
+                    width={92}
+                    height={46}
+                    className="rounded-md"
+                  />
+                  <Image
+                    src={momoIcon}
+                    alt="Momo"
+                    width={46}
+                    height={46}
+                    className="rounded-md"
+                  />
+              </div>
+              </div>
+              <div className="h-8 lg:max-w-[140px] max-w-none bg-green-500 flex-1">
+                <div className="font-bold">Mạng xã hội</div>
+              <div className="flex flex-row gap-3">
+                <Link
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <i className="fab fa-facebook-square text-blue-600 text-4xl"></i>
+                </Link>
+                <Link
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <i className="fab fa-instagram-square text-pink-500 text-4xl"></i>
+                </Link>
+                <Link
+                  href="https://zalo.me"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <Image
+                    src={zaloIcon}
+                    alt="Zalo"
+                    width={33}
+                    height={33}
+                    className="w-[2.063rem] h-[2.063rem] p-0 m-0"
+                  ></Image>
+                </Link>
+              </div>
+              </div>
+            </div>
+          </div> */}
+          <div className="w-full flex flex-wrap gap-x-5 gap-y-10 mt-4">
+            <div className="min-w-[600px] bg-red-500 flex-1 p-1 flex justify-around gap-x-5 gap-y-10">
+              <div className="h-8 bg-yellow-500 flex-1"></div>
+              <div className="h-8 lg:max-w-[230px] max-w-full bg-green-500 flex-1"></div>
+            </div>
+            <div className="min-w-[440px] lg:max-w-lg max-w-full bg-blue-500 flex-1 p-1 flex justify-around gap-x-5 gap-y-10">
+              <div className="h-8 bg-yellow-500 flex-1"></div>
+              <div className="h-8 lg:max-w-[140px] max-w-none bg-green-500 flex-1"></div>
             </div>
           </div>
 
