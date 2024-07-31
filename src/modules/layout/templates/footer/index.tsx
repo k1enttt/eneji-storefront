@@ -2,12 +2,16 @@ import { Text, clx } from "@medusajs/ui"
 
 import { getCategoriesList, getCollectionsList } from "@lib/data"
 
+import Link from "next/link"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
 import Image from "next/image"
-import enejiLogo from "./enejistation-logo.png"
-import Link from "next/link"
-import zaloIcon from "./zalo.svg"
+import enejiLogo from "./images/enejistation-logo.png"
+import zaloIcon from "./images/zalo.svg"
+import cashIcon from "./images/tien-mat.png"
+import enejiCardIcon from "./images/the-eneji.png"
+import acbIcon from "./images/acb.png"
+import momoIcon from "./images/momo.png"
 import "@fortawesome/fontawesome-free/css/all.min.css"
 
 export default async function Footer() {
@@ -70,11 +74,35 @@ export default async function Footer() {
             </div>
             <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
               <div className="font-bold">Phương thức thanh toán</div>
-              <div className="flex flex-row gap-1">
-                <div className="w-16 h-12">Tiền mặt</div>
-                <div className="w-16 h-12">Thẻ Eneji</div>
-                <div className="w-16 h-12">ACB</div>
-                <div className="w-16 h-12">MOMO</div>
+              <div className="flex flex-row gap-2">
+                  <Image
+                    src={cashIcon}
+                    alt="Tiền mặt"
+                    width={70}
+                    height={46}
+                    className="rounded-md"
+                  />
+                  <Image
+                    src={enejiCardIcon}
+                    alt="Thẻ Eneji"
+                    width={83}
+                    height={46}
+                    className="rounded-md"
+                  />
+                  <Image
+                    src={acbIcon}
+                    alt="ACB"
+                    width={92}
+                    height={46}
+                    className="rounded-md"
+                  />
+                  <Image
+                    src={momoIcon}
+                    alt="Momo"
+                    width={46}
+                    height={46}
+                    className="rounded-md"
+                  />
               </div>
             </div>
             <div className="flex flex-col gap-6 flex-1 min-w-[300px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)]">
