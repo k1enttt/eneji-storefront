@@ -5,6 +5,7 @@ import { Suspense, useState } from "react"
 import { ProductPreviewType } from "types/global"
 import DishesList from "./dishes-list"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import Link from "next/link"
 
 type DessertsAndDrinksProps = "desserts" | "drinks"
 
@@ -50,7 +51,7 @@ const DessertsAndDrinks = ({
           </button>
         </div>
 
-        <div className="py-6">
+        <div className="pt-6">
           {/* A list of "Tráng miệng" */}
           {dessertsOrDrinks === "desserts" && (
             <Suspense fallback={<SkeletonProductGrid />}>
@@ -72,6 +73,15 @@ const DessertsAndDrinks = ({
               />
             </Suspense>
           )}
+        </div>
+
+        <div className="flex justify-center pt-6">
+          <Link
+            href="/view-more"
+            className="text-[#20419A] font-[500] text-center"
+          >
+            Xem thêm
+          </Link>
         </div>
       </div>
     </div>

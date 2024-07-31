@@ -5,14 +5,9 @@ import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Region } from "@medusajs/medusa"
 import Link from "next/link"
 import PostPreview from "@modules/products/components/post-review"
+import { Blog } from "@lib/data/data"
 
-const News = ({
-  products,
-  region,
-}: {
-  products: ProductPreviewType[]
-  region: Region
-}) => {
+const News = ({ products, region }: { products: Blog[]; region: Region }) => {
   return (
     <div className="content-container py-6">
       <div className="flex justify-start md:justify-between">
@@ -20,12 +15,14 @@ const News = ({
         <div className="block md:hidden">
           <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
         </div>
-        <Link
-          href="/view-more"
-          className="text-[#20419A] font-[500] hidden md:block"
-        >
-          Xem thêm
-        </Link>
+        <div className="hidden md:block">
+          <Link
+            href="/view-more"
+            className="text-[#20419A] font-[500]"
+          >
+            Xem thêm
+          </Link>
+        </div>
       </div>
 
       <ul className="grid grid-cols-2 w-full gap-4 lg:gap-5">
