@@ -39,29 +39,20 @@ export default function DishPreview({
     return null
   }
 
+  /** The price */
   const { cheapestPrice } = getProductPrice({
     product: pricedProduct,
     region,
   })
 
+  /** The inventory quantity */
   let leftDishes = 0
   if (dishPreview.variants) {
-    leftDishes = dishPreview.variants
-      ?.map((value) => value.inventory_quantity)
-      .reduce((acc, curr) => (acc! + curr!) as number, 0) || 0;
+    leftDishes =
+      dishPreview.variants
+        ?.map((value) => value.inventory_quantity)
+        .reduce((acc, curr) => (acc! + curr!) as number, 0) || 0
   }
-
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ]
-  const today = new Date()
-  const dayOfWeek = daysOfWeek[today.getDay()]
 
   if (category === "breakfastAndLunch") {
     return (
@@ -137,6 +128,17 @@ export default function DishPreview({
     )
   }
   if (category === "weeklyMenu") {
+    
+    let startDate: string = ""
+    if (dishPreview.metadata) {
+      startDate = dishPreview.metadata.startDate
+    }
+
+    let dayOfWeek = ""
+    if (startDate) {
+      dayOfWeek = getDayOfWeek(startDate)
+    }
+
     return (
       <LocalizedClientLink
         href={`/products/${dishPreview.handle}`}
@@ -148,9 +150,11 @@ export default function DishPreview({
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="flex items-center gap-x-1 text-gray bullet gap-1 mt-2">
-            <Text className="text-ui-fg-muted">{dayOfWeek}</Text>
-          </div>
+          {dayOfWeek != "" && (
+            <div className="flex items-center gap-x-1 text-gray bullet gap-1 mt-2">
+              <Text className="text-ui-fg-muted">{dayOfWeek}</Text>
+            </div>
+          )}
           <div className="txt-compact-medium mt-1">
             <Text
               className="text-ui-fg-subtle font-semibold"
@@ -164,4 +168,26 @@ export default function DishPreview({
     )
   }
   return null
+}
+
+function getDayOfWeek(dateString: string): string {
+  // Split the input date string into day, month, and year
+  const [day, month, year] = dateString.split("/").map(Number)
+
+  // Create a new Date object (Note: month is 0-indexed in JavaScript Date)
+  const date = new Date(year, month - 1, day)
+
+  // Array of day names
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]
+
+  // Get the day of the week (0-6) and return the corresponding day name
+  return daysOfWeek[date.getDay()]
 }

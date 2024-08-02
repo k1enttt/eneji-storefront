@@ -17,6 +17,7 @@ export type ProductPreviewType = {
   created_at?: Date
   type?: ProductType
   variants?: PricedVariant[]
+  metadata?: Record<string, any> | null
   price?: {
     calculated_price: string
     original_price: string
