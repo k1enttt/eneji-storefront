@@ -15,7 +15,7 @@ const BreakfastDishes = ({
   region: Region
 }) => {
   return (
-    <div className="content-container py-6">
+    <div className="content-container py-4">
       <div className="mb-6">
         <Text className="txt-xlarge font-[500]">Món ăn bữa sáng 🌤️</Text>
         <div className="flex justify-start">
