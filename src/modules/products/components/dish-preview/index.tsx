@@ -8,6 +8,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "../product-preview/price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { Product } from "@medusajs/product"
 
 export default function DishPreview({
   dishPreview,
@@ -32,10 +33,7 @@ export default function DishPreview({
     | "rectangle"
     | "rectangle-small"
     | undefined
-  category?:
-    | "breakfastAndLunch"
-    | "dessertsAndDrinks"
-    | "weeklyMenu"
+  category?: "breakfastAndLunch" | "dessertsAndDrinks" | "weeklyMenu"
 }) {
   if (!pricedProduct) {
     return null
@@ -46,7 +44,13 @@ export default function DishPreview({
     region,
   })
 
-  const leftDishes = 10
+  let leftDishes = 0
+  if (dishPreview.variants) {
+    leftDishes = dishPreview.variants
+      ?.map((value) => value.inventory_quantity)
+      .reduce((acc, curr) => (acc! + curr!) as number, 0) || 0;
+  }
+
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -87,7 +91,7 @@ export default function DishPreview({
             <div className="flex items-center gap-x-2 font-bold">
               {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
             </div>
-            {leftDishes > 0 && (
+            {leftDishes && leftDishes > 0 && (
               <Text className="text-ui-fg-muted">{leftDishes} left</Text>
             )}
           </div>
@@ -148,7 +152,10 @@ export default function DishPreview({
             <Text className="text-ui-fg-muted">{dayOfWeek}</Text>
           </div>
           <div className="txt-compact-medium mt-1">
-            <Text className="text-ui-fg-subtle font-semibold" data-testid="product-title">
+            <Text
+              className="text-ui-fg-subtle font-semibold"
+              data-testid="product-title"
+            >
               {dishPreview.title}
             </Text>
           </div>
