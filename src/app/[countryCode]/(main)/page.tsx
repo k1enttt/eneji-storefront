@@ -68,24 +68,6 @@ const getCollectionsWithProducts = cache(
   }
 )
 
-const getBreakfastDishes = cache(async (countryCode: string) => {
-  const queryParams = { limit: 4 }
-  const products = await getProductsList({ queryParams, countryCode })
-  return products.response.products
-})
-
-const getLunchDishes = cache(async (countryCode: string) => {
-  const queryParams = { limit: 4 }
-  const products = await getProductsList({ queryParams, countryCode })
-  return products.response.products
-})
-
-const getDessertsAndDrinks = cache(async (countryCode: string) => {
-  const queryParams = { limit: 6 }
-  const products = await getProductsList({ queryParams, countryCode })
-  return products.response.products
-})
-
 const getWeeklyMenu = cache(async (countryCode: string) => {
   const queryParams = { limit: 5 }
   const products = await getProductsList({ queryParams, countryCode })
@@ -113,10 +95,29 @@ export default async function Home({
   params: { countryCode: string }
 }) {
   const collections = await getCollectionsWithProducts(countryCode)
+  if (!collections) {
+    return null
+  }
+
+  const breakfastCollection = collections.find((collection) => collection.title === "Breakfast")
+  let breakfastList: ProductPreviewType[] = [];
+  if (breakfastCollection) {
+    breakfastList = breakfastCollection.products;
+  }
+
+  const lunchCollection = collections.find((collection) => collection.title === "Lunch")
+  let lunchList: ProductPreviewType[] = [];
+  if (lunchCollection) {
+    lunchList = lunchCollection.products;
+  }
+
+  const dessertsAndDrinksCollection = collections.find((collection) => collection.title === "Desserts and Drinks")
+  let dessertsAndDrinks: ProductPreviewType[] = [];
+  if (dessertsAndDrinksCollection) {
+    dessertsAndDrinks = dessertsAndDrinksCollection.products;
+  }
+
   const region = await getRegion(countryCode)
-  const breakfastList = await getBreakfastDishes(countryCode)
-  const lunchList = await getLunchDishes(countryCode)
-  const dessertsAndDrinks = await getDessertsAndDrinks(countryCode)
   const weeklyMenu = await getWeeklyMenu(countryCode)
   const promotionsList = promotions;
   const newsList = news;
@@ -137,9 +138,8 @@ export default async function Home({
     <>
       {/* <Hero /> */}
       <MyHero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+      <div className="pt-4 pb-12">
+        <ul className="flex flex-col">
           <BreakfastDishes
             products={breakfastList}
             pricedProducts={pricedBreakfastList}

@@ -18,12 +18,21 @@ const DessertsAndDrinks = ({
   pricedProducts: (PricedProduct | null)[]
   region: Region
 }) => {
+
+  
   const [dessertsOrDrinks, setDessertsOrDrinks] =
-    useState<DessertsAndDrinksProps>("desserts")
-  const desserts = products.slice(0, products.length / 2)
+  useState<DessertsAndDrinksProps>("desserts")
+  const dessertsList = products.filter((product) => (product.type != null) && (product.type.value === "Dessert"))
+  const drinksList = products.filter((product) => (product.type != null) && (product.type.value === "Drink"))
+
+  /** The priced products is for showing the CHEAPEST price of it.
+   * If you need, you can review the "product-preview" component to see how it works.
+  */
   const pricedDesserts = pricedProducts.slice(0, pricedProducts.length / 2)
-  const drinks = products.slice(products.length / 2)
   const pricedDrinks = pricedProducts.slice(pricedProducts.length / 2)
+
+
+  
   return (
     <div className="w-full bg-[#F2F4F7] py-6">
       <div className="content-container">
@@ -56,7 +65,7 @@ const DessertsAndDrinks = ({
           {dessertsOrDrinks === "desserts" && (
             <Suspense fallback={<SkeletonProductGrid />}>
               <DishesList
-                products={desserts}
+                products={dessertsList}
                 pricedProducts={pricedDesserts}
                 region={region}
               />
@@ -67,7 +76,7 @@ const DessertsAndDrinks = ({
           {dessertsOrDrinks !== "desserts" && (
             <Suspense fallback={<SkeletonProductGrid />}>
               <DishesList
-                products={drinks}
+                products={drinksList}
                 pricedProducts={pricedDrinks}
                 region={region}
               />

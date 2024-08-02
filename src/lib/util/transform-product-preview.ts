@@ -29,6 +29,7 @@ const transformProductPreview = (
     handle: product.handle!,
     thumbnail: product.thumbnail!,
     created_at: product.created_at,
+    type: product.type,
     price: cheapestVariant
       ? {
           calculated_price: formatAmount({
