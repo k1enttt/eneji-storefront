@@ -7,7 +7,7 @@ import Link from "next/link"
 import PostPreview from "@modules/products/components/post-review"
 import { Blog } from "@lib/data/data"
 
-const News = ({ products, region }: { products: Blog[]; region: Region }) => {
+const News = ({ products }: { products: Blog[] }) => {
   return (
     <div className="content-container py-6">
       <div className="flex justify-start md:justify-between">

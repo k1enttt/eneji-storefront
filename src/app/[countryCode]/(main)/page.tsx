@@ -190,8 +190,8 @@ export default async function Home({
           />
           {/* Cài thêm extension Blog, sử dụng cho cả Promotions và News */}
           {/* Dùng plugin Strapi */}
-          <Promotions products={promotionsList} region={region} />
-          <News products={newsList} region={region} />
+          <Promotions products={promotionsList} />
+          <News products={newsList} />
         </ul>
       </div>
     </>

@@ -9,10 +9,8 @@ import { ProductPreviewType } from "types/global"
 
 const Promotions = ({
   products,
-  region,
 }: {
   products: Blog[]
-  region: Region
 }) => {
   return (
     <div className="content-container py-6">
