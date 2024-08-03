@@ -59,3 +59,11 @@ export type ProductCategoryWithChildren = Omit<
   category_children: ProductCategory[]
   category_parent?: ProductCategory
 }
+
+
+export type TimelineProps = {
+  breakfastStartTime: string
+  breakfastEndTime: string
+  lunchStartTime: string
+  lunchEndTime: string
+}

@@ -7,7 +7,7 @@ import {
   getRegion,
   retrievePricedProductById,
 } from "@lib/data"
-import { ProductCollectionWithPreviews, ProductPreviewType } from "types/global"
+import { ProductCollectionWithPreviews, ProductPreviewType, TimelineProps } from "types/global"
 import { cache } from "react"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
@@ -99,28 +99,53 @@ export default async function Home({
     return null
   }
 
-  const breakfastCollection = collections.find((collection) => collection.title === "Breakfast")
-  let breakfastList: ProductPreviewType[] = [];
+  const breakfastCollection = collections.find(
+    (collection) => collection.title === "Breakfast"
+  )
+  let breakfastList: ProductPreviewType[] = []
+  let breakfastStartTime = "00:00" // The show time of breakfast is 00:00 by default
+  let breakfastEndTime = "08:00" // The end time of breakfast is 08:00 by default
   if (breakfastCollection) {
-    breakfastList = breakfastCollection.products;
+    if (breakfastCollection.metadata) {
+      breakfastStartTime = breakfastCollection.metadata?.start_time as string
+      breakfastEndTime = breakfastCollection.metadata?.end_time as string
+    }
+    breakfastList = breakfastCollection.products
   }
 
-  const lunchCollection = collections.find((collection) => collection.title === "Lunch")
-  let lunchList: ProductPreviewType[] = [];
+  const lunchCollection = collections.find(
+    (collection) => collection.title === "Lunch"
+  )
+  let lunchList: ProductPreviewType[] = []
+  let lunchStartTime = "00:00" // The show time of lunch is 00:00 by default
+  let lunchEndTime = "13:30" // The end time of lunch is 13:30 by default
   if (lunchCollection) {
-    lunchList = lunchCollection.products;
+    if (lunchCollection.metadata) {
+      lunchStartTime = lunchCollection.metadata?.start_time as string
+      lunchEndTime = lunchCollection.metadata?.end_time as string
+    }
+    lunchList = lunchCollection.products
   }
 
-  const dessertsAndDrinksCollection = collections.find((collection) => collection.title === "Desserts and Drinks")
-  let dessertsAndDrinks: ProductPreviewType[] = [];
+  const timeline: TimelineProps = {
+    breakfastStartTime: breakfastStartTime,
+    breakfastEndTime: breakfastEndTime,
+    lunchStartTime: lunchStartTime,
+    lunchEndTime: lunchEndTime,
+  }
+
+  const dessertsAndDrinksCollection = collections.find(
+    (collection) => collection.title === "Desserts and Drinks"
+  )
+  let dessertsAndDrinks: ProductPreviewType[] = []
   if (dessertsAndDrinksCollection) {
-    dessertsAndDrinks = dessertsAndDrinksCollection.products;
+    dessertsAndDrinks = dessertsAndDrinksCollection.products
   }
 
   const region = await getRegion(countryCode)
   const weeklyMenu = await getWeeklyMenu(countryCode)
-  const promotionsList = promotions;
-  const newsList = news;
+  const promotionsList = promotions
+  const newsList = news
 
   if (!collections || !region) {
     return null
@@ -144,11 +169,13 @@ export default async function Home({
             products={breakfastList}
             pricedProducts={pricedBreakfastList}
             region={region}
+            timeline={timeline}
           />
           <LunchDishes
             products={lunchList}
             pricedProducts={pricedLunchList}
             region={region}
+            timeline={timeline}
           />
           <DessertsAndDrinks
             products={dessertsAndDrinks}
@@ -163,14 +190,8 @@ export default async function Home({
           />
           {/* Cài thêm extension Blog, sử dụng cho cả Promotions và News */}
           {/* Dùng plugin Strapi */}
-          <Promotions
-            products={promotionsList}
-            region={region}
-          />
-          <News
-            products={newsList}
-            region={region}
-          />
+          <Promotions products={promotionsList} region={region} />
+          <News products={newsList} region={region} />
         </ul>
       </div>
     </>
