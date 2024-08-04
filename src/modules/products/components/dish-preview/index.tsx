@@ -9,6 +9,7 @@ import Thumbnail from "../thumbnail"
 import PreviewPrice from "../product-preview/price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Product } from "@medusajs/product"
+import AddButton from "./add-button"
 
 export default function DishPreview({
   dishPreview,
@@ -56,10 +57,10 @@ export default function DishPreview({
 
   if (category === "breakfastAndLunch") {
     return (
-      <LocalizedClientLink
-        href={`/products/${dishPreview.handle}`}
-        className="group"
-      >
+      // <LocalizedClientLink
+      //   href={`/products/${dishPreview.handle}`}
+      //   className="group"
+      // >
         <div data-testid="product-wrapper" className="">
           <div className="relative">
             <Thumbnail
@@ -67,9 +68,13 @@ export default function DishPreview({
               size={thumbnailSize}
               isFeatured={isFeatured}
             />
-            <div className="h-8 w-8 bg-[#20419A] rounded-circle flex items-center justify-center absolute right-2 bottom-2">
-              <i className="fas fa-plus text-white text-lg"></i>
-            </div>
+
+            <AddButton
+              product={pricedProduct}
+              region={region}
+            />
+
+
           </div>
 
           <div className="flex flex-col txt-compact-medium mt-4 justify-between">
@@ -87,7 +92,7 @@ export default function DishPreview({
             )}
           </div>
         </div>
-      </LocalizedClientLink>
+      // </LocalizedClientLink>
     )
   }
   if (category === "dessertsAndDrinks") {
@@ -105,9 +110,7 @@ export default function DishPreview({
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="h-8 w-8 bg-[#20419A] rounded-circle flex items-center justify-center absolute right-2 bottom-2">
-            <i className="fas fa-plus text-white text-lg"></i>
-          </div>
+          {/* <AddButton product={} /> */}
 
           <div className="flex flex-col gap-2 justify-start txt-compact-medium mt-4">
             <Text
@@ -128,7 +131,6 @@ export default function DishPreview({
     )
   }
   if (category === "weeklyMenu") {
-    
     let startDate: string = ""
     if (dishPreview.metadata) {
       startDate = dishPreview.metadata.startDate
