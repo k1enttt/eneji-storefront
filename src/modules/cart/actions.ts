@@ -78,10 +78,12 @@ export async function retrieveCart() {
 export async function addToCart({
   variantId,
   quantity,
+  metadata,
   countryCode,
 }: {
   variantId: string
   quantity: number
+  metadata?: Record<string, any>
   countryCode: string
 }) {
   const cart = await getOrSetCart(countryCode).then((cart) => cart)
@@ -94,8 +96,10 @@ export async function addToCart({
     return "Missing product variant ID"
   }
 
+  console.log("Line item", { cartId: cart.id, variantId, quantity, metadata: metadata || {} })
+
   try {
-    await addItem({ cartId: cart.id, variantId, quantity })
+    await addItem({ cartId: cart.id, variantId, quantity, metadata: metadata || {} })
     revalidateTag("cart")
   } catch (e) {
     return "Error adding item to cart"

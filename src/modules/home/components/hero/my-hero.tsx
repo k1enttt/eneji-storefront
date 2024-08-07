@@ -53,6 +53,7 @@ const SwiperComponent = () => {
             height={713}
             alt="hero-photo-1"
             className="rounded-xl"
+            priority
           />
         </SwiperSlide>
         <SwiperSlide className="bg-[#002496] shadow-xl rounded-xl">

@@ -7,7 +7,8 @@ interface CheckboxProps {
 
 const CheckboxSquare: React.FC<CheckboxProps> = ({ checked, onChange }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.checked)
+    // onChange(event.target.checked)
+    console.log("CheckboxSquare checked")
   }
 
   return (

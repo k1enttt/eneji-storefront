@@ -2,7 +2,34 @@ import { Text, clx } from "@medusajs/ui"
 
 import { PriceType } from "../product-actions"
 
-export default async function PreviewPrice({ price }: { price: PriceType }) {
+export default function PreviewPrice({
+  price,
+  size = "normal",
+}: {
+  price: PriceType
+  size?: "normal" | "big"
+}) {
+  if (size === "big") {
+    return (
+      <div className="flex gap-x-1">
+        {price.price_type === "sale" && (
+          <Text
+            className="text-sm line-through"
+            data-testid="original-price"
+          >
+            {price.original_price}
+          </Text>
+        )}
+        <Text
+          className={"font-bold text-[#20419A]"}
+          data-testid="price"
+        >
+          {price.calculated_price}
+        </Text>
+      </div>
+    )
+  }
+
   return (
     <>
       {price.price_type === "sale" && (
@@ -21,7 +48,6 @@ export default async function PreviewPrice({ price }: { price: PriceType }) {
       >
         {price.calculated_price}
       </Text>
-      {/* <MedusaPriceComponent price={price} /> */}
     </>
   )
 }

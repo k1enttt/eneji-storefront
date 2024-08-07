@@ -18,8 +18,11 @@ const LunchDishes = ({
 }) => {
   // Get today's products
   const today = getCurrentDate()
-  let todayProducts = products.filter(
+  const todayProducts = products.filter(
     (product) => product.metadata?.start_date === today
+  )
+  const todayPricedProducts = pricedProducts.filter(
+    (pricedProduct) => pricedProduct?.metadata?.start_date === today
   )
 
   // Get time Date.now()
@@ -52,14 +55,17 @@ const LunchDishes = ({
     }
 
     const tomorrow = getNextDate()
-    todayProducts = products.filter(
+    const tomorrowProducts = products.filter(
       (product) => product.metadata?.start_date === tomorrow
+    )
+    const tomorrowPricedProducts = pricedProducts.filter(
+      (pricedProduct) => pricedProduct?.metadata?.start_date === tomorrow
     )
 
     return (
       <TomorrowLunch
-        products={todayProducts}
-        pricedProducts={pricedProducts}
+        products={tomorrowProducts}
+        pricedProducts={tomorrowPricedProducts}
         region={region}
         timeline={timeline}
       />
@@ -80,7 +86,7 @@ const LunchDishes = ({
           <li key={product.id}>
             <DishPreview
               dishPreview={product}
-              pricedProduct={pricedProducts[index]}
+              pricedProduct={todayPricedProducts[index]}
               region={region}
               thumbnailSize="square"
             />

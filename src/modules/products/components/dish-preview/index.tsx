@@ -57,42 +57,31 @@ export default function DishPreview({
 
   if (category === "breakfastAndLunch") {
     return (
-      // <LocalizedClientLink
-      //   href={`/products/${dishPreview.handle}`}
-      //   className="group"
-      // >
-        <div data-testid="product-wrapper" className="">
-          <div className="relative">
-            <Thumbnail
-              thumbnail={dishPreview.thumbnail}
-              size={thumbnailSize}
-              isFeatured={isFeatured}
-            />
-
-            <AddButton
-              product={pricedProduct}
-              region={region}
-            />
-
-
-          </div>
-
-          <div className="flex flex-col txt-compact-medium mt-4 justify-between">
-            <Text
-              className="text-ui-fg-subtle font-semibold"
-              data-testid="product-title"
-            >
-              {dishPreview.title}
-            </Text>
-            <div className="flex items-center gap-x-2 font-bold">
-              {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-            </div>
-            {leftDishes && leftDishes > 0 && (
-              <Text className="text-ui-fg-muted">{leftDishes} left</Text>
-            )}
-          </div>
+      <div data-testid="product-wrapper" className="">
+        <div className="relative">
+          <Thumbnail
+            thumbnail={dishPreview.thumbnail}
+            size={thumbnailSize}
+            isFeatured={isFeatured}
+          />
+          <AddButton product={pricedProduct} region={region} />
         </div>
-      // </LocalizedClientLink>
+
+        <div className="flex flex-col txt-compact-medium mt-4 justify-between">
+          <Text
+            className="text-ui-fg-subtle font-semibold"
+            data-testid="product-title"
+          >
+            {dishPreview.title}
+          </Text>
+          <div className="flex items-center gap-x-2 font-bold">
+            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+          </div>
+          {leftDishes && leftDishes > 0 && (
+            <Text className="text-ui-fg-muted">{leftDishes} left</Text>
+          )}
+        </div>
+      </div>
     )
   }
   if (category === "dessertsAndDrinks") {

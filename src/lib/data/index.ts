@@ -89,15 +89,17 @@ export async function addItem({
   cartId,
   variantId,
   quantity,
+  metadata,
 }: {
   cartId: string
   variantId: string
   quantity: number
+  metadata?: Record<string, any>
 }) {
   const headers = getMedusaHeaders(["cart"])
 
   return medusaClient.carts.lineItems
-    .create(cartId, { variant_id: variantId, quantity }, headers)
+    .create(cartId, { variant_id: variantId, quantity, metadata: metadata }, headers)
     .then(({ cart }) => cart)
     .catch((err) => {
       console.log(err)
