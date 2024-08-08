@@ -2,12 +2,12 @@
 import { Region } from "@medusajs/medusa"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import { Suspense, useState } from "react"
-import { ProductPreviewType } from "types/global"
+import { DessertsAndDrinksProps, ProductPreviewType } from "types/global"
 import DishesList from "./dishes-list"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Link from "next/link"
-
-type DessertsAndDrinksProps = "desserts" | "drinks"
+import ToggleButton from "./toggle-button"
+import { slice } from "lodash"
 
 const DessertsAndDrinks = ({
   products,
@@ -18,47 +18,34 @@ const DessertsAndDrinks = ({
   pricedProducts: (PricedProduct | null)[]
   region: Region
 }) => {
-
-  
+  const limit = 6;
   const [dessertsOrDrinks, setDessertsOrDrinks] =
-  useState<DessertsAndDrinksProps>("desserts")
-  const dessertsList = products.filter((product) => (product.type != null) && (product.type.value === "Dessert"))
-  const drinksList = products.filter((product) => (product.type != null) && (product.type.value === "Drink"))
+    useState<DessertsAndDrinksProps>("desserts")
+  const dessertsList = products.filter(
+    (product) => product.type != null && product.type.value === "Dessert"
+  ).slice(0, limit)
+  const drinksList = products.filter(
+    (product) => product.type != null && product.type.value === "Drink"
+  ).slice(0, limit)
 
   /** The priced products is for showing the CHEAPEST price of it.
    * If you need, you can review the "product-preview" component to see how it works.
-  */
-  const pricedDesserts = pricedProducts.slice(0, pricedProducts.length / 2)
-  const pricedDrinks = pricedProducts.slice(pricedProducts.length / 2)
+   */
+  const pricedDesserts = pricedProducts.filter(
+    (product) => (product && product.type?.value === "Dessert")
+  ).slice(0, limit)
+  const pricedDrinks = pricedProducts.filter(
+    (product) => (product && product.type?.value === "Drink")
+  ).slice(0, limit)
 
-
-  
   return (
     <div className="w-full bg-[#F2F4F7] py-6">
       <div className="content-container">
         {/* Two button side by side: a "Tráng miệng" button and a "Đồ uống" button */}
-        <div className="flex items-center justify-around gap-2">
-          <button
-            onClick={() => setDessertsOrDrinks("desserts")}
-            className={`flex-1 rounded-circle py-4 text-center ${
-              dessertsOrDrinks == "desserts"
-                ? "bg-[#20419A] text-white font-bold"
-                : "bg-white text-black font-medium"
-            }`}
-          >
-            Tráng miệng
-          </button>
-          <button
-            onClick={() => setDessertsOrDrinks("drinks")}
-            className={`flex-1 rounded-circle py-4 text-center ${
-              dessertsOrDrinks !== "desserts"
-                ? "bg-[#20419A] text-white font-bold"
-                : "bg-white text-black font-medium"
-            }`}
-          >
-            Đồ uống
-          </button>
-        </div>
+        <ToggleButton
+          dessertsOrDrinks={dessertsOrDrinks}
+          setDessertsOrDrinks={setDessertsOrDrinks}
+        />
 
         <div className="pt-6">
           {/* A list of "Tráng miệng" */}
@@ -86,7 +73,7 @@ const DessertsAndDrinks = ({
 
         <div className="flex justify-center pt-6">
           <Link
-            href="/view-more"
+            href="/view-more?type=desserts-and-drinks"
             className="text-[#20419A] font-[500] text-center"
           >
             Xem thêm

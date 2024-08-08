@@ -17,7 +17,7 @@ const News = ({ products }: { products: Blog[] }) => {
         </div>
         <div className="hidden md:block">
           <Link
-            href="/view-more"
+            href="/view-more?type=news"
             className="text-[#20419A] font-[500]"
           >
             Xem thêm

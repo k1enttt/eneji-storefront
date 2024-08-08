@@ -67,3 +67,7 @@ export type TimelineProps = {
   lunchStartTime: string
   lunchEndTime: string
 }
+
+export type DessertsAndDrinksProps = "desserts" | "drinks"
+
+export type ViewMoreProps = "desserts-and-drinks" | "promotions" | "news" | "weekly-menu"

@@ -20,7 +20,7 @@ const Promotions = ({
           <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
         </div>
         <Link
-          href="/view-more"
+          href="/view-more?type=promotions"
           className="text-[#20419A] font-[500] hidden md:block"
         >
           Xem thêm

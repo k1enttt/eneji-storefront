@@ -10,8 +10,6 @@ import {
 import { ProductCollectionWithPreviews, ProductPreviewType, TimelineProps } from "types/global"
 import { cache } from "react"
 
-import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
 import MyHero from "../../../modules/home/components/hero/my-hero"
 import BreakfastDishes from "@modules/home/components/breakfast-dishes"
 import LunchDishes from "@modules/home/components/lunch-dishes"
@@ -147,7 +145,7 @@ export default async function Home({
   const promotionsList = promotions
   const newsList = news
 
-  if (!collections || !region) {
+  if (!region) {
     return null
   }
 
