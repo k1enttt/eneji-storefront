@@ -1,5 +1,15 @@
-import { Cart, ProductCategory, ProductType, ProductVariant, Region } from "@medusajs/medusa"
-import { PricedProduct, PricedVariant } from "@medusajs/medusa/dist/types/pricing"
+import {
+  Cart,
+  ProductCategory,
+  ProductTag,
+  ProductType,
+  ProductVariant,
+  Region,
+} from "@medusajs/medusa"
+import {
+  PricedProduct,
+  PricedVariant,
+} from "@medusajs/medusa/dist/types/pricing"
 import { ProductCollection } from "@medusajs/product"
 
 export type FeaturedProduct = {
@@ -18,6 +28,7 @@ export type ProductPreviewType = {
   type?: ProductType
   variants?: PricedVariant[]
   metadata?: Record<string, any> | null
+  tags?: ProductTag[]
   price?: {
     calculated_price: string
     original_price: string
@@ -60,7 +71,6 @@ export type ProductCategoryWithChildren = Omit<
   category_parent?: ProductCategory
 }
 
-
 export type TimelineProps = {
   breakfastStartTime: string
   breakfastEndTime: string
@@ -70,4 +80,9 @@ export type TimelineProps = {
 
 export type DessertsAndDrinksProps = "desserts" | "drinks"
 
-export type ViewMoreProps = "desserts-and-drinks" | "promotions" | "news" | "weekly-menu"
+export type ViewMoreProps =
+  | "desserts-and-drinks"
+  | "promotions"
+  | "news"
+  | "weekly-menu"
+

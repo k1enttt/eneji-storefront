@@ -159,8 +159,7 @@ export default async function Home({
 
   return (
     <>
-      {/* <Hero /> */}
-      <MyHero />
+     <MyHero />
       <div className="pt-4 pb-12">
         <ul className="flex flex-col">
           <BreakfastDishes

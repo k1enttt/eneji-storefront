@@ -4,8 +4,9 @@ import React from "react"
 
 import { onlyUnique } from "@lib/util/only-unique"
 import CheckboxRound from "../check-box/check-box-round"
+import { Option } from "@modules/products/templates/view-product"
 
-type OptionSelectProps = {
+export type OptionSelectProps = {
   option: ProductOption
   current: string
   updateOption: (option: Record<string, string>) => void
@@ -22,6 +23,7 @@ const MyOptionSelect: React.FC<OptionSelectProps> = ({
   "data-testid": dataTestId,
   disabled,
 }) => {
+  // a list of specific options
   const filteredOptions = option.values.map((v) => v.value).filter(onlyUnique)
 
   return (

@@ -1,16 +1,8 @@
 "use client"
 import { clx } from "@medusajs/ui"
 import Image from "next/image"
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
-import { FaPlus, FaMinus } from "react-icons/fa"
-import { isEqual, set } from "lodash"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { isEqual } from "lodash"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import MyOptionSelect from "../components/option-select/my-option-select"
 import { Region } from "@medusajs/medusa"
@@ -21,7 +13,13 @@ import AddToCartButton from "../components/add-to-cart-button"
 import PreviewPrice from "../components/product-preview/price"
 import Counter from "../components/counter"
 import CloseButton from "../components/close-button"
-// import MyOptionMultiSelect from "../components/option-multi-select"
+import SimpleSelectOption from "../components/option-select/simple-select-option"
+
+export type Option = {
+  label: string
+  price: number
+  selected: boolean
+}
 
 const ViewProduct = ({
   className,
@@ -39,78 +37,72 @@ const ViewProduct = ({
   const countryCode = useParams().countryCode as string
 
   const [quantity, setQuantity] = useState(1)
-  const [checkboxState, setCheckboxState] = useState(false)
   const [textareaContent, setTextareaContent] = useState("")
-  const metadata: { order_note: string } = {
-    order_note: "",
-  }
 
   const { cheapestPrice } = getProductPrice({
     product: product,
     region,
   })
 
-  const { address, origin, other_notes } = product.metadata as {
+  const metadata: { order_note?: string; multi_select_option?: Option[] } = {
+    order_note: "",
+    multi_select_option: [],
+  }
+  const { address, origin, other_notes, extra_options } = product.metadata as {
     address: string
     origin: string
     other_notes: string
+    extra_options?: string
   }
 
-  const { multi_select_options } = product.metadata as {
-    multi_select_options: string
-  }
-  const multiSelectOptions = multi_select_options.split(",")
+  // Parse extra options from JSON string
+  const parseData = JSON.parse(extra_options || "{}")
+  const multiSelectOptionsList = (parseData["multi-select-options"] ||
+    []) as Option[]
 
-  /*
-  interface MultiSelectOption {
-    name: string
-    state: number
-  }
-  const [selectedOptions, setSelectedOptions] = useState<MultiSelectOption[]>(
-    []
-  )
-  setSelectedOptions(
-    multiSelectOptions.map((option) => ({ name: option, state: 0 }))
-  )
- */
+  // A list of selected options
+  const [selectedMultiOptions, setSelectedMultiOptions] = useState<Option[]>([])
 
-  /** Handle event of multi-select option */
-  /*
-  const handleMultiSelectOption = (index: number) => {
-    const newOptions = selectedOptions.map((option, i) => {
-      if (i === index) {
-        return { ...option, state: option.state === 0 ? 1 : 0 }
-      }
-      return option
-    })
-
-    setSelectedOptions(newOptions)
-    console.log(selectedOptions)
-  }
-  */
-
-  /** Handle event of saving textarea content */
-  const handleSaveContent = () => {
-    metadata["order_note"] = textareaContent
-  }
-
-  /** Handle event of changing option */
-  const handleRadioChange = (e: any) => {
-    console.log(e.target.value)
-  }
-
-  /** Handle event of select checkbox */
-  const handleCheckboxChange = (e: any) => {
-    console.log(e.target.checked)
+  // Handle event of selecting multi options
+  const handleMultiSelect = (option: Option) => {
+    // If the option is already selected, remove it
+    if (selectedMultiOptions.find((o) => o.label === option.label)) {
+      setSelectedMultiOptions(
+        selectedMultiOptions.filter((o) => o.label !== option.label)
+      )
+    } else {
+      setSelectedMultiOptions([...selectedMultiOptions, option])
+    }
   }
 
   // add the selected variant to the cart
   const handleAddToCart = async () => {
+    /** Handle event of saving textarea content */
+    const handleSaveContent = () => {
+      metadata["order_note"] = textareaContent
+    }
+    /** Update selected options to metadata */
+    const handleOptionSelect = () => {
+      multiSelectOptionsList.forEach((option) => {
+        if (
+          !!selectedMultiOptions.find(
+            (selectedOption) => selectedOption.label === option.label
+          )
+        ) {
+          option.selected = true
+        } else {
+          option.selected = false
+        }
+      })
+      metadata["multi_select_option"] = multiSelectOptionsList
+    }
+
     if (!variant?.id) return null
 
     setIsAdding(true)
 
-    handleSaveContent()
+    handleSaveContent();
+    handleOptionSelect();
 
     await addToCart({
       variantId: variant.id,
@@ -260,13 +252,12 @@ const ViewProduct = ({
           )
         })}
 
-        {/* {multiSelectOptions.length > 0 && (
-          <MyOptionMultiSelect
-            multiSelectOptions={multiSelectOptions}
-            disabled={disabled}
-            handleMultiSelectOption={handleMultiSelectOption}
+        {multiSelectOptionsList.length > 0 && (
+          <OptionsList
+            options={multiSelectOptionsList}
+            handleMultiSelect={handleMultiSelect}
           />
-        )} */}
+        )}
 
         <div className="space-y-1">
           <div className="flex gap-x-2 items-end justify-start">
@@ -310,3 +301,46 @@ const ViewProduct = ({
 }
 
 export default ViewProduct
+
+const OptionsList = ({
+  options,
+  handleMultiSelect,
+}: {
+  options: Option[]
+  handleMultiSelect: (option: Option) => void
+}) => {
+  return (
+    <div className="space-y-3">
+      <div className="flex gap-x-2 items-end justify-start">
+        <div className="font-semibold text-lg text-black">Chọn thêm</div>
+        <div className="bullet leading-6"></div>
+        <div className="text-sm leading-6">Chọn nhiều</div>
+      </div>
+      {/* OPTIONS LIST */}
+      <div className="flex flex-col gap-y-2">
+        {options.reduce((acc, o, index) => {
+          if (index !== 0) {
+            acc.push(
+              <hr key={`separator-${index}`} className="text-[#F2F4F7]" />
+            )
+          }
+          acc.push(
+            <button
+              key={o.label}
+              className="flex items-center gap-x-3"
+              data-testid="option-button"
+            >
+              <SimpleSelectOption
+                multiple
+                option={o}
+                handler={handleMultiSelect}
+              />
+            </button>
+          )
+          return acc
+        }, [] as JSX.Element[])}
+      </div>
+      <div className="my-4 w-full h-2 bg-[#F2F4F7]"></div>
+    </div>
+  )
+}

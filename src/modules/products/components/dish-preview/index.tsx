@@ -86,20 +86,18 @@ export default function DishPreview({
   }
   if (category === "dessertsAndDrinks") {
     return (
-      <LocalizedClientLink
-        href={`/products/${dishPreview.handle}`}
-        className="group"
-      >
         <div
           data-testid="product-wrapper"
           className="flex gap-4 bg-white rounded-md relative min-w-[22rem]"
         >
-          <Thumbnail
-            thumbnail={dishPreview.thumbnail}
-            size={thumbnailSize}
-            isFeatured={isFeatured}
-          />
-          {/* <AddButton product={} /> */}
+          <div className="">
+            <Thumbnail
+              thumbnail={dishPreview.thumbnail}
+              size={thumbnailSize}
+              isFeatured={isFeatured}
+            />
+            <AddButton product={pricedProduct} region={region} />
+          </div>
 
           <div className="flex flex-col gap-2 justify-start txt-compact-medium mt-4">
             <Text
@@ -116,7 +114,6 @@ export default function DishPreview({
             )}
           </div>
         </div>
-      </LocalizedClientLink>
     )
   }
   if (category === "weeklyMenu") {
