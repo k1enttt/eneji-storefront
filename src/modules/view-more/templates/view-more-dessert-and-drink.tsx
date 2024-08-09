@@ -22,17 +22,17 @@ const ViewMoreDessertsAndDrinks = ({
     useState<DessertsAndDrinksProps>("desserts")
 
   const dessertsList = products.filter(
-    (product) => product.type != null && product.type.value === "Dessert"
+    (product) => product.tags != null && product.tags.find((tag) => tag.value === "Dessert")
   )
   const drinksList = products.filter(
-    (product) => product.type != null && product.type.value === "Drink"
+    (product) => product.tags != null && product.tags.find((tag) => tag.value === "Drink")
   )
 
   const pricedDesserts = pricedProducts.filter(
-    (product) => product && product.type?.value === "Dessert"
+    (product) => product && product.tags?.find((tag) => tag.value === "Dessert")
   )
   const pricedDrinks = pricedProducts.filter(
-    (product) => product && product.type?.value === "Drink"
+    (product) => product && product.tags?.find((tag) => tag.value === "Drink")
   )
   return (
     <div className="py-6">

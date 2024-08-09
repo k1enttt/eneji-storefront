@@ -7,7 +7,6 @@ import DishesList from "./dishes-list"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Link from "next/link"
 import ToggleButton from "./toggle-button"
-import { slice } from "lodash"
 
 const DessertsAndDrinks = ({
   products,
@@ -22,20 +21,20 @@ const DessertsAndDrinks = ({
   const [dessertsOrDrinks, setDessertsOrDrinks] =
     useState<DessertsAndDrinksProps>("desserts")
   const dessertsList = products.filter(
-    (product) => product.type != null && product.type.value === "Dessert"
+    (product) => product.tags != null && (product.tags.find((tag) => tag.value === "Dessert"))
   ).slice(0, limit)
   const drinksList = products.filter(
-    (product) => product.type != null && product.type.value === "Drink"
+    (product) => product.tags != null && (product.tags.find((tag) => tag.value === "Drink"))
   ).slice(0, limit)
 
   /** The priced products is for showing the CHEAPEST price of it.
    * If you need, you can review the "product-preview" component to see how it works.
    */
   const pricedDesserts = pricedProducts.filter(
-    (product) => (product && product.type?.value === "Dessert")
+    (product) => (product != null && (product.tags?.find((tag) => tag.value === "Dessert")))
   ).slice(0, limit)
   const pricedDrinks = pricedProducts.filter(
-    (product) => (product && product.type?.value === "Drink")
+    (product) => (product != null && (product.tags?.find((tag) => tag.value === "Drink")))
   ).slice(0, limit)
 
   return (
