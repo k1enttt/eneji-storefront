@@ -120,7 +120,7 @@ export default function DishPreview({
   if (category === "weeklyMenu") {
     let startDate: string = ""
     if (dishPreview.metadata) {
-      startDate = dishPreview.metadata.startDate
+      startDate = dishPreview.metadata.start_date
     }
 
     let dayOfWeek = ""

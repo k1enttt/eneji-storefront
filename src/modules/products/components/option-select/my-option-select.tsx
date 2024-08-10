@@ -1,10 +1,8 @@
 import { ProductOption } from "@medusajs/medusa"
-import { clx } from "@medusajs/ui"
-import React from "react"
+import React, { useEffect } from "react"
 
 import { onlyUnique } from "@lib/util/only-unique"
 import CheckboxRound from "../check-box/check-box-round"
-import { Option } from "@modules/products/templates/view-product"
 
 export type OptionSelectProps = {
   option: ProductOption
@@ -32,9 +30,7 @@ const MyOptionSelect: React.FC<OptionSelectProps> = ({
         <div className="font-semibold text-lg text-black">Chọn {title}</div>
         <div className="bullet leading-6"></div>
         {/* TODO: Thêm description cho option */}
-        <div className="text-sm leading-6">
-          Chọn 1
-        </div>
+        <div className="text-sm leading-6">Chọn 1</div>
       </div>
       <div className="flex flex-col gap-y-2" data-testid={dataTestId}>
         {filteredOptions.reduce((acc, v, index) => {

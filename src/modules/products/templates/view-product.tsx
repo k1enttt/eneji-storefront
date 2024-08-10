@@ -118,7 +118,8 @@ const ViewProduct = ({
     const optionObj: Record<string, string> = {}
 
     for (const option of product.options || []) {
-      Object.assign(optionObj, { [option.id]: undefined })
+      const firstValue = option.values[0].value
+      Object.assign(optionObj, { [option.id]: firstValue })
     }
 
     setOptions(optionObj)
