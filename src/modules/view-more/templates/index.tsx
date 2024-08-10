@@ -14,6 +14,7 @@ import {
   retrievePricedProductById,
 } from "@lib/data"
 import ViewMoreWeeklyMenu from "./view-more-weekly-menu"
+import NavBar from "../components/nav-bar"
 
 const getCollectionsWithProducts = cache(
   async (
@@ -72,7 +73,9 @@ const getPricedProducts = cache(
 )
 
 const getWeeklyMenu = cache(async (countryCode: string) => {
-  const queryParams = {}
+  const queryParams = {
+    limit: 100,
+  }
   const products = await getProductsList({ queryParams, countryCode })
   return products.response.products
 })
@@ -107,24 +110,37 @@ const ViewMoreTemplate = async ({
   // Get weekly menu
   const weeklyMenu = await getWeeklyMenu(countryCode)
   const pricedWeeklyMenu = await getPricedProducts(weeklyMenu, region)
-
   return (
     <div className="content-container">
       {type === "desserts-and-drinks" && (
-        <ViewMoreDessertsAndDrinks
-          products={dessertsAndDrinks}
-          pricedProducts={pricedDesertsAndDrinks}
-          region={region}
-        />
+        <>
+          <NavBar />
+          <ViewMoreDessertsAndDrinks
+            products={dessertsAndDrinks}
+            pricedProducts={pricedDesertsAndDrinks}
+            region={region}
+          />
+        </>
       )}
-      {type === "promotions" && <div>View more promotions</div>}
-      {type === "news" && <div>View more news</div>}
+      {type === "promotions" && (
+        <>
+          <NavBar title="Chương trình khuyến mãi" />
+        </>
+      )}
+      {type === "news" && (
+        <>
+          <NavBar title="Tin tức" />
+        </>
+      )}
       {type === "weekly-menu" && (
-        <ViewMoreWeeklyMenu
-          products={weeklyMenu}
-          pricedProducts={pricedWeeklyMenu}
-          region={region}
-        />
+        <>
+          <NavBar title="Thực đơn trong tuần" />
+          <ViewMoreWeeklyMenu
+            products={weeklyMenu}
+            pricedProducts={pricedWeeklyMenu}
+            region={region}
+          />
+        </>
       )}
       {!type && <div>View more</div>}
     </div>

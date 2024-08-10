@@ -36,7 +36,6 @@ const ViewMoreDessertsAndDrinks = ({
   )
   return (
     <div className="py-6">
-      <NavBar />
       <ToggleButton
         dessertsOrDrinks={dessertsOrDrinks}
         setDessertsOrDrinks={setDessertsOrDrinks}

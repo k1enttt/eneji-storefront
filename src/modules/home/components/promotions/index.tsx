@@ -17,7 +17,11 @@ const Promotions = ({
       <div className="flex justify-start md:justify-between">
         <Text className="txt-xlarge mb-6 font-[500]">Kho khuyến mãi 🎁</Text>
         <div className="block md:hidden">
+        <Link
+          href="/view-more?type=promotions"
+        >
           <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
+          </Link>
         </div>
         <Link
           href="/view-more?type=promotions"

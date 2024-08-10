@@ -10,6 +10,7 @@ import PreviewPrice from "../product-preview/price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Product } from "@medusajs/product"
 import AddButton from "./add-button"
+import { getDayOfWeek } from "@lib/util/get-date-of-week"
 
 export default function DishPreview({
   dishPreview,
@@ -156,26 +157,4 @@ export default function DishPreview({
     )
   }
   return null
-}
-
-function getDayOfWeek(dateString: string): string {
-  // Split the input date string into day, month, and year
-  const [day, month, year] = dateString.split("/").map(Number)
-
-  // Create a new Date object (Note: month is 0-indexed in JavaScript Date)
-  const date = new Date(year, month - 1, day)
-
-  // Array of day names
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ]
-
-  // Get the day of the week (0-6) and return the corresponding day name
-  return daysOfWeek[date.getDay()]
 }

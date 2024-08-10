@@ -13,13 +13,8 @@ import AddToCartButton from "../components/add-to-cart-button"
 import PreviewPrice from "../components/product-preview/price"
 import Counter from "../components/counter"
 import CloseButton from "../components/close-button"
-import SimpleSelectOption from "../components/option-select/simple-select-option"
-
-export type Option = {
-  label: string
-  price: number
-  selected: boolean
-}
+import { Option } from "types/global"
+import OptionsList from "../components/option-list"
 
 const ViewProduct = ({
   className,
@@ -101,8 +96,8 @@ const ViewProduct = ({
 
     setIsAdding(true)
 
-    handleSaveContent();
-    handleOptionSelect();
+    handleSaveContent()
+    handleOptionSelect()
 
     await addToCart({
       variantId: variant.id,
@@ -198,7 +193,10 @@ const ViewProduct = ({
 
   return (
     <div
-      className={clx("relative bg-white text-[#475467] flex flex-col", className)}
+      className={clx(
+        "relative bg-white text-[#475467] flex flex-col",
+        className
+      )}
       ref={actionsRef}
     >
       {/* DISH IMAGE */}
@@ -239,6 +237,8 @@ const ViewProduct = ({
           </div>
         </div>
         <div className="my-4 w-full h-2 bg-[#F2F4F7]"></div>
+
+        {/* SINGLE-SELECT OPTION */}
         {(product.options || []).map((option) => {
           return (
             <div key={option.id}>
@@ -254,6 +254,7 @@ const ViewProduct = ({
           )
         })}
 
+        {/* MULTI-SELECT OPTIONS */}
         {multiSelectOptionsList.length > 0 && (
           <OptionsList
             options={multiSelectOptionsList}
@@ -306,46 +307,3 @@ const ViewProduct = ({
 }
 
 export default ViewProduct
-
-const OptionsList = ({
-  options,
-  handleMultiSelect,
-}: {
-  options: Option[]
-  handleMultiSelect: (option: Option) => void
-}) => {
-  return (
-    <div className="space-y-3">
-      <div className="flex gap-x-2 items-end justify-start">
-        <div className="font-semibold text-lg text-black">Chọn thêm</div>
-        <div className="bullet leading-6"></div>
-        <div className="text-sm leading-6">Chọn nhiều</div>
-      </div>
-      {/* OPTIONS LIST */}
-      <div className="flex flex-col gap-y-2">
-        {options.reduce((acc, o, index) => {
-          if (index !== 0) {
-            acc.push(
-              <hr key={`separator-${index}`} className="text-[#F2F4F7]" />
-            )
-          }
-          acc.push(
-            <button
-              key={o.label}
-              className="flex items-center gap-x-3"
-              data-testid="option-button"
-            >
-              <SimpleSelectOption
-                multiple
-                option={o}
-                handler={handleMultiSelect}
-              />
-            </button>
-          )
-          return acc
-        }, [] as JSX.Element[])}
-      </div>
-      <div className="my-4 w-full h-2 bg-[#F2F4F7]"></div>
-    </div>
-  )
-}

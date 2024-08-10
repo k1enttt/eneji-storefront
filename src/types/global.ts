@@ -86,3 +86,8 @@ export type ViewMoreProps =
   | "news"
   | "weekly-menu"
 
+export type Option = {
+  label: string
+  price: number
+  selected: boolean
+}

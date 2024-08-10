@@ -3,10 +3,7 @@ import { Suspense } from "react"
 import { listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
-import BurgerButton from "@modules/layout/components/side-menu/burger-button"
 import MyCartButton from "./my-cart-button"
-import Link from "next/link"
 import MySideMenu from "@modules/layout/components/side-menu/my-side-menu"
 
 export default async function MyNav() {

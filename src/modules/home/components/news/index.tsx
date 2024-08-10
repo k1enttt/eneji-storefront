@@ -13,7 +13,12 @@ const News = ({ products }: { products: Blog[] }) => {
       <div className="flex justify-start md:justify-between">
         <Text className="txt-xlarge mb-6 font-[500]">Tin tức</Text>
         <div className="block md:hidden">
-          <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
+          <Link
+            href="/view-more?type=news"
+            className="text-[#20419A] font-[500]"
+          >
+            <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
+          </Link>
         </div>
         <div className="hidden md:block">
           <Link

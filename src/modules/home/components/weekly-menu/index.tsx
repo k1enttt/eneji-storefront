@@ -19,10 +19,17 @@ const WeeklyMenu = ({
       <div className="flex justify-start md:justify-between">
         <Text className="txt-xlarge mb-6 font-[500]">Thực đơn tuần này 🍴</Text>
         <div className="block md:hidden">
-          <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
+          <Link
+            href="/view-more?type=weekly-menu"
+          >
+            <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
+          </Link>
         </div>
         <div className=" hidden md:block">
-          <Link href="/view-more?type=weekly-menu" className="text-[#20419A] font-[500]">
+          <Link
+            href="/view-more?type=weekly-menu"
+            className="text-[#20419A] font-[500]"
+          >
             Xem thêm
           </Link>
         </div>
