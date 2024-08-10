@@ -198,10 +198,11 @@ const ViewProduct = ({
 
   return (
     <div
-      className={clx("bg-white text-[#475467] relative", className)}
+      className={clx("relative bg-white text-[#475467] flex flex-col", className)}
       ref={actionsRef}
     >
-      <div className="w-full h-[12rem] flex items-center justify-center overflow-hidden">
+      {/* DISH IMAGE */}
+      <div className="flex-none w-full h-24 md:h-32 lg:h-[12rem] flex items-center justify-center overflow-hidden">
         {product.thumbnail && (
           <Image
             src={product.thumbnail}
@@ -213,7 +214,8 @@ const ViewProduct = ({
           />
         )}
       </div>
-      <div className="space-y-4 mb-5 px-[10rem] py-2">
+      {/* DISH INFO AND OPTIONS */}
+      <div className="flex-none px-4 md:px-12 lg:px-40 space-y-4 mb-5 py-2">
         <div className="space-y-2">
           <div className="font-semibold text-2xl text-black">
             {product.title}
@@ -275,25 +277,28 @@ const ViewProduct = ({
           ></textarea>
         </div>
       </div>
-      <div className="w-full h-36 border border-t-2 space-y-2 px-[10rem] py-2">
-        <div className="flex items-center justify-between">
-          <div className="font-semibold text-base">Số lượng</div>
-          <Counter
-            count={quantity}
-            setCount={setQuantity}
-            inventory_quantity={variant?.inventory_quantity}
+      {/* QUANTITY AND CONFIRM BUTTON */}
+      <div className="flex-1 flex items-end">
+        <div className="px-4 md:px-4 lg:px-40 w-full h-36 border border-t-2 space-y-2 py-2">
+          <div className="flex items-center justify-between">
+            <div className="font-semibold text-base">Số lượng</div>
+            <Counter
+              count={quantity}
+              setCount={setQuantity}
+              inventory_quantity={variant?.inventory_quantity}
+            />
+          </div>
+          <AddToCartButton
+            product={product}
+            variant={variant}
+            inStock={inStock}
+            disabled={disabled}
+            isAdding={isAdding}
+            region={region}
+            handleAddToCart={handleAddToCart}
+            itemQuantity={quantity}
           />
         </div>
-        <AddToCartButton
-          product={product}
-          variant={variant}
-          inStock={inStock}
-          disabled={disabled}
-          isAdding={isAdding}
-          region={region}
-          handleAddToCart={handleAddToCart}
-          itemQuantity={quantity}
-        />
       </div>
       <CloseButton onClick={handleClose} />
     </div>
