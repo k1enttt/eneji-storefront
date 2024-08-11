@@ -20,9 +20,9 @@ import Promotions from "@modules/home/components/promotions"
 import { promotions, news } from "@lib/data/data"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Eneji Station",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "A modern and cozy cafe in the heart of the city. We serve breakfast, lunch, desserts, and drinks. Come and enjoy our weekly menu!",
 }
 
 const getCollectionsWithProducts = cache(
