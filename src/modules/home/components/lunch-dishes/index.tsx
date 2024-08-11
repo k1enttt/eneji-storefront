@@ -78,20 +78,28 @@ const LunchDishes = ({
         <Text className="txt-xlarge font-[500]">Món ăn bữa trưa 🌞</Text>
         <div className="flex justify-start">
           <div className="txt-medium mr-1">Kết thúc trong </div>
-          <TimeBlock time={remainingTime}/>
+          <TimeBlock time={remainingTime} />
         </div>
       </div>
       <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5">
-        {todayProducts.map((product, index) => (
-          <li key={product.id}>
-            <DishPreview
-              dishPreview={product}
-              pricedProduct={todayPricedProducts[index]}
-              region={region}
-              thumbnailSize="square"
-            />
-          </li>
-        ))}
+        {todayProducts.length > 0 &&
+          todayProducts.map((product, index) => (
+            <li key={product.id}>
+              <DishPreview
+                dishPreview={product}
+                pricedProduct={todayPricedProducts[index]}
+                region={region}
+                thumbnailSize="square"
+              />
+            </li>
+          ))}
+        {todayProducts.length == 0 && (
+          <div>
+            <Text className="txt-medium font-normal">
+              Không có món ăn nào cho hôm nay
+            </Text>
+          </div>
+        )}
       </ul>
     </div>
   )
@@ -178,11 +186,14 @@ const TomorrowLunch = ({
   timeline,
 }: {
   products: ProductPreviewType[]
-  pricedProducts:(PricedProduct | null)[]
+  pricedProducts: (PricedProduct | null)[]
   region: Region
   timeline: TimelineProps
 }) => {
-  const remainingTime = getTimeDifference(getCurrentTime(), timeline.lunchStartTime)
+  const remainingTime = getTimeDifference(
+    getCurrentTime(),
+    timeline.lunchStartTime
+  )
   return (
     <div className="content-container py-6">
       <div className="mb-6">
@@ -195,16 +206,24 @@ const TomorrowLunch = ({
         </div>
       </div>
       <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5">
-        {products.map((product, index) => (
-          <li key={product.id}>
-            <DishPreview
-              dishPreview={product}
-              pricedProduct={pricedProducts[index]}
-              region={region}
-              thumbnailSize="square"
-            />
-          </li>
-        ))}
+        {products.length > 0 &&
+          products.map((product, index) => (
+            <li key={product.id}>
+              <DishPreview
+                dishPreview={product}
+                pricedProduct={pricedProducts[index]}
+                region={region}
+                thumbnailSize="square"
+              />
+            </li>
+          ))}
+        {products.length == 0 && (
+          <div>
+            <Text className="txt-medium font-normal">
+              Không có món ăn nào cho ngày mai
+            </Text>
+          </div>
+        )}
       </ul>
     </div>
   )
@@ -218,31 +237,34 @@ const TomorrowLunch = ({
  */
 function getTimeDifference(startTime: string, endTime: string): string {
   // Parse the input time strings
-  const [startHours, startMinutes, startSeconds] = startTime.split(':').map(Number);
-  const [endHours, endMinutes, endSeconds] = endTime.split(':').map(Number);
+  const [startHours, startMinutes, startSeconds] = startTime
+    .split(":")
+    .map(Number)
+  const [endHours, endMinutes, endSeconds] = endTime.split(":").map(Number)
 
   // Convert times to total seconds since midnight
-  const startTotalSeconds = startHours * 60 * 60 + startMinutes * 60 + startSeconds;
-  const endTotalSeconds = endHours * 60 * 60 + endMinutes * 60 + endSeconds;
+  const startTotalSeconds =
+    startHours * 60 * 60 + startMinutes * 60 + startSeconds
+  const endTotalSeconds = endHours * 60 * 60 + endMinutes * 60 + endSeconds
 
   // Calculate the difference in seconds
-  let differenceInSeconds = endTotalSeconds - startTotalSeconds;
+  let differenceInSeconds = endTotalSeconds - startTotalSeconds
 
   // If the difference is negative, add 24 hours (86400 seconds) to it
   if (differenceInSeconds < 0) {
-    differenceInSeconds += 86400;
+    differenceInSeconds += 86400
   }
 
   // Convert the difference back to hours, minutes, and seconds
-  const hours = Math.floor(differenceInSeconds / 3600);
-  const minutes = Math.floor(differenceInSeconds % 3600 / 60);
-  const seconds = differenceInSeconds % 60;
+  const hours = Math.floor(differenceInSeconds / 3600)
+  const minutes = Math.floor((differenceInSeconds % 3600) / 60)
+  const seconds = differenceInSeconds % 60
 
   // Format hours, minutes, and seconds to be two digits
-  const formattedHours = hours < 10 ? `0${hours}` : hours.toString();
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
-  const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
+  const formattedHours = hours < 10 ? `0${hours}` : hours.toString()
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString()
+  const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString()
 
   // Return the formatted duration string
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
 }
