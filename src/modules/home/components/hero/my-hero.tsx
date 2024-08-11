@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <>
       <div className="relative">
-        <div className="h-[30vh] -z-50 md:h-[50vh] lg:h-[70vh] absolute w-full border-b border-ui-border-base bg-[#1875F0] rounded-b-3xl"></div>
+        <div className="h-[13em] -z-50 md:h-[26em] lg:h-[36em] absolute w-full border-b border-ui-border-base bg-[#1875F0] rounded-b-3xl"></div>
         <SwiperComponent />
       </div>
     </>

@@ -53,24 +53,24 @@ export default function PostPreview({
   }
   if (category === "news") {
     return (
-      <LocalizedClientLink
-        // href={`/products/${postPreview.handle}`}
-        href={`/products/#`}
-        className="group relative"
-      >
-        <div data-testid="product-wrapper">
+      // <LocalizedClientLink
+      //   href={`/products/${postPreview.handle}`}
+      //   href={`/products/#`}
+      //   className="group relative"
+      // >
+        <div data-testid="product-wrapper" className="group relative">
           <Thumbnail
             thumbnail={postPreview.image}
             size={thumbnailSize}
             isFeatured={isFeatured}
           />
-          <div className="flex justify-between absolute bottom-0 w-full gradient-div">
-            <Text className="text-white font-semibold px-2 py-1 lg:px-4 lg:py-2 flex items-end" data-testid="product-title">
+          <div className="flex justify-between items-end absolute bottom-0 w-full gradient-div">
+            <Text className="w-full text-white font-semibold h-8 lg:h-10 px-2 py-1 lg:px-4 lg:py-2 truncate" data-testid="product-title">
               {postPreview.title}
             </Text>
           </div>
         </div>
-      </LocalizedClientLink>
+      // </LocalizedClientLink>
     )
   }
   return null
