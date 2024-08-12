@@ -1,3 +1,4 @@
+import { formatedCommaPrice } from "@lib/util/format-price"
 import { useState } from "react"
 import { Option } from "types/global"
 
@@ -23,9 +24,10 @@ const SimpleSelectOption = ({
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          className="form-checkbox rounded-md"
+          className="form-checkbox rounded-md flex-none"
         />
-        <span>{option.label}</span>
+        <span className="flex-1 text-start">{option.label}</span>
+        {option.price && <span className="flex-none">+{formatedCommaPrice(option.price)}</span>}
       </>
     )
   }

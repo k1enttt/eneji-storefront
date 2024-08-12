@@ -107,6 +107,7 @@ const ViewProduct = ({
     })
 
     setIsAdding(false)
+    handleClose && handleClose()
   }
 
   const [options, setOptions] = useState<Record<string, string>>({})
@@ -195,7 +196,7 @@ const ViewProduct = ({
   return (
     <div
       className={clx(
-        "relative bg-white text-[#475467] flex flex-col",
+        "relative bg-white text-[#475467] flex flex-col no-scrollbar",
         className
       )}
       ref={actionsRef}

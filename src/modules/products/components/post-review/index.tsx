@@ -36,11 +36,11 @@ export default function PostPreview({
 }) {
   if (category === "promotions") {
     return (
-      <LocalizedClientLink
-        // href={`/products/${postPreview.handle}`}
-        href={`/products/#`}
-        className="group"
-      >
+      // <LocalizedClientLink
+      //   href={`/products/${postPreview.handle}`}
+      //   href={`/products/#`}
+      //   className="group"
+      // >
         <div data-testid="product-wrapper">
           <Thumbnail
             thumbnail={postPreview.image}
@@ -48,7 +48,7 @@ export default function PostPreview({
             isFeatured={isFeatured}
           />
         </div>
-      </LocalizedClientLink>
+      // </LocalizedClientLink>
     )
   }
   if (category === "news") {
