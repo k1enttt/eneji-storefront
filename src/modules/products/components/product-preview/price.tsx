@@ -9,6 +9,10 @@ export default function PreviewPrice({
   price: PriceType
   size?: "normal" | "big"
 }) {
+  // Show gray color text if price is not available
+  if (!price.price_type) 
+    return <Text className="font-semibold text-ui-fg-muted">Chưa có giá</Text>
+
   if (size === "big") {
     return (
       <div className="flex gap-x-1">

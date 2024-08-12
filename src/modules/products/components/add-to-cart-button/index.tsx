@@ -29,31 +29,28 @@ const AddToCartButton = ({
     variantId: variant?.id,
     region,
   })
-
   const selectedPrice = variant ? variantPrice : cheapestPrice
 
   if (!selectedPrice) {
     return <div className="block w-32 h-9 bg-gray-100 animate-pulse" />
   }
+  const isPriceAvailable = selectedPrice.calculated_price_number > 0
+  
   // Calculate total price of the product with item quantity
-  const priceValue = parseFloat(
-    selectedPrice.calculated_price
-      .toString()
-      .substring(1, selectedPrice.calculated_price.toString().length)
-  )
-  const totalPrice = Math.round(priceValue * itemQuantity * 100) / 100
+  const priceValue = selectedPrice.calculated_price_number
+  const totalPrice = priceValue * itemQuantity
   return (
     <button
       className={`w-full h-12 bg-[#20419A] text-white rounded-md ${
-        (isAdding || !inStock || !!disabled) ? "opacity-50" : ""
+        (isAdding || !inStock || !!disabled || !isPriceAvailable) ? "opacity-50" : ""
       }`}
       onClick={handleAddToCart}
-      disabled={!inStock || !variant || !!disabled || isAdding}
+      disabled={!inStock || !variant || !!disabled || isAdding || !isPriceAvailable}
       data-testid="add-product-button"
     >
       {!inStock ? (
         <div className="font-medium text-base">Hết hàng</div>
-      ) : (
+      ) : (!isPriceAvailable) ? <div className="font-medium text-base">Chưa có giá</div> :(
         <div className=" flex items-center justify-center gap-x-2">
           <div className="font-medium text-base">Thêm món</div>
           <div
@@ -61,7 +58,7 @@ const AddToCartButton = ({
             data-value={selectedPrice.calculated_price_number}
             className="font-bold text-sm"
           >
-            ${totalPrice}
+            đ{totalPrice.toLocaleString('vi-VN')}
           </div>
         </div>
       )}
