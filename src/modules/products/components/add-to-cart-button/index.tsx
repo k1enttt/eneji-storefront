@@ -58,7 +58,7 @@ const AddToCartButton = ({
             data-value={selectedPrice.calculated_price_number}
             className="font-bold text-sm"
           >
-            đ{totalPrice.toLocaleString('vi-VN')}
+            {totalPrice.toLocaleString()}đ
           </div>
         </div>
       )}

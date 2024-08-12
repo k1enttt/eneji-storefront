@@ -1,6 +1,7 @@
 import { Text, clx } from "@medusajs/ui"
 
 import { PriceType } from "../product-actions"
+import { formatedCommaPrice } from "@lib/util/format-price"
 
 export default function PreviewPrice({
   price,
@@ -10,25 +11,18 @@ export default function PreviewPrice({
   size?: "normal" | "big"
 }) {
   // Show gray color text if price is not available
-  if (!price.price_type) 
+  if (!price.price_type)
     return <Text className="font-semibold text-ui-fg-muted">Chưa có giá</Text>
-
   if (size === "big") {
     return (
       <div className="flex gap-x-1">
         {price.price_type === "sale" && (
-          <Text
-            className="text-sm line-through"
-            data-testid="original-price"
-          >
-            {price.original_price}
+          <Text className="text-sm line-through" data-testid="original-price">
+            {formatedCommaPrice(price.original_price_number)}đ
           </Text>
         )}
-        <Text
-          className={"font-bold text-[#20419A]"}
-          data-testid="price"
-        >
-          {price.calculated_price}
+        <Text className={"font-bold text-[#20419A]"} data-testid="price">
+          {formatedCommaPrice(price.calculated_price_number)}đ
         </Text>
       </div>
     )
@@ -41,7 +35,7 @@ export default function PreviewPrice({
           className="line-through text-ui-fg-muted"
           data-testid="original-price"
         >
-          {price.original_price}
+          {formatedCommaPrice(price.original_price_number)}đ
         </Text>
       )}
       <Text
@@ -50,7 +44,7 @@ export default function PreviewPrice({
         })}
         data-testid="price"
       >
-        {price.calculated_price}
+        {formatedCommaPrice(price.calculated_price_number)}đ
       </Text>
     </>
   )
