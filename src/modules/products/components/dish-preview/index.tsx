@@ -79,7 +79,7 @@ export default function DishPreview({
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
           {leftDishes && leftDishes > 0 && (
-            <Text className="text-ui-fg-muted">{leftDishes} left</Text>
+            <Text className="text-ui-fg-muted">Còn {leftDishes}</Text>
           )}
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function DishPreview({
               {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
             </div>
             {leftDishes > 0 && (
-              <Text className="text-ui-fg-muted">{leftDishes} left</Text>
+              <Text className="text-ui-fg-muted">Còn {leftDishes}</Text>
             )}
           </div>
         </div>

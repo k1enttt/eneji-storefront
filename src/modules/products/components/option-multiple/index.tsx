@@ -1,7 +1,7 @@
 import { Option } from "types/global"
 import SimpleSelectOption from "../option-select/simple-select-option"
 
-const OptionsList = ({
+const OptionsMultiple = ({
   options,
   handleMultiSelect,
 }: {
@@ -45,4 +45,4 @@ const OptionsList = ({
   )
 }
 
-export default OptionsList
+export default OptionsMultiple

@@ -1,5 +1,5 @@
-import { Option } from "@modules/products/templates/view-product"
 import { useState } from "react"
+import { Option } from "types/global"
 
 const SimpleSelectOption = ({
   multiple,

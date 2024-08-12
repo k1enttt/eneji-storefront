@@ -14,7 +14,7 @@ import PreviewPrice from "../components/product-preview/price"
 import Counter from "../components/counter"
 import CloseButton from "../components/close-button"
 import { Option } from "types/global"
-import OptionsList from "../components/option-list"
+import OptionsList from "../components/option-multiple"
 
 const ViewProduct = ({
   className,
@@ -268,7 +268,7 @@ const ViewProduct = ({
             <div className="font-semibold text-lg text-black">Ghi chú</div>
             <div className="bullet leading-6"></div>
             <div className="text-sm leading-6">
-              Subtitle, vd: Không bắt buộc
+              Không bắt buộc (tối đa 200 ký tự)
             </div>
           </div>
           <textarea
