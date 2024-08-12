@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <>
       <div className="relative">
-        <div className="h-[13em] -z-50 md:h-[26em] lg:h-[36em] absolute w-full border-b border-ui-border-base bg-[#1875F0] rounded-b-3xl"></div>
+        <div className="h-[10em] -z-50 md:h-[26em] lg:h-[36em] absolute w-full border-b border-ui-border-base bg-[#1875F0] rounded-b-3xl"></div>
         <SwiperComponent />
       </div>
     </>
@@ -31,10 +31,10 @@ export default Hero
 
 const SwiperComponent = () => {
   return (
-    <div className="content-container pt-8">
+    <div className="pt-6 lg:pt-8 hero-container">
       <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
+        slidesPerView={1.2} // 1.2 for mobile
+        spaceBetween={16} // 16 for mobile
         centeredSlides={true}
         keyboard={{
           enabled: true,
@@ -45,6 +45,12 @@ const SwiperComponent = () => {
         navigation={true}
         modules={[Keyboard, Pagination, Navigation]}
         className="mySwiper text-white top-4"
+        breakpoints={{
+          425: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          }
+        }}
       >
         <SwiperSlide className="bg-[#002496] shadow-xl rounded-xl">
           <Image

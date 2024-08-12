@@ -38,7 +38,7 @@ body {
   object-fit: cover;
 }
 
-  /*
+/*
   --swiper-pagination-color: var(--swiper-theme-color);
   --swiper-pagination-left: auto;
   --swiper-pagination-right: 8px;
@@ -113,7 +113,7 @@ body {
   margin: 0 10px;
 }
 
-.swiper-button-prev:after, 
+.swiper-button-prev:after,
 .swiper-button-next:after {
   font-size: 24px;
 }
@@ -131,6 +131,9 @@ body {
   .swiper-button-next {
     display: none;
   }
+}
+.hero-container {
+  @apply max-w-[1440px] w-full mx-auto px-0 md:px-8 lg:px-24;
 }
 
 @media (max-width: 425px) {
