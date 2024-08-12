@@ -31,7 +31,7 @@ const SimpleSelectOption = ({
       </>
     )
   }
-  return <div>This is single select options</div>
+  return null
 }
 
 export default SimpleSelectOption
