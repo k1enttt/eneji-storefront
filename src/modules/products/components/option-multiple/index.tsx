@@ -14,7 +14,7 @@ const OptionsMultiple = ({
       <div className="flex gap-x-2 items-end justify-start">
         <div className="font-semibold text-lg text-black">Chọn thêm</div>
         <div className="bullet leading-6"></div>
-        <div className="text-sm leading-6">Chọn nhiều</div>
+        <div className="text-sm leading-[26px]">Chọn nhiều</div>
       </div>
       {/* OPTIONS LIST */}
       <div className="flex flex-col gap-y-2">

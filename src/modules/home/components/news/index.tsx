@@ -8,16 +8,14 @@ import PostPreview from "@modules/products/components/post-review"
 import { Blog } from "@lib/data/data"
 
 const News = ({ products }: { products: Blog[] }) => {
-  const mobileNews = products.slice(0, 2)
-
   return (
-    <div className="content-container py-6">
+    <div className="content-container pb-5 lg:pb-6">
       <div className="flex justify-start md:justify-between">
-        <Text className="txt-xlarge mb-6 font-[500]">Tin tức</Text>
+        <Text className="txt-xlarge mb-4 lg:mb-6 font-[500]">Tin tức</Text>
         <div className="block md:hidden">
           <Link
             href="/view-more?type=news"
-            className="text-[#20419A] font-[500]"
+            className="font-[500]"
           >
             <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
           </Link>

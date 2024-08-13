@@ -68,9 +68,9 @@ export default function DishPreview({
           <AddButton product={pricedProduct} region={region} />
         </div>
 
-        <div className="flex flex-col txt-compact-medium mt-4 justify-between">
+        <div className="flex flex-col txt-compact-medium mt-2 justify-between">
           <Text
-            className="text-ui-fg-subtle font-semibold"
+            className="font-semibold"
             data-testid="product-title"
           >
             {dishPreview.title}
@@ -87,34 +87,34 @@ export default function DishPreview({
   }
   if (category === "dessertsAndDrinks") {
     return (
-        <div
-          data-testid="product-wrapper"
-          className="flex gap-4 bg-white rounded-md relative min-w-[22rem]"
-        >
-          <div className="">
-            <Thumbnail
-              thumbnail={dishPreview.thumbnail}
-              size={thumbnailSize}
-              isFeatured={isFeatured}
-            />
-            <AddButton product={pricedProduct} region={region} />
-          </div>
-
-          <div className="flex flex-col gap-2 justify-start txt-compact-medium mt-4">
-            <Text
-              className="text-ui-fg-subtle font-semibold"
-              data-testid="product-title"
-            >
-              {dishPreview.title}
-            </Text>
-            <div className="items-center gap-x-2">
-              {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-            </div>
-            {leftDishes > 0 && (
-              <Text className="text-ui-fg-muted">Còn {leftDishes}</Text>
-            )}
-          </div>
+      <div
+        data-testid="product-wrapper"
+        className="flex gap-4 bg-white rounded-md relative min-w-[22rem]"
+      >
+        <div className="">
+          <Thumbnail
+            thumbnail={dishPreview.thumbnail}
+            size={thumbnailSize}
+            isFeatured={isFeatured}
+          />
+          <AddButton product={pricedProduct} region={region} />
         </div>
+
+        <div className="flex flex-col justify-start txt-compact-medium mt-4">
+          <Text
+            className="font-semibold"
+            data-testid="product-title"
+          >
+            {dishPreview.title}
+          </Text>
+          <div className="items-center gap-x-2">
+            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+          </div>
+          {leftDishes > 0 && (
+            <Text className="text-ui-fg-muted">Còn {leftDishes}</Text>
+          )}
+        </div>
+      </div>
     )
   }
   if (category === "weeklyMenu") {
@@ -140,18 +140,16 @@ export default function DishPreview({
             isFeatured={isFeatured}
           />
           {dayOfWeek != "" && (
-            <div className="flex items-center gap-x-1 text-gray bullet gap-1 mt-2">
+            <div className="flex items-center gap-x-1 text-gray bullet gap-1 mt-1 lg:mt-2">
               <Text className="text-ui-fg-muted">{dayOfWeek}</Text>
             </div>
           )}
-          <div className="txt-compact-medium mt-1">
-            <Text
-              className="text-ui-fg-subtle font-semibold"
-              data-testid="product-title"
-            >
-              {dishPreview.title}
-            </Text>
-          </div>
+          <Text
+            className="font-semibold mt-0 lg:mt-1 text-sm"
+            data-testid="product-title"
+          >
+            {dishPreview.title}
+          </Text>
         </div>
       </LocalizedClientLink>
     )

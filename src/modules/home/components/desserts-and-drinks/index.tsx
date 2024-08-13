@@ -38,7 +38,7 @@ const DessertsAndDrinks = ({
   ).slice(0, limit)
 
   return (
-    <div className="w-full bg-[#F2F4F7] py-6">
+    <div className="w-full bg-[#F2F4F7] my-1 py-4 lg:py-6">
       <div className="content-container">
         {/* Two button side by side: a "Tráng miệng" button and a "Đồ uống" button */}
         <ToggleButton
@@ -70,10 +70,10 @@ const DessertsAndDrinks = ({
           )}
         </div>
 
-        <div className="flex justify-center pt-6">
+        <div className="flex justify-center pt-4 lg:pt-6">
           <Link
             href="/view-more?type=desserts-and-drinks"
-            className="text-[#20419A] font-[500] text-center"
+            className="text-[#20419A] font-[500] text-center w-full"
           >
             Xem thêm
           </Link>

@@ -268,7 +268,7 @@ const ViewProduct = ({
           <div className="flex gap-x-2 items-end justify-start">
             <div className="font-semibold text-lg text-black">Ghi chú</div>
             <div className="bullet leading-6"></div>
-            <div className="text-sm leading-6">
+            <div className="text-sm leading-[26px]">
               Không bắt buộc (tối đa 200 ký tự)
             </div>
           </div>

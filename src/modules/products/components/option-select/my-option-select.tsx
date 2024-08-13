@@ -29,7 +29,7 @@ const MyOptionSelect: React.FC<OptionSelectProps> = ({
       <div className="flex gap-x-2 items-end justify-start">
         <div className="font-semibold text-lg text-black">Chọn {title}</div>
         <div className="bullet leading-6"></div>
-        <div className="text-sm leading-6">Chọn 1</div>
+        <div className="text-sm leading-[26px]">Chọn 1</div>
       </div>
       <div className="flex flex-col gap-y-2" data-testid={dataTestId}>
         {filteredOptions.reduce((acc, v, index) => {

@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <>
       <div className="relative">
-        <div className="h-[10em] -z-50 md:h-[26em] lg:h-[36em] absolute w-full border-b border-ui-border-base bg-[#1875F0] rounded-b-3xl"></div>
+        <div className="-z-50 h-[9em] md:h-[23em] lg:h-[36em] absolute w-full border-b border-ui-border-base bg-[#1875F0] rounded-b-3xl"></div>
         <SwiperComponent />
       </div>
     </>
@@ -31,10 +31,10 @@ export default Hero
 
 const SwiperComponent = () => {
   return (
-    <div className="pt-6 lg:pt-8 hero-container">
+    <div className="pt-2 md:pt-8 hero-container">
       <Swiper
-        slidesPerView={1.2} // 1.2 for mobile
-        spaceBetween={16} // 16 for mobile
+        slidesPerView={1.2} // for mobile view
+        spaceBetween={16} // for mobile view
         centeredSlides={true}
         keyboard={{
           enabled: true,

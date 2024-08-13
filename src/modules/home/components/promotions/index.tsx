@@ -13,9 +13,9 @@ const Promotions = ({
   products: Blog[]
 }) => {
   return (
-    <div className="content-container py-6">
+    <div className="content-container pb-4 lg:pb-6">
       <div className="flex justify-start md:justify-between">
-        <Text className="txt-xlarge mb-6 font-[500]">Kho khuyến mãi 🎁</Text>
+        <Text className="txt-xlarge mb-2 lg:mb-4 font-[500]">Kho khuyến mãi 🎁</Text>
         <div className="block md:hidden">
         <Link
           href="/view-more?type=promotions"

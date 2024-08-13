@@ -41,8 +41,8 @@ const LunchDishes = ({
       currentTime < timeline.breakfastEndTime
     ) {
       return (
-        <div className="content-container py-6">
-          <div className="mb-6">
+        <div className="content-container pb-4 lg:pb-6">
+          <div className="mb-4 lg:mb-6">
             <Text className="txt-xlarge font-[500]">Món ăn bữa trưa 🌞</Text>
             <div className="flex justify-start">
               <div className="txt-medium mr-1">Kết thúc trong </div>
@@ -73,8 +73,8 @@ const LunchDishes = ({
   }
 
   return (
-    <div className="content-container py-6">
-      <div className="mb-6">
+    <div className="content-container pb-4 lg:pb-6">
+      <div className="mb-4 lg:mb-6">
         <Text className="txt-xlarge font-[500]">Món ăn bữa trưa 🌞</Text>
         <div className="flex justify-start">
           <div className="txt-medium mr-1">Kết thúc trong </div>
@@ -195,8 +195,8 @@ const TomorrowLunch = ({
     timeline.lunchStartTime
   )
   return (
-    <div className="content-container py-6">
-      <div className="mb-6">
+    <div className="content-container pb-4 lg:pb-6">
+      <div className="mb-4 lg:mb-6">
         <Text className="txt-xlarge font-[500]">
           Món ăn bữa trưa tiếp theo 🌞
         </Text>

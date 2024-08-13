@@ -15,12 +15,13 @@ const WeeklyMenu = ({
   region: Region
 }) => {
   return (
-    <div className="content-container py-6">
+    <div className="content-container pb-4 lg:pb-6">
       <div className="flex justify-start md:justify-between">
-        <Text className="txt-xlarge mb-6 font-[500]">Thực đơn tuần này 🍴</Text>
-        <div className="block md:hidden">
+        <Text className="txt-xlarge my-4 lg:my-6 font-[500]">Thực đơn tuần này 🍴</Text>
+        <div className="flex md:hidden items-center">
           <Link
             href="/view-more?type=weekly-menu"
+            className=""
           >
             <i className="fa-solid fa-arrow-right text-lg py-2 px-3"></i>
           </Link>
