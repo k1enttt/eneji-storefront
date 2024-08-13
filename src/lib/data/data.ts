@@ -12,22 +12,57 @@ export const promotions: Blog[] = [
     title: "Khuyến mãi 1",
     description: "Chương trình khuyến mãi hấp dẫn",
     image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
-    date: "2022-01-01",
+    date: "12/08/2024",
   },
   {
     id: "2",
     title: "Khuyến mãi 2",
     description: "Chương trình khuyến mãi hấp dẫn",
     image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
-    date: "2022-01-01",
+    date: "13/08/2024",
   },
   {
     id: "3",
     title: "Khuyến mãi 3",
     description: "Chương trình khuyến mãi hấp dẫn",
     image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
-    date: "2022-01-01",
+    date: "14/08/2024",
   },
+  {
+    id: "4",
+    title: "Khuyến mãi 4",
+    description: "Chương trình khuyến mãi hấp dẫn",
+    image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
+    date: "15/08/2024",
+  },
+  // {
+  //   id: "5",
+  //   title: "Khuyến mãi 5",
+  //   description: "Chương trình khuyến mãi hấp dẫn",
+  //   image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
+  //   date: "16/08/2024",
+  // },
+  // {
+  //   id: "6",
+  //   title: "Khuyến mãi 6",
+  //   description: "Chương trình khuyến mãi hấp dẫn",
+  //   image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
+  //   date: "17/08/2024",
+  // },
+  // {
+  //   id: "7",
+  //   title: "Khuyến mãi 7",
+  //   description: "Chương trình khuyến mãi hấp dẫn",
+  //   image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
+  //   date: "18/08/2024",
+  // },
+  // {
+  //   id: "8",
+  //   title: "Khuyến mãi 8",
+  //   description: "Chương trình khuyến mãi hấp dẫn",
+  //   image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/promotion-0.png?alt=media&token=e31e2b11-0e22-4c11-aa77-2ae684a4df9a",
+  //   date: "19/08/2024",
+  // }
 ]
 
 export const news: Blog[] = [
@@ -60,4 +95,25 @@ export const news: Blog[] = [
     image: "https://firebasestorage.googleapis.com/v0/b/enejistation-1196e.appspot.com/o/news-4.png?alt=media&token=35bfa8b0-e517-4473-a6aa-e95360fd471c",
     date: "2022-01-01",
   },
+  {
+    id: "5",
+    title: "Xu Hướng Mới: Người Việt Chuyển Sang Trồng Rau Sạch Tại Nhà",
+    description: "Tin tức mới nhất về ẩm thực",
+    image: "",
+    date: "2022-01-01",
+  },
+  {
+    id: "6",
+    title: "Khám Phá Những Lợi Ích Bất Ngờ Từ Rau Củ Mà Bạn Chưa Biết",
+    description: "Tin tức mới nhất về ẩm thực",
+    image: "",
+    date: "2022-01-01",
+  },
+  {
+    id: "7",
+    title: "Rau Củ Mùa Hè: Bí Quyết Lựa Chọn Tươi Ngon và Đầy Dinh Dưỡng",
+    description: "Tin tức mới nhất về ẩm thực",
+    image: "",
+    date: "2022-01-01",
+  },  
 ]

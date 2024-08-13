@@ -1,0 +1,8 @@
+.login-padding {
+  @apply px-4
+}
+
+.text-body {
+  @apply text-sm text-[#475467]
+}
+

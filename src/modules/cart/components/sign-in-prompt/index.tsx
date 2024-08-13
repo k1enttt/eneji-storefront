@@ -13,14 +13,20 @@ const SignInPrompt = () => {
         </Text>
       </div>
       <div>
-        <LocalizedClientLink href="/account">
-          <Button variant="secondary" className="h-10" data-testid="sign-in-button">
-            Sign in
-          </Button>
-        </LocalizedClientLink>
+        <MedusaSignInButton href="/login" />
       </div>
     </div>
   )
 }
 
 export default SignInPrompt
+
+const MedusaSignInButton = ({ href }: { href: string }) => {
+  return (
+    <LocalizedClientLink href={href ? href : "/account"}>
+      <Button variant="secondary" className="h-10" data-testid="sign-in-button">
+        Sign in
+      </Button>
+    </LocalizedClientLink>
+  )
+}
