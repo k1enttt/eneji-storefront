@@ -3,6 +3,7 @@ import { useState } from "react"
 import "./login.css"
 import LoginComponent from "@modules/login"
 import RegisterComponent from "@modules/login/register"
+import SubmitButton from "@modules/login/components/submit-button"
 
 const LoginPage = () => {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false)

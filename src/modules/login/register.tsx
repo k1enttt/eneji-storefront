@@ -2,10 +2,10 @@ import enejiWhiteLogo from "../../../public/images/enejistation-white-logo.png"
 import Image from "next/image"
 import RequiredMark from "./components/required-mark"
 import { useState } from "react"
-import { useFormState, useFormStatus } from "react-dom"
+import { useFormState } from "react-dom"
 import { signUp } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
-import { useRouter } from "next/navigation"
+import SubmitButton from "./components/submit-button"
 
 const RegisterComponent = ({
   closeRegister,
@@ -14,9 +14,8 @@ const RegisterComponent = ({
 }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false)
   const [message, formAction] = useFormState(signUp, null)
-  const { pending } = useFormStatus()
   const [error, setError] = useState("")
-  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   let registerInfo: {
     name: string
@@ -39,6 +38,7 @@ const RegisterComponent = ({
   }
 
   const handleSubmit = (payload: FormData) => {
+    setIsSubmitting(true)
     setError("")
     if (!isTermsChecked) {
       setError("Vui lòng đồng ý với điều khoản và điều kiện")
@@ -56,10 +56,6 @@ const RegisterComponent = ({
     console.log(registerInfo)
 
     formAction(payload)
-
-
-    router.push("/cart")
-    closeRegister()
   }
 
   return (
@@ -173,16 +169,15 @@ const RegisterComponent = ({
                 </a>
               </span>
             </div>
-            <ErrorMessage error={message || error} data-testid="register-error" />
-            <button
-              type="submit"
-              disabled={pending}
+            <ErrorMessage
+              error={message || error}
+              data-testid="register-error"
+            />
+            <SubmitButton
+              message={message}
+              isSubmitting={isSubmitting}
               className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
-            >
-              {
-                pending ? "Đang đăng ký..." : "Tiếp tục"
-              }
-            </button>
+            />
             <div className="w-full text-center p-2">
               Bạn có tài khoản?{" "}
               <a href="" className="text-[#20419A]">

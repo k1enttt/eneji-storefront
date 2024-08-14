@@ -41,6 +41,31 @@ export async function signUp(_currentState: unknown, formData: FormData) {
   }
 }
 
+export async function mySignUp(_currentState: unknown, formData: FormData, setIsSubmitted: (isSubmitted: boolean) => void,) {
+  const customer = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+    first_name: formData.get("first_name"),
+    last_name: formData.get("last_name"),
+    phone: formData.get("phone"),
+  } as StorePostCustomersReq
+
+  setIsSubmitted(true)
+
+  try {
+    await createCustomer(customer)
+    await getToken({ email: customer.email, password: customer.password }).then(
+      () => {
+        revalidateTag("customer")
+      }
+    )
+    setIsSubmitted(false)
+  } catch (error: any) {
+    setIsSubmitted(false)
+    return error.toString()
+  }
+}
+
 export async function logCustomerIn(
   _currentState: unknown,
   formData: FormData
