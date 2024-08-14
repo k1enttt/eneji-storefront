@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 import { signUp } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
+import { useRouter } from "next/navigation"
 
 const RegisterComponent = ({
   closeRegister,
@@ -15,6 +16,7 @@ const RegisterComponent = ({
   const [message, formAction] = useFormState(signUp, null)
   const { pending } = useFormStatus()
   const [error, setError] = useState("")
+  const router = useRouter()
 
   let registerInfo: {
     name: string
@@ -54,6 +56,9 @@ const RegisterComponent = ({
     console.log(registerInfo)
 
     formAction(payload)
+
+
+    router.push("/cart")
     closeRegister()
   }
 
