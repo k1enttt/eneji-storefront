@@ -6,25 +6,27 @@ import { useFormStatus } from "react-dom"
 const SubmitButton = ({
   className,
   message,
+  metadataUpdateMessage,
   isSubmitting,
+  setIsSubmitting,
 }: {
   className?: string
-  message?: string
-  isSubmitting?: boolean
+  message: string
+  metadataUpdateMessage: string
+  isSubmitting: boolean
+  setIsSubmitting: (isSubmitting: boolean) => void
 }) => {
-  const { pending } = useFormStatus();
-  const router = useRouter();
+  const { pending } = useFormStatus()
+  const router = useRouter()
 
   useEffect(() => {
-    console.log("Pending is: ", pending)
     if (!pending && isSubmitting) {
-      console.log("Pending is false and isSubmitting is true")
-      if (!message) {
+      if (!message && !metadataUpdateMessage) {
         router.push("/account")
-        console.log("Chuyển trang đến cart")
       }
+      setIsSubmitting(false)
     }
-  }, [pending]);
+  }, [pending])
 
   return (
     <button

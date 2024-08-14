@@ -3,9 +3,10 @@ import Image from "next/image"
 import RequiredMark from "./components/required-mark"
 import { useState } from "react"
 import { useFormState } from "react-dom"
-import { signUp } from "@modules/account/actions"
+import { signUp, updateCustomerMetadata } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import SubmitButton from "./components/submit-button"
+import { set } from "lodash"
 
 const RegisterComponent = ({
   closeRegister,
@@ -16,6 +17,7 @@ const RegisterComponent = ({
   const [message, formAction] = useFormState(signUp, null)
   const [error, setError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [metadataUpdateMessage, setMetadataUpdateMessage] = useState("")
 
   let registerInfo: {
     name: string
@@ -40,6 +42,7 @@ const RegisterComponent = ({
   const handleSubmit = (payload: FormData) => {
     setIsSubmitting(true)
     setError("")
+    setMetadataUpdateMessage("")
     if (!isTermsChecked) {
       setError("Vui lòng đồng ý với điều khoản và điều kiện")
       return
@@ -49,13 +52,20 @@ const RegisterComponent = ({
       name: `${payload.get("first_name")} ${payload.get("last_name")}`,
       email: payload.get("email") as string,
       password: payload.get("password") as string,
-      employeeCode: payload.get("employeeCode") as string,
-      phoneNumber: payload.get("phoneNumber") as string,
+      employeeCode: payload.get("employee_code") as string,
+      phoneNumber: payload.get("phone") as string,
       branch: payload.get("branch") as string,
     }
     console.log(registerInfo)
 
     formAction(payload)
+    //
+    updateCustomerMetadata({}, payload).then((res) => {
+      if (res.error) {
+        setMetadataUpdateMessage(res.error)
+      }
+    })
+
   }
 
   return (
@@ -131,7 +141,8 @@ const RegisterComponent = ({
             <div className="space-y-1 mb-5">
               <div>Mã nhân viên</div>
               <input
-                id="employeeCode"
+                id="employee_code"
+                name="employee_code"
                 type="text"
                 placeholder="Nhập mã nhân viên"
                 className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
@@ -140,8 +151,9 @@ const RegisterComponent = ({
             <div className="space-y-1 mb-5">
               <div>Số điện thoại</div>
               <input
-                id="phoneNumber"
-                type="email"
+                id="phone"
+                name="phone"
+                type="tel"
                 placeholder="Số điện thoại"
                 className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
               />
@@ -150,6 +162,7 @@ const RegisterComponent = ({
               <div>Chi nhánh làm việc</div>
               <input
                 id="branch"
+                name="branch"
                 type="dropdown"
                 placeholder="Chọn chi nhánh làm việc"
                 className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
@@ -170,12 +183,14 @@ const RegisterComponent = ({
               </span>
             </div>
             <ErrorMessage
-              error={message || error}
+              error={message || error || metadataUpdateMessage}
               data-testid="register-error"
             />
             <SubmitButton
               message={message}
+              metadataUpdateMessage={metadataUpdateMessage}
               isSubmitting={isSubmitting}
+              setIsSubmitting={setIsSubmitting}
               className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
             />
             <div className="w-full text-center p-2">

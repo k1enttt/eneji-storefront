@@ -101,6 +101,27 @@ export async function updateCustomerName(
   }
 }
 
+export async function updateCustomerMetadata(
+  _currentState: Record<string, unknown>,
+  formData: FormData
+) {
+  const customer = {
+    metadata: {
+      employee_code: formData.get("employee_code"),
+      branch: formData.get("branch"),
+    }
+  } as StorePostCustomersCustomerReq
+
+  try {
+    await updateCustomer(customer).then(() => {
+      revalidateTag("customer")
+    })
+    return { success: true, error: null }
+  } catch (error: any) {
+    return { success: false, error: error.toString() }
+  }
+}
+
 export async function updateCustomerEmail(
   _currentState: Record<string, unknown>,
   formData: FormData
