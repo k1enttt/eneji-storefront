@@ -19,22 +19,6 @@ const RegisterComponent = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [metadataUpdateMessage, setMetadataUpdateMessage] = useState("")
 
-  let registerInfo: {
-    name: string
-    email: string
-    password: string
-    employeeCode?: string
-    phoneNumber?: string
-    branch?: string
-  } = {
-    name: "",
-    email: "",
-    password: "",
-    employeeCode: "",
-    phoneNumber: "",
-    branch: "",
-  }
-
   const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsTermsChecked(e.target.checked)
   }
@@ -43,23 +27,16 @@ const RegisterComponent = ({
     setIsSubmitting(true)
     setError("")
     setMetadataUpdateMessage("")
+
     if (!isTermsChecked) {
       setError("Vui lòng đồng ý với điều khoản và điều kiện")
       return
     }
 
-    registerInfo = {
-      name: `${payload.get("first_name")} ${payload.get("last_name")}`,
-      email: payload.get("email") as string,
-      password: payload.get("password") as string,
-      employeeCode: payload.get("employee_code") as string,
-      phoneNumber: payload.get("phone") as string,
-      branch: payload.get("branch") as string,
-    }
-    console.log(registerInfo)
-
+    // Register customer
     formAction(payload)
-    //
+
+    // Update customer metadata with additional information
     updateCustomerMetadata({}, payload).then((res) => {
       if (res.error) {
         setMetadataUpdateMessage(res.error)

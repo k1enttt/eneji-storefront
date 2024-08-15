@@ -96,10 +96,20 @@ export async function addToCart({
     return "Missing product variant ID"
   }
 
-  console.log("Line item", { cartId: cart.id, variantId, quantity, metadata: JSON.stringify(metadata) || {} })
+  console.log("Line item", {
+    cartId: cart.id,
+    variantId,
+    quantity,
+    metadata: JSON.stringify(metadata) || {},
+  })
 
   try {
-    await addItem({ cartId: cart.id, variantId, quantity, metadata: metadata || {} })
+    await addItem({
+      cartId: cart.id,
+      variantId,
+      quantity,
+      metadata: metadata || {},
+    })
     revalidateTag("cart")
   } catch (e) {
     return "Error adding item to cart"

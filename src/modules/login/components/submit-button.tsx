@@ -5,14 +5,16 @@ import { useFormStatus } from "react-dom"
 
 const SubmitButton = ({
   className,
+  login,
   message,
   metadataUpdateMessage,
   isSubmitting,
   setIsSubmitting,
 }: {
   className?: string
+  login?: boolean
   message: string
-  metadataUpdateMessage: string
+  metadataUpdateMessage?: string
   isSubmitting: boolean
   setIsSubmitting: (isSubmitting: boolean) => void
 }) => {
@@ -20,9 +22,16 @@ const SubmitButton = ({
   const router = useRouter()
 
   useEffect(() => {
-    if (!pending && isSubmitting) {
+    if (login) {
+      if (!pending && isSubmitting) {
+        if (!message) {
+          router.push("/cart")
+        }
+        setIsSubmitting(false)
+      }
+    } else if (!pending && isSubmitting) {
       if (!message && !metadataUpdateMessage) {
-        router.push("/account")
+        router.push("/cart")
       }
       setIsSubmitting(false)
     }
@@ -34,7 +43,7 @@ const SubmitButton = ({
       disabled={pending}
       className={clx(className, `${pending ? "bg-opacity-40" : ""}`)}
     >
-      {pending ? "Đang đăng ký..." : "Tiếp tục"}
+      {!login ? (pending ? "Đang đăng ký..." : "Tiếp tục") : "Đăng nhập"}
     </button>
   )
 }
