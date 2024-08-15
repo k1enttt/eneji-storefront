@@ -33,6 +33,16 @@ const RegisterComponent = ({
       return
     }
 
+    console.log({
+      first_name: payload.get("first_name"),
+      last_name: payload.get("last_name"),
+      email: payload.get("email"),
+      password: payload.get("password"),
+      employee_code: payload.get("employee_code"),
+      phone: payload.get("phone"),
+      branch: payload.get("branch"),
+    })
+
     // Register customer
     formAction(payload)
 
@@ -42,7 +52,6 @@ const RegisterComponent = ({
         setMetadataUpdateMessage(res.error)
       }
     })
-
   }
 
   return (
@@ -127,23 +136,34 @@ const RegisterComponent = ({
             </div>
             <div className="space-y-1 mb-5">
               <div>Số điện thoại</div>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="Số điện thoại"
-                className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
-              />
+              <div className="flex space-x-2">
+                <span className="flex items-center px-3 bg-[#F2F4F7] rounded-md shadow-md">
+                  +84
+                </span>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="Số điện thoại"
+                  className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
+                />
+              </div>
             </div>
             <div className="space-y-1 mb-5">
               <div>Chi nhánh làm việc</div>
-              <input
+              <select
                 id="branch"
                 name="branch"
-                type="dropdown"
-                placeholder="Chọn chi nhánh làm việc"
                 className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
-              />
+              >
+                <option value="" disabled selected>
+                  Chọn chi nhánh làm việc
+                </option>
+                <option value="thu-duc">Thủ Đức</option>
+                <option value="q1">Quận 1</option>
+                <option value="q10">Quận 10</option>
+                <option value="q7">Quận 7</option>
+              </select>
             </div>
             <div className="mb-7 space-x-1">
               <input
@@ -172,7 +192,7 @@ const RegisterComponent = ({
             />
             <div className="w-full text-center p-2">
               Bạn có tài khoản?{" "}
-              <a href="" className="text-[#20419A]">
+              <a href="/login" className="text-[#20419A]">
                 Đăng nhập
               </a>
             </div>
