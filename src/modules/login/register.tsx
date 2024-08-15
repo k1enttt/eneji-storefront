@@ -6,7 +6,7 @@ import { useFormState } from "react-dom"
 import { signUp, updateCustomerMetadata } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import SubmitButton from "./components/submit-button"
-import { set } from "lodash"
+import Link from "next/link"
 
 const RegisterComponent = ({
   closeRegister,
@@ -192,9 +192,9 @@ const RegisterComponent = ({
             />
             <div className="w-full text-center p-2">
               Bạn có tài khoản?{" "}
-              <a href="/login" className="text-[#20419A]">
-                Đăng nhập
-              </a>
+              <Link href="/login?isLogin=1" className="text-[#20419A]">
+                <button>Đăng nhập</button>
+              </Link>
             </div>
           </form>
         </div>

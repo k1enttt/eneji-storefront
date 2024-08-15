@@ -1,55 +1,22 @@
-"use client"
-import { useState } from "react"
 import "./login.css"
-import LoginComponent from "@modules/login"
-import RegisterComponent from "@modules/login/register"
+import { Metadata } from "next"
+import LoginWrapper from "@modules/login"
 
-const LoginPage = () => {
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false)
-  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false)
-
-  const openLogin = () => {
-    setIsLoginPopupOpen(true)
-  }
-
-  const closeLogin = () => {
-    setIsLoginPopupOpen(false)
-  }
-
-  const openRegister = () => {
-    setIsRegisterPopupOpen(true)
-  }
-
-  const closeRegister = () => {
-    setIsRegisterPopupOpen(false)
-  }
-
-  return (
-    <div className="w-full text-center">
-      <div className="content-container w-full h-[300px] flex items-center justify-center">
-        <button
-          className="bg-black rounded-md shadow-md text-white p-2 m-4"
-          onClick={openLogin}
-        >
-          Login
-        </button>
-        <button
-          className="bg-black rounded-md shadow-md text-white p-2 m-4"
-          onClick={openRegister}
-        >
-          Register
-        </button>
-      </div>
-      {isLoginPopupOpen && (
-        <LoginComponent closeLogin={closeLogin} />
-      )}
-      {
-        isRegisterPopupOpen && (
-          <RegisterComponent closeRegister={closeRegister} />
-        )
-      }
-    </div>
-  )
+export const metadata: Metadata = {
+  title: "View more",
+  description: "Explore all of our products.",
 }
 
-export default LoginPage
+type Params = {
+  searchParams: {
+    isLogin?: "1" | "0"
+  }
+}
+
+export default function LoginPage({ searchParams }: Params) {
+  const { isLogin } = searchParams
+  
+  return (
+    <LoginWrapper isLogin={isLogin} />
+  )
+}
