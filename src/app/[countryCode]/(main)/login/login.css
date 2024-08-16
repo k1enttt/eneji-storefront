@@ -1,8 +1,8 @@
 .login-padding {
-  @apply px-4
+  @apply px-5 md:px-4
 }
 
-.text-body {
+.text-small {
   @apply text-sm text-[#475467]
 }
 

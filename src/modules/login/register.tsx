@@ -7,6 +7,7 @@ import { signUp, updateCustomerMetadata } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import SubmitButton from "./components/submit-button"
 import Link from "next/link"
+import "@fortawesome/fontawesome-free/css/all.min.css"
 
 const RegisterComponent = ({
   closeRegister,
@@ -55,9 +56,9 @@ const RegisterComponent = ({
   }
 
   return (
-    <div className="fixed inset-x-0 bg-black/50 px-auto py-10 h-full w-screen top-0 z-50 pointer-events-none">
-      <div className="h-full w-[375px] bg-white rounded-xl mx-auto text-start pb-4 overflow-hidden pointer-events-auto">
-        <div className="relative w-full h-full overflow-y-auto no-scrollbar">
+    <div className="fixed inset-x-0 bg-black/50 px-auto py-0 md:py-10 h-full w-screen top-0 z-50 pointer-events-none">
+      <div className="h-full w-screen md:w-[375px] bg-white rounded-none md:rounded-xl mx-auto text-start pb-4 pointer-events-auto overflow-y-auto no-scrollbar">
+        <div className="relative w-full">
           <div className="bg-[#1875F0] h-[108px] w-full flex items-center mb-5 login-padding">
             <div className="bg-white w-[6px] h-[68px] rounded-r-3xl"></div>
             <Image src={enejiWhiteLogo} width={200} height={200} alt="logo" />

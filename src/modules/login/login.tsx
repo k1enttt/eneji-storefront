@@ -7,6 +7,7 @@ import ErrorMessage from "@modules/checkout/components/error-message"
 import SubmitButton from "./components/submit-button"
 import { useState } from "react"
 import Link from "next/link"
+import "@fortawesome/fontawesome-free/css/all.min.css"
 
 const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
   const [message, formAction] = useFormState(logCustomerIn, null)
@@ -18,25 +19,23 @@ const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
   }
 
   return (
-    <div className="fixed inset-x-0 bg-black/50 h-full w-screen top-0 z-50 pointer-events-none">
-      <div className="h-full w-full flex items-center justify-center mx-auto text-start pointer-events-auto">
-        <form
-          action={handleSubmit}
-          className="relative w-[375px] bg-white h-fit rounded-xl overflow-hidden pb-4"
-        >
-          <div className="bg-[#1875F0] h-[108px] w-full flex items-center mb-5 login-padding">
+    <div className="fixed top-0 z-50 bg-black/50 h-full w-full flex items-center justify-center pointer-events-none">
+      <div className="w-full md:w-[375px] bg-white h-full md:h-fit pb-4 rounded-none md:rounded-xl overflow-hidden pointer-events-auto">
+        <div className="relative text-start h-full overflow-y-auto flex flex-col">
+          <ClosePopupButton
+            closeLogin={closeLogin}
+            className="absolute top-3 right-3"
+          />
+          <div className="bg-[#1875F0] h-[108px] w-full mb-5 login-padding flex items-center flex-none">
             <div className="bg-white w-[6px] h-[68px] rounded-r-3xl"></div>
             <Image src={enejiWhiteLogo} width={200} height={200} alt="logo" />
           </div>
-          <button className="absolute top-3 right-3">
-            <i
-              className="fa-solid fa-times text-xl text-white p-1"
-              onClick={closeLogin}
-            ></i>
-          </button>
-          <div className="login-padding text-body">
-            <div className="text-2xl font-[500] mb-4">Đăng nhập</div>
-            <div className="space-y-1 mb-5">
+          <form
+            action={handleSubmit}
+            className="login-padding text-small p-0 flex-1 flex flex-col"
+          >
+            <div className="text-2xl font-[500] mb-4 flex-none">Đăng nhập</div>
+            <div className="space-y-1 mb-5 flex-none">
               <div>
                 Email (ACB) <RequiredMark />
               </div>
@@ -48,7 +47,7 @@ const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
                 className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
               />
             </div>
-            <div className="space-y-1 mb-5">
+            <div className="space-y-1 mb-5 flex-none">
               <div>
                 Mật khẩu <RequiredMark />
               </div>
@@ -62,23 +61,44 @@ const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
               />
             </div>
             <ErrorMessage error={message} data-testid="register-error" />
-            <SubmitButton
-              login
-              message={message}
-              isSubmitting={isSubmitting}
-              setIsSubmitting={setIsSubmitting}
-              className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
-            ></SubmitButton>
-            <Link href="/login?isLogin=0" className="w-full h-full">
-              <button className="font-semibold w-full text-center p-2 text-[#20419A]">
-                Đăng ký
-              </button>
-            </Link>
-          </div>
-        </form>
+            <div className="h-fit flex-1 flex flex-col justify-end">
+              <SubmitButton
+                login
+                message={message}
+                isSubmitting={isSubmitting}
+                setIsSubmitting={setIsSubmitting}
+                className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
+              ></SubmitButton>
+              <Link href="/login?isLogin=0" className="w-full h-10">
+                <button className="font-semibold w-full text-center p-2 text-[#20419A]">
+                  Đăng ký
+                </button>
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )
 }
 
 export default LoginComponent
+
+const ClosePopupButton = ({
+  className,
+  closeLogin,
+}: {
+  className?: string
+  closeLogin: () => void
+}) => {
+  return (
+    <button className={className}>
+      <i
+        className="fa-solid fa-times text-xl text-white p-1"
+        onClick={closeLogin}
+      ></i>
+    </button>
+  )
+}
+
+const LoginForm = () => {}
