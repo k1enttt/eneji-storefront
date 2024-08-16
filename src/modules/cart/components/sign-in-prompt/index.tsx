@@ -13,7 +13,7 @@ const SignInPrompt = () => {
         </Text>
       </div>
       <div>
-        <MedusaSignInButton href="/login" />
+        <MedusaSignInButton href="/login?isLogin=1&callbackUrl=/cart" />
       </div>
     </div>
   )

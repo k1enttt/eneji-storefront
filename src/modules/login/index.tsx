@@ -1,49 +1,48 @@
 "use client"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import LoginComponent from "./login"
 import RegisterComponent from "./register"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 
-const LoginWrapper = ({ isLogin }: { isLogin?: "1" | "0" }) => {
+const LoginWrapper = ({
+  isLogin,
+  callbackUrl,
+}: {
+  isLogin?: "1" | "0"
+  callbackUrl?: string
+}) => {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(isLogin == "1")
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(isLogin == "0")
   const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   const openLogin = () => {
     setIsLoginPopupOpen(true)
+    if (isRegisterPopupOpen) {
+      setIsRegisterPopupOpen(false)
+    }
   }
 
   const closeLogin = () => {
-    setIsLoginPopupOpen(false)
-    clearIsLoginParam()
+    if (callbackUrl) router.push(callbackUrl)
+    else router.push("/")
   }
 
   const openRegister = () => {
     setIsRegisterPopupOpen(true)
+    if (isLoginPopupOpen) {
+      setIsLoginPopupOpen(false)
+    }
   }
 
   const closeRegister = () => {
-    setIsRegisterPopupOpen(false)
-    clearIsLoginParam()
-  }
-
-  // Remove isLogin param from URL
-  // Remove param after closing popup makes the Login and Register redirect buttons work properly.
-  const clearIsLoginParam = () => {
-    const nextSearchParams = new URLSearchParams(searchParams.toString())
-    nextSearchParams.delete("isLogin")
-
-    router.replace(`${pathname}?${nextSearchParams}`)
+    if (callbackUrl) router.push(callbackUrl)
+    else router.push("/")
   }
 
   useEffect(() => {
     if (isLogin == "1") {
-      closeRegister()
       openLogin()
     } else if (isLogin == "0") {
-      closeLogin()
       openRegister()
     }
   }, [isLogin])
@@ -64,9 +63,14 @@ const LoginWrapper = ({ isLogin }: { isLogin?: "1" | "0" }) => {
           Register
         </button>
       </div>
-      {isLoginPopupOpen && <LoginComponent closeLogin={closeLogin} />}
+      {isLoginPopupOpen && (
+        <LoginComponent openRegister={openRegister} closeLogin={closeLogin} />
+      )}
       {isRegisterPopupOpen && (
-        <RegisterComponent closeRegister={closeRegister} />
+        <RegisterComponent
+          openLogin={openLogin}
+          closeRegister={closeRegister}
+        />
       )}
     </div>
   )

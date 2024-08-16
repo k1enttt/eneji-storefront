@@ -6,13 +6,14 @@ import { useFormState } from "react-dom"
 import { signUp, updateCustomerMetadata } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import SubmitButton from "./components/submit-button"
-import Link from "next/link"
 import "@fortawesome/fontawesome-free/css/all.min.css"
 
 const RegisterComponent = ({
   closeRegister,
+  openLogin,
 }: {
   closeRegister: () => void
+  openLogin: () => void
 }) => {
   const [isTermsChecked, setIsTermsChecked] = useState(false)
   const [message, formAction] = useFormState(signUp, null)
@@ -69,7 +70,7 @@ const RegisterComponent = ({
               onClick={closeRegister}
             ></i>
           </button>
-          <form className="login-padding text-body" action={handleSubmit}>
+          <form className="login-padding login-text" action={handleSubmit}>
             <div className="text-2xl font-[500] mb-4">Đăng ký</div>
             <div className="space-y-1 mb-5">
               <div>
@@ -191,11 +192,9 @@ const RegisterComponent = ({
               setIsSubmitting={setIsSubmitting}
               className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
             />
-            <div className="w-full text-center p-2">
+            <div className="w-full text-center p-2 ">
               Bạn có tài khoản?{" "}
-              <Link href="/login?isLogin=1" className="text-[#20419A]">
-                <button>Đăng nhập</button>
-              </Link>
+                <button type="button" onClick={openLogin} className="text-[#20419A]">Đăng nhập</button>
             </div>
           </form>
         </div>

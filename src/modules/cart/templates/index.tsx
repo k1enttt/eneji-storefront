@@ -5,6 +5,7 @@ import { CartWithCheckoutStep } from "types/global"
 import SignInPrompt from "../components/sign-in-prompt"
 import Divider from "@modules/common/components/divider"
 import { Customer } from "@medusajs/medusa"
+import MySignInPrompt from "../components/sign-in-prompt/my-sign-in-prompt"
 
 const CartTemplate = ({
   cart,
@@ -21,7 +22,8 @@ const CartTemplate = ({
             <div className="flex flex-col bg-white py-6 gap-y-6">
               {!customer && (
                 <>
-                  <SignInPrompt />
+                  {/* <SignInPrompt /> */}
+                  <MySignInPrompt />
                   <Divider />
                 </>
               )}

@@ -6,10 +6,15 @@ import { logCustomerIn } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import SubmitButton from "./components/submit-button"
 import { useState } from "react"
-import Link from "next/link"
 import "@fortawesome/fontawesome-free/css/all.min.css"
 
-const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
+const LoginComponent = ({
+  closeLogin,
+  openRegister,
+}: {
+  closeLogin: () => void
+  openRegister: () => void
+}) => {
   const [message, formAction] = useFormState(logCustomerIn, null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -32,7 +37,7 @@ const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
           </div>
           <form
             action={handleSubmit}
-            className="login-padding text-small p-0 flex-1 flex flex-col"
+            className="login-padding login-text p-0 flex-1 flex flex-col"
           >
             <div className="text-2xl font-[500] mb-4 flex-none">Đăng nhập</div>
             <div className="space-y-1 mb-5 flex-none">
@@ -69,11 +74,9 @@ const LoginComponent = ({ closeLogin }: { closeLogin: () => void }) => {
                 setIsSubmitting={setIsSubmitting}
                 className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
               ></SubmitButton>
-              <Link href="/login?isLogin=0" className="w-full h-10">
-                <button className="font-semibold w-full text-center p-2 text-[#20419A]">
-                  Đăng ký
-                </button>
-              </Link>
+              <button type="button" onClick={openRegister} className="font-semibold w-full h-10 text-center p-2 text-[#20419A]">
+                Đăng ký
+              </button>
             </div>
           </form>
         </div>
@@ -100,5 +103,3 @@ const ClosePopupButton = ({
     </button>
   )
 }
-
-const LoginForm = () => {}

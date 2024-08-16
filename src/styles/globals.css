@@ -123,3 +123,13 @@
   background: linear-gradient(to top, black, transparent);
   border-radius: 0 0 8px 8px;
 }
+
+.login-padding {
+  @apply px-5 md:px-4
+}
+
+.login-text{
+  @apply text-sm text-[#475467]
+}
+
+

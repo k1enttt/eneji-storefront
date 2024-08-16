@@ -1,4 +1,3 @@
-import "./login.css"
 import { Metadata } from "next"
 import LoginWrapper from "@modules/login"
 
@@ -10,13 +9,14 @@ export const metadata: Metadata = {
 type Params = {
   searchParams: {
     isLogin?: "1" | "0"
+    callbackUrl?: string
   }
 }
 
 export default function LoginPage({ searchParams }: Params) {
-  const { isLogin } = searchParams
+  const { isLogin, callbackUrl } = searchParams
   
   return (
-    <LoginWrapper isLogin={isLogin} />
+    <LoginWrapper callbackUrl={callbackUrl} isLogin={isLogin} />
   )
 }
