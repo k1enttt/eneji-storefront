@@ -21,11 +21,11 @@ const CartItem = ({
 
   return (
     <div className="cart-item">
-      <div className="">
+      <div className="w-1/3">
         <div className="cart-item-title">{item.title}</div>
         <div className="cart-item-price">{formatedCommaPrice(item.price)}đ</div>
       </div>
-      <div>
+      <div className="flex-1">
         <div className="cart-item-extra-infomation">
           {
             item.metadata.multi_select_option &&
@@ -40,7 +40,7 @@ const CartItem = ({
           Ghi chú: {item.metadata.order_note}
         </div>
       </div>
-      <div>
+      <div className="flex-none">
         <div className="mb-2">
           <CartCounter
             count={quantity}
