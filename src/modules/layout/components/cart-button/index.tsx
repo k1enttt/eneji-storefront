@@ -4,7 +4,9 @@ import { enrichLineItems, retrieveCart } from "@modules/cart/actions"
 
 import CartDropdown from "../cart-dropdown"
 import MyCartDropdown from "../cart-dropdown/my-cart"
+import { fetchCart } from "../cart-dropdown/actions"
 
+/*
 const fetchCart = async () => {
   const cart = await retrieveCart()
 
@@ -15,6 +17,7 @@ const fetchCart = async () => {
 
   return cart
 }
+*/
 
 export default async function CartButton() {
   const cart = await fetchCart()

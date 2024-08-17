@@ -15,6 +15,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Thumbnail from "@modules/products/components/thumbnail"
 import MyCartButton from "@modules/layout/templates/nav/my-cart-button"
 import CartDialog from "./cart-dialog"
+import { CartWithCheckoutStep } from "types/global"
 
 const sampleItemsList = [
   {
@@ -154,7 +155,7 @@ const sampleItemsList = [
 const MyCartDropdown = ({
   cart: cartState,
 }: {
-  cart?: Omit<Cart, "beforeInsert" | "afterLoad"> | null
+  cart?: CartWithCheckoutStep | null
 }) => {
   const [activeTimer, setActiveTimer] = useState<NodeJS.Timer | undefined>(
     undefined
@@ -360,7 +361,7 @@ const MyCartDropdown = ({
       {cartDialogOpen && (
         <CartDialog
           setIsPopoverOpen={setCartDialogOpen}
-          itemsList={sampleItemsList}
+          cartState={cartState}
         />
       )}
     </>

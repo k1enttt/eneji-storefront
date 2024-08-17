@@ -1,10 +1,15 @@
-import CartItem from "../cart-item";
+import { Cart, LineItem, Region } from "@medusajs/medusa"
+import CartItem from "../cart-item"
+import { CartWithCheckoutStep } from "types/global"
 
-const CartDialog = ({setIsPopoverOpen, itemsList} : {
-  setIsPopoverOpen: (value: boolean) => void,
-  itemsList: any[]
+const CartDialog = ({
+  setIsPopoverOpen,
+  cartState,
+}: {
+  setIsPopoverOpen: (value: boolean) => void
+  cartState?: CartWithCheckoutStep | null
 }) => {
-  return (     
+  return (
     <div className="overlay">
       <div className="cart-container">
         <div className="cart-nav">
@@ -16,11 +21,19 @@ const CartDialog = ({setIsPopoverOpen, itemsList} : {
         </div>
         <div className="cart-body">
           <div className="cart-items">
-            {
-              itemsList.length > 0 && itemsList.map((item) =>                     
-                <CartItem key={item.id} item={item} />
-              )
-            }
+            {cartState &&
+              cartState.items &&
+              cartState.items
+                .sort((a, b) => {
+                  return a.created_at > b.created_at ? -1 : 1
+                })
+                .map((item: any) => (
+                  <CartItem
+                    key={item.id}
+                    item={item}
+                    region={cartState.region}
+                  />
+                ))}
           </div>
           <div className="cart-order w-2/5">
             <div className="flex justify-between cart-order-total">
@@ -28,14 +41,16 @@ const CartDialog = ({setIsPopoverOpen, itemsList} : {
               <div className="cart-item-price">40.000đ</div>
             </div>
             <div className="flex cart-order-button">
-              <div className="flex-none font-normal text-sm leading-6">2 món</div>
+              <div className="flex-none font-normal text-sm leading-6">
+                2 món
+              </div>
               <div className="flex-1 font-[500] text-sm">Đặt đơn</div>
             </div>
           </div>
         </div>
       </div>
     </div>
- );
+  )
 }
- 
-export default CartDialog;
+
+export default CartDialog
