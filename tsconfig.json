@@ -31,7 +31,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/modules/products/textarea"  ],
+, "src/modules/products/textarea", "src/app/[countryCode]/(main)/reset-password/page.tss"  ],
   "exclude": [
     "node_modules",
     ".next",

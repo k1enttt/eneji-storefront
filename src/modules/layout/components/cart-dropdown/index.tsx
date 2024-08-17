@@ -79,13 +79,7 @@ const CartDropdown = ({
     >
       <Popover className="relative h-full">
         <Popover.Button className="h-full">
-          <LocalizedClientLink
-            className="hover:text-ui-fg-base"
-            href="/cart"
-            data-testid="nav-cart-link"
-          >
-            <MyCartButton cartNumber={totalItems} />
-          </LocalizedClientLink>
+          <MedusaCart totalItems={totalItems} />
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
@@ -223,3 +217,15 @@ const CartDropdown = ({
 }
 
 export default CartDropdown
+
+const MedusaCart = ({ totalItems }: { totalItems: number }) => {
+  return (
+    <LocalizedClientLink
+      className="hover:text-ui-fg-base"
+      href="/cart"
+      data-testid="nav-cart-link"
+    >
+      <MyCartButton cartNumber={totalItems} />
+    </LocalizedClientLink>
+  )
+}
