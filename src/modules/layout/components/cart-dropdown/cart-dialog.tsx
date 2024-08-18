@@ -5,6 +5,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { useState } from "react"
 import { deleteLineItem } from "@modules/cart/actions"
 import Spinner from "@modules/common/icons/spinner"
+import { clx } from "@medusajs/ui"
 
 const CartDialog = ({
   setIsPopoverOpen,
@@ -82,8 +83,9 @@ const CartDialog = ({
             >
               <button
                 type="button"
+                disabled={totalItems === 0}
                 onClick={() => {}}
-                className="flex cart-order-button"
+                className={clx("flex cart-order-button", totalItems === 0 && "opacity-50")}
               >
                 <div className="flex-none font-normal text-sm leading-6">
                   {totalItems} món
