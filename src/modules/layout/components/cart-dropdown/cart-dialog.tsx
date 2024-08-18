@@ -1,6 +1,7 @@
 import { LineItem } from "@medusajs/medusa"
 import CartItem from "../cart-item"
 import { formatVietnamPrice } from "@lib/util/format-price"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 const CartDialog = ({
   setIsPopoverOpen,
@@ -40,12 +41,21 @@ const CartDialog = ({
               </div>
             </div>
 
-            <div className="flex cart-order-button">
-              <div className="flex-none font-normal text-sm leading-6">
-                {totalItems} món
-              </div>
-              <div className="flex-1 font-[500] text-sm">Đặt đơn</div>
-            </div>
+            <LocalizedClientLink
+              href={"/checkout"}
+              data-testid="checkout-button"
+            >
+              <button
+                type="button"
+                onClick={() => {}}
+                className="flex cart-order-button"
+              >
+                <div className="flex-none font-normal text-sm leading-6">
+                  {totalItems} món
+                </div>
+                <div className="flex-1 font-[500] text-sm">Đặt đơn</div>
+              </button>
+            </LocalizedClientLink>
           </div>
         </div>
       </div>

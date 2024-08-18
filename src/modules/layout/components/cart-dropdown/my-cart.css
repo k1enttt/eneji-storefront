@@ -43,5 +43,5 @@
 }
 
 .cart-order-button {
-  @apply text-white bg-[#20419A] rounded-lg px-4 py-2 text-center
+  @apply text-white bg-[#20419A] rounded-lg px-4 py-2 text-center w-full
 }
