@@ -66,7 +66,7 @@ const CartDialog = ({
                   return a.created_at > b.created_at ? -1 : 1
                 })
                 .map((item: any) => <CartItem key={item.id} item={item} />)}
-            {(!items || items.length == 0) && <div className="text-sm font-[500] text-center py-4">Không có sản phẩm nào trong giỏ hàng</div>}
+            {(!items || items.length == 0) && <div className="text-sm font-[500] text-center py-4">Không có món nào trong giỏ hàng</div>}
           </div>
           <div className="cart-order">
             <div className="flex justify-between cart-order-total">

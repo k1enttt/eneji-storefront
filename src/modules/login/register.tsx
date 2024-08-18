@@ -54,6 +54,9 @@ const RegisterComponent = ({
         setMetadataUpdateMessage(res.error)
       }
     })
+
+    // Close register dialog
+    closeRegister()
   }
 
   return (

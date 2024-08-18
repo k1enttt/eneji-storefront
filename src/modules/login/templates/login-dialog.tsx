@@ -1,11 +1,11 @@
 "use client"
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import LoginComponent from "../login";
-import RegisterComponent from "../register";
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
+import LoginComponent from "../login"
+import RegisterComponent from "../register"
 
-const LoginDialog = ({closeDialog}:{closeDialog: () =>void}) => {
+const LoginDialog = ({closeDialog}:{closeDialog: () => void}) => {
   // Get search params 'isLogin' and 'callbackUrl' from the URL
   const searchParams = useSearchParams()
   const isLogin = searchParams.get("isLogin") || "1"
@@ -15,7 +15,6 @@ const LoginDialog = ({closeDialog}:{closeDialog: () =>void}) => {
 
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(isLogin == "1")
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(isLogin == "0")
-
 
   // Write functions to open and close the login and register dialogs
   const openLogin = () => {
@@ -54,11 +53,13 @@ const LoginDialog = ({closeDialog}:{closeDialog: () =>void}) => {
     }
   }, [isLogin])
 
-
-  return ( 
+  return (
     <div className="absolute top-0 left-0 w-full">
       {isLoginPopupOpen && (
-        <LoginComponent openRegister={openRegister} closeLogin={closeDialogAndRemoveParam} />
+        <LoginComponent
+          openRegister={openRegister}
+          closeLogin={closeDialogAndRemoveParam}
+        />
       )}
       {isRegisterPopupOpen && (
         <RegisterComponent
@@ -67,7 +68,7 @@ const LoginDialog = ({closeDialog}:{closeDialog: () =>void}) => {
         />
       )}
     </div>
-   );
+  )
 }
- 
-export default LoginDialog;
+
+export default LoginDialog

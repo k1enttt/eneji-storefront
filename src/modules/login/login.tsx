@@ -21,6 +21,7 @@ const LoginComponent = ({
   const handleSubmit = (payload: FormData) => {
     setIsSubmitting(true)
     formAction(payload)
+    closeLogin()
   }
 
   return (

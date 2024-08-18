@@ -9,6 +9,7 @@ import { Fragment, useEffect, useState } from "react"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
 import BurgerButton from "./burger-button"
+import LoginDialog from "@modules/login/templates/login-dialog"
 
 const SideMenuItems = {
   Home: "/",
@@ -37,12 +38,6 @@ const MySideMenu = ({
       <div className="flex items-center h-full">
         <Popover className="h-full flex">
           {({ open, close }) => {
-            const handleOpen = () => {
-              if (open && isLogin) {
-                return true;
-              }
-              return false;
-            }
             return (
               <>
                 <div className="relative flex h-full">
@@ -55,7 +50,7 @@ const MySideMenu = ({
                 </div>
 
                 <Transition
-                  show={handleOpen()}
+                  show={open && isLogin}
                   as={Fragment}
                   enter="transition ease-out duration-150"
                   enterFrom="opacity-0"
@@ -120,6 +115,24 @@ const MySideMenu = ({
                     </div>
                   </Popover.Panel>
                 </Transition>
+
+                {open && !isLogin && (
+                  <Popover.Panel>
+                    <LoginDialog closeDialog={close} />
+                  </Popover.Panel>
+                )}
+                {/* <Transition
+                  show={openSideMenu()}
+                  as={Fragment}
+                  enter="transition ease-out duration-150"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100 backdrop-blur-2xl"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 backdrop-blur-2xl"
+                  leaveTo="opacity-0"
+                >
+                  <LoginDialog closeDialog={() => setIsLoginDialogOpen(false)}/>
+                </Transition> */}
               </>
             )
           }}
