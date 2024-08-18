@@ -2,9 +2,9 @@
 
 import { Popover, Transition } from "@headlessui/react"
 import { ArrowRightMini, XMark } from "@medusajs/icons"
-import { Region } from "@medusajs/medusa"
+import { Customer, Region } from "@medusajs/medusa"
 import { Text, clx, useToggleState } from "@medusajs/ui"
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
@@ -18,16 +18,31 @@ const SideMenuItems = {
   Cart: "/cart",
 }
 
-const MySideMenu = ({ regions }: { regions: Region[] | null }) => {
+const MySideMenu = ({
+  regions,
+  customer,
+}: {
+  regions: Region[] | null
+  customer: Omit<Customer, "password_hash"> | null
+}) => {
   const toggleState = useToggleState()
+  const [isLogin, setIsLogin] = useState(!!customer)
+
+  useEffect(() => {
+    setIsLogin(!!customer)
+  }, [customer])
 
   return (
     <div className="h-full">
       <div className="flex items-center h-full">
         <Popover className="h-full flex">
           {({ open, close }) => {
-            const [isLogin, setIsLogin] = useState(false)
-
+            const handleOpen = () => {
+              if (open && isLogin) {
+                return true;
+              }
+              return false;
+            }
             return (
               <>
                 <div className="relative flex h-full">
@@ -40,7 +55,7 @@ const MySideMenu = ({ regions }: { regions: Region[] | null }) => {
                 </div>
 
                 <Transition
-                  show={open}
+                  show={handleOpen()}
                   as={Fragment}
                   enter="transition ease-out duration-150"
                   enterFrom="opacity-0"

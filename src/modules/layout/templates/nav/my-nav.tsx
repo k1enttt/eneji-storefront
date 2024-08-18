@@ -20,7 +20,7 @@ export default async function MyNav() {
     <div className="sticky top-0 inset-x-0 z-40 group">
       <header className="relative h-16 mx-auto duration-200 bg-[#1875F0]">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between gap-4 w-full h-full text-small-regular">
-          <MySideMenu regions={regions} />
+          <MySideMenu customer={customer} regions={regions} />
 
           <div className="flex flex-col justify-start w-full text-white">
             <div className="text-sm">Xin chào</div>
