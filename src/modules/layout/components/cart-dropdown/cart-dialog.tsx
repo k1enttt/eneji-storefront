@@ -2,6 +2,9 @@ import { LineItem } from "@medusajs/medusa"
 import CartItem from "../cart-item"
 import { formatVietnamPrice } from "@lib/util/format-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { useState } from "react"
+import { deleteLineItem } from "@modules/cart/actions"
+import Spinner from "@modules/common/icons/spinner"
 
 const CartDialog = ({
   setIsPopoverOpen,
@@ -14,6 +17,24 @@ const CartDialog = ({
   subtotal: number | undefined
   totalItems: number
 }) => {
+  const [isDeletingAll, setIsDeletingAll] = useState(false)
+
+  const handleDeleteAll = async () => {
+    if (items) {
+      setIsDeletingAll(true)
+      Promise.all(
+        items.map(async (item) => {
+          await deleteLineItem(item.id).then(() =>
+            console.log("Deleted", item.title)
+          )
+        })
+      ).finally(() => {
+        setIsDeletingAll(false)
+        setIsPopoverOpen(false)
+      })
+    }
+  }
+
   return (
     <div className="overlay">
       <div className="cart-container">
@@ -22,7 +43,20 @@ const CartDialog = ({
             <i className="fa-solid fa-times text-xl p-1"></i>
           </button>
           <div className="text-lg font-[500]">Giỏ hàng</div>
-          <div className="text-base font-normal text-red-600">Xóa</div>
+          <div className="w-7">
+            {isDeletingAll ? (
+              <div>
+                <Spinner />
+              </div>
+            ) : (
+              <button
+                onClick={handleDeleteAll}
+                className="text-base font-normal text-red-600"
+              >
+                Xóa
+              </button>
+            )}
+          </div>
         </div>
         <div className="cart-body">
           <div className="cart-items">
