@@ -3,7 +3,7 @@ import CartCounter from "../cart-counter"
 import { LineItem, Region } from "@medusajs/medusa"
 import { formatAmount } from "@lib/util/prices"
 import MyDeleteButton from "@modules/common/components/delete-button/my-delete-button"
-import { formatedCommaPrice } from "@lib/util/format-price"
+import { formatVietnamPrice } from "@lib/util/format-price"
 import { updateLineItem } from "@modules/cart/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 
@@ -28,7 +28,7 @@ const CartItem = ({ item }: { item: LineItem }) => {
         <div className="w-1/3">
           <div className="cart-item-title">{item.title}</div>
           <div className="cart-item-price">
-            {formatedCommaPrice(item.total || 0)}đ
+            {formatVietnamPrice(item.total || 0)}
           </div>
         </div>
         <div className="flex-1">

@@ -1,13 +1,17 @@
-import { Cart, LineItem, Region } from "@medusajs/medusa"
+import { LineItem } from "@medusajs/medusa"
 import CartItem from "../cart-item"
-import { CartWithCheckoutStep } from "types/global"
+import { formatVietnamPrice } from "@lib/util/format-price"
 
 const CartDialog = ({
   setIsPopoverOpen,
-  cartState,
+  items,
+  subtotal,
+  totalItems,
 }: {
   setIsPopoverOpen: (value: boolean) => void
-  cartState?: CartWithCheckoutStep | null
+  items: LineItem[] | undefined
+  subtotal: number | undefined
+  totalItems: number
 }) => {
   return (
     <div className="overlay">
@@ -21,22 +25,24 @@ const CartDialog = ({
         </div>
         <div className="cart-body">
           <div className="cart-items">
-            {cartState &&
-              cartState.items &&
-              cartState.items
+            {items &&
+              items
                 .sort((a, b) => {
                   return a.created_at > b.created_at ? -1 : 1
                 })
                 .map((item: any) => <CartItem key={item.id} item={item} />)}
           </div>
-          <div className="cart-order w-2/5">
+          <div className="cart-order">
             <div className="flex justify-between cart-order-total">
-              <div className="cart-item-title">Tổng cộng</div>
-              <div className="cart-item-price">40.000đ</div>
+              <div className="cart-item-title">Thành tiền</div>
+              <div className="cart-item-price">
+                {formatVietnamPrice(subtotal || 0)}
+              </div>
             </div>
+
             <div className="flex cart-order-button">
               <div className="flex-none font-normal text-sm leading-6">
-                2 món
+                {totalItems} món
               </div>
               <div className="flex-1 font-[500] text-sm">Đặt đơn</div>
             </div>

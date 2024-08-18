@@ -1,7 +1,7 @@
 import { Text, clx } from "@medusajs/ui"
 
 import { PriceType } from "../product-actions"
-import { formatedCommaPrice } from "@lib/util/format-price"
+import { formatVietnamPrice } from "@lib/util/format-price"
 
 export default function PreviewPrice({
   price,
@@ -18,11 +18,11 @@ export default function PreviewPrice({
       <div className="flex gap-x-1">
         {price.price_type === "sale" && (
           <Text className="text-sm line-through" data-testid="original-price">
-            {formatedCommaPrice(price.original_price_number)}đ
+            {formatVietnamPrice(price.original_price_number)}
           </Text>
         )}
         <Text className={"font-bold text-[#20419A]"} data-testid="price">
-          {formatedCommaPrice(price.calculated_price_number)}đ
+          {formatVietnamPrice(price.calculated_price_number)}
         </Text>
       </div>
     )
@@ -35,7 +35,7 @@ export default function PreviewPrice({
           className="line-through text-ui-fg-muted"
           data-testid="original-price"
         >
-          {formatedCommaPrice(price.original_price_number)}đ
+          {formatVietnamPrice(price.original_price_number)}
         </Text>
       )}
       <Text
@@ -44,7 +44,7 @@ export default function PreviewPrice({
         })}
         data-testid="price"
       >
-        {formatedCommaPrice(price.calculated_price_number)}đ
+        {formatVietnamPrice(price.calculated_price_number)}
       </Text>
     </>
   )

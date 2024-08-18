@@ -226,7 +226,9 @@ const MyCartDropdown = ({
       {cartDialogOpen && (
         <CartDialog
           setIsPopoverOpen={setCartDialogOpen}
-          cartState={cartState}
+          items={cartState?.items}
+          subtotal={cartState?.subtotal}
+          totalItems={totalItems}
         />
       )}
     </>

@@ -1,7 +1,7 @@
-export function formatedCommaPrice(price: number | undefined): string | undefined {
+export function formatVietnamPrice(price: number | undefined): string | undefined {
   if (price === undefined) {
     return undefined
   }
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + "đ"
 }
 
