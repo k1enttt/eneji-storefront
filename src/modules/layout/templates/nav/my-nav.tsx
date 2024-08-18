@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 
-import { listRegions } from "@lib/data"
+import { getCustomer, listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import MyCartButton from "./my-cart-button"
@@ -8,6 +8,13 @@ import MySideMenu from "@modules/layout/components/side-menu/my-side-menu"
 
 export default async function MyNav() {
   const regions = await listRegions().then((regions) => regions)
+  const customer = await getCustomer().catch(() => null)
+  const username = customer ? `${customer.last_name} ${customer.first_name}` : randomUsername()
+
+  function randomUsername() {
+    const randomInt = Math.floor(Math.random() * 1000)
+    return `User${randomInt}`
+  }
 
   return (
     <div className="sticky top-0 inset-x-0 z-40 group">
@@ -17,7 +24,7 @@ export default async function MyNav() {
 
           <div className="flex flex-col justify-start w-full text-white">
             <div className="text-sm">Xin chào</div>
-            <div className="text-xl">Tạ Thúc Trung Kiên</div>
+            <div className="text-xl">{username}</div>
           </div>
 
           <Suspense
