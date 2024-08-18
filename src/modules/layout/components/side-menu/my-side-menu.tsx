@@ -51,11 +51,13 @@ const MySideMenu = ({ regions }: { regions: Region[] | null }) => {
                     data-testid="nav-menu-popup"
                     className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
                   >
+                    {/* NÚT ĐÓNG */}
                     <div className="flex justify-end" id="xmark">
                       <button data-testid="close-menu-button" onClick={close}>
                         <XMark />
                       </button>
                     </div>
+                    {/* DANH SÁCH CÁC NÚT */}
                     <ul className="flex flex-col gap-6 items-start justify-start">
                       {Object.entries(SideMenuItems).map(([name, href]) => {
                         return (
@@ -72,7 +74,9 @@ const MySideMenu = ({ regions }: { regions: Region[] | null }) => {
                         )
                       })}
                     </ul>
+                    
                     <div className="flex flex-col gap-y-6">
+                      {/* SHIPPING COUNTRY */}
                       <div
                         className="flex justify-between"
                         onMouseEnter={toggleState.open}
@@ -91,6 +95,7 @@ const MySideMenu = ({ regions }: { regions: Region[] | null }) => {
                           )}
                         />
                       </div>
+                      {/* COPYRIGHT */}
                       <Text className="flex justify-between txt-compact-small">
                         © {new Date().getFullYear()} Medusa Store. All rights
                         reserved.
