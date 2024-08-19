@@ -132,4 +132,6 @@
   @apply text-sm text-[#475467]
 }
 
-
+.warning-text {
+  @apply txt-medium font-[500] bg-yellow-200 text-yellow-600 p-2 rounded-md my-2;
+}

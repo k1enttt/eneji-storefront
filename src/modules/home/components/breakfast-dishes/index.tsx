@@ -48,14 +48,8 @@ const BreakfastDishes = ({
     ) {
       return (
         <div className="content-container pb-4 lg:pb-6">
-          <div className="mb-4 lg:mb-6">
-            <Text className="txt-xlarge font-[500]">Món ăn bữa sáng 🌤️</Text>
-            <div className="flex justify-start">
-              <div className="txt-medium mr-1">Kết thúc trong </div>
-              <TimeBlock time="00:00:00" />
-            </div>
-          </div>
-          <Text className="txt-medium font-normal">Tạm ngưng phục vụ</Text>
+          <Text className="txt-xlarge font-[500]">Món ăn bữa sáng 🌤️</Text>
+          <Text className="warning-text">Tạm ngưng phục vụ</Text>
         </div>
       )
     }
@@ -80,16 +74,14 @@ const BreakfastDishes = ({
 
   return (
     <div className="content-container pb-4 lg:pb-6">
-      <div className="mb-4 lg:mb-6">
-        <Text className="txt-xlarge font-[500]">Món ăn bữa sáng 🌤️</Text>
-        <div className="flex justify-start">
-          <div className="txt-medium mr-1">Kết thúc trong </div>
-          <TimeBlock time={remainingTime} />
-        </div>
+      <Text className="txt-xlarge font-[500]">Món ăn bữa sáng 🌤️</Text>
+      <div className="flex justify-start">
+        <div className="txt-medium mr-1">Kết thúc trong </div>
+        <TimeBlock time={remainingTime} />
       </div>
-      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5">
-        {todayProducts.length > 0 &&
-          todayProducts.map((product, index) => (
+      {todayProducts.length > 0 && (
+        <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5 mt-4 lg:mt-6">
+          {todayProducts.map((product, index) => (
             <li key={product.id}>
               <DishPreview
                 dishPreview={product}
@@ -99,12 +91,11 @@ const BreakfastDishes = ({
               />
             </li>
           ))}
-        {todayProducts.length == 0 && (
-          <div className="font-normal text-base">
-            Không có món ăn nào cho hôm nay
-          </div>
-        )}
-      </ul>
+        </ul>
+      )}
+      {todayProducts.length == 0 && (
+        <Text className="warning-text">Không có món ăn nào cho hôm nay</Text>
+      )}
     </div>
   )
 }
@@ -200,18 +191,16 @@ const TomorrowBreakfast = ({
   )
   return (
     <div className="content-container pb-4 lg:pb-6">
-      <div className="mb-4 lg:mb-6">
-        <Text className="txt-xlarge font-[500]">
-          Món ăn bữa sáng tiếp theo 🌤️
-        </Text>
-        <div className="flex justify-start">
-          <div className="txt-medium mr-1">Bắt đầu trong </div>
-          <TimeBlock time={remainingTime} />
-        </div>
+      <Text className="txt-xlarge font-[500]">
+        Món ăn bữa sáng tiếp theo 🌤️
+      </Text>
+      <div className="flex justify-start">
+        <div className="txt-medium mr-1">Bắt đầu trong </div>
+        <TimeBlock time={remainingTime} />
       </div>
-      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5">
-        {products.length > 0 &&
-          products.map((product, index) => (
+      {products.length > 0 && (
+        <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5 mt-4 lg:mt-6">
+          {products.map((product, index) => (
             <li key={product.id}>
               <DishPreview
                 dishPreview={product}
@@ -221,14 +210,11 @@ const TomorrowBreakfast = ({
               />
             </li>
           ))}
-        {products.length == 0 && (
-          <div>
-            <Text className="txt-medium font-normal">
-              Không có món ăn nào cho ngày mai
-            </Text>
-          </div>
-        )}
-      </ul>
+        </ul>
+      )}
+      {products.length == 0 && (
+        <Text className="warning-text">Không có món ăn nào cho ngày mai!</Text>
+      )}
     </div>
   )
 }
