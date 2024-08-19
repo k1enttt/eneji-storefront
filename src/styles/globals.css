@@ -135,3 +135,33 @@
 .warning-text {
   @apply txt-medium font-[500] bg-yellow-200 text-yellow-600 p-2 rounded-md my-2;
 }
+
+/* CHECKOUT */  
+
+.checkout-wrapper {
+  @apply w-full bg-white relative small:min-h-screen;
+}
+
+.checkout-nav {
+  @apply h-16 bg-white border-b border-[#E4E7EC];
+}
+
+.checkout-nav-background {
+  @apply flex h-full items-center content-container justify-between;
+}
+
+.checkout-nav-back {
+  @apply flex items-center text-base w-8 h-8 flex-1 basis-0;
+}
+
+.checkout-nav-title {
+ @apply text-lg font-[500] leading-8 text-center;
+}
+
+.checkout-nav-whitespace {
+  @apply flex-1 basis-0;
+}
+
+.checkout-container {
+  @apply relative;
+}
