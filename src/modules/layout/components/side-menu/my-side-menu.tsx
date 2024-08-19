@@ -1,15 +1,14 @@
 "use client"
 
 import { Popover, Transition } from "@headlessui/react"
-import { ArrowRightMini, XMark } from "@medusajs/icons"
 import { Customer, Region } from "@medusajs/medusa"
-import { Text, clx, useToggleState } from "@medusajs/ui"
 import { Fragment, useEffect, useState } from "react"
 
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import CountrySelect from "../country-select"
 import BurgerButton from "./burger-button"
 import LoginDialog from "@modules/login/templates/login-dialog"
+import "./my-side-menu.css"
+import { useParams } from "next/navigation"
+import { signOut } from "@modules/account/actions"
 
 const SideMenuItems = {
   Home: "/",
@@ -20,14 +19,17 @@ const SideMenuItems = {
 }
 
 const MySideMenu = ({
-  regions,
   customer,
 }: {
   regions: Region[] | null
   customer: Omit<Customer, "password_hash"> | null
 }) => {
-  const toggleState = useToggleState()
   const [isLogin, setIsLogin] = useState(!!customer)
+  const { countryCode } = useParams() as { countryCode: string }
+
+  const handleLogout = async () => {
+    await signOut(countryCode)
+  }
 
   useEffect(() => {
     setIsLogin(!!customer)
@@ -54,63 +56,94 @@ const MySideMenu = ({
                   as={Fragment}
                   enter="transition ease-out duration-150"
                   enterFrom="opacity-0"
-                  enterTo="opacity-100 backdrop-blur-2xl"
+                  enterTo="opacity-100 backdrop-blur-lg"
                   leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 backdrop-blur-2xl"
+                  leaveFrom="opacity-100 backdrop-blur-lg"
                   leaveTo="opacity-0"
                 >
-                  <Popover.Panel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-30 inset-x-0 text-sm text-ui-fg-on-color m-2 backdrop-blur-2xl">
-                    <div
-                      data-testid="nav-menu-popup"
-                      className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
-                    >
-                      <div className="flex justify-end" id="xmark">
-                        <button data-testid="close-menu-button" onClick={close}>
-                          <XMark />
+                  <Popover.Panel className="menu-blur-background">
+                    <div className="menu-white-container">
+                      <div className="menu-header">
+                        <button onClick={close} className="menu-header-close">
+                          <i className="fa-solid fa-arrow-left"></i>
                         </button>
-                      </div>
-
-                      <ul className="flex flex-col gap-6 items-start justify-start">
-                        {Object.entries(SideMenuItems).map(([name, href]) => {
-                          return (
-                            <li key={name}>
-                              <LocalizedClientLink
-                                href={href}
-                                className="text-3xl leading-10 hover:text-ui-fg-disabled"
-                                onClick={close}
-                                data-testid={`${name.toLowerCase()}-link`}
-                              >
-                                {name}
-                              </LocalizedClientLink>
-                            </li>
-                          )
-                        })}
-                      </ul>
-
-                      <div className="flex flex-col gap-y-6">
-                        <div
-                          className="flex justify-between"
-                          onMouseEnter={toggleState.open}
-                          onMouseLeave={toggleState.close}
-                        >
-                          {regions && (
-                            <CountrySelect
-                              toggleState={toggleState}
-                              regions={regions}
-                            />
-                          )}
-                          <ArrowRightMini
-                            className={clx(
-                              "transition-transform duration-150",
-                              toggleState.state ? "-rotate-90" : ""
-                            )}
-                          />
+                        <div className="menu-header-title">
+                          Thông tin tài khoản
                         </div>
-
-                        <Text className="flex justify-between txt-compact-small">
-                          © {new Date().getFullYear()} Medusa Store. All rights
-                          reserved.
-                        </Text>
+                      </div>
+                      <div className="menu-account">
+                        <div className="menu-account-avatar"></div>
+                        <div className="menu-account-text">
+                          <div className="menu-account-text-name">
+                            Họ và tên
+                          </div>
+                          <div className="menu-account-text-email">
+                            hovaten@gmail.com
+                          </div>
+                        </div>
+                        <div className="menu-account-chevron">
+                          <i className="fa-solid fa-chevron-right"></i>
+                        </div>
+                      </div>
+                      <div className="menu-card">
+                        <div className="menu-card-label">Thẻ Eneji</div>
+                        <div className="menu-card-value">40.000 đ</div>
+                      </div>
+                      <div className="menu-features">
+                        <div className="menu-feature">
+                          <div className="menu-feature-icon">
+                            <i className="fa-solid fa-wallet"></i>
+                          </div>
+                          <div className="menu-feature-text">
+                            Quản lý thanh toán
+                          </div>
+                        </div>
+                        <div className="menu-divider-normal"></div>
+                        <div className="menu-feature">
+                          <div className="menu-feature-icon">
+                            <i className="fa-solid fa-phone-volume"></i>
+                          </div>
+                          <div className="menu-feature-text">
+                            Trung tâm hỗ trợ
+                          </div>
+                        </div>
+                        <div className="menu-divider-normal"></div>
+                        <div className="menu-feature">
+                          <div className="menu-feature-icon">
+                            <i className="fa-solid fa-clipboard"></i>
+                          </div>
+                          <div className="menu-feature-text">Đơn hàng</div>
+                        </div>
+                        <div className="menu-divider-normal"></div>
+                        <div className="menu-feature">
+                          <div className="menu-feature-icon">
+                            <i className="fa-solid fa-percent"></i>
+                          </div>
+                          <div className="menu-feature-text">Khuyến mãi</div>
+                        </div>
+                        <div className="menu-divider-normal"></div>
+                        <div className="menu-feature">
+                          <div className="menu-feature-icon">
+                            <i className="fa-solid fa-list-check"></i>
+                          </div>
+                          <div className="menu-feature-text">
+                            Điều khoản và chính sách
+                          </div>
+                        </div>
+                        <div className="menu-divider-big"></div>
+                        <div className="menu-feature">
+                          <div className="menu-feature-icon">
+                            <i className="fa-solid fa-lock"></i>
+                          </div>
+                          <div className="menu-feature-text">Đổi mật khẩu</div>
+                        </div>
+                        <div className="menu-divider-normal"></div>
+                      </div>
+                      <div className="menu-footer">
+                        <div className="menu-footer-version">
+                          App Version - V1.00
+                        </div>
+                        <button onClick={handleLogout} className="menu-footer-logout">Đăng xuất</button>
                       </div>
                     </div>
                   </Popover.Panel>
@@ -121,18 +154,6 @@ const MySideMenu = ({
                     <LoginDialog closeDialog={close} />
                   </Popover.Panel>
                 )}
-                {/* <Transition
-                  show={openSideMenu()}
-                  as={Fragment}
-                  enter="transition ease-out duration-150"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100 backdrop-blur-2xl"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 backdrop-blur-2xl"
-                  leaveTo="opacity-0"
-                >
-                  <LoginDialog closeDialog={() => setIsLoginDialogOpen(false)}/>
-                </Transition> */}
               </>
             )
           }}

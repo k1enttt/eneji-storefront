@@ -1,0 +1,87 @@
+.menu-blur-background {
+  @apply bg-black/50 fixed inset-0 z-50 pointer-events-none flex items-center justify-start;
+}
+
+.menu-white-container {
+  @apply bg-white text-black w-[35em] h-full pointer-events-auto pt-8 overflow-y-auto no-scrollbar rounded-none md:rounded-r-large;
+}
+
+.menu-header {
+  @apply flex justify-between items-center w-full px-8 py-2 mb-6 border-b border-b-[#F2F4F7] relative;
+}
+
+.menu-header-close {
+  @apply flex-none text-base mx-2 absolute;
+}
+
+.menu-header-title {
+  @apply flex-1 text-base leading-7 font-[500] text-center;
+}
+
+.menu-account {
+  @apply flex items-center gap-x-4 px-8 mb-6;
+}
+
+.menu-account-avatar {
+  @apply w-14 h-14 rounded-full bg-green-400 flex-none border border-[#20419A];
+}
+
+.menu-account-text {
+  @apply flex flex-col flex-1;
+}
+
+.menu-account-text-name {
+  @apply text-lg leading-8 font-[500];
+}
+
+.menu-account-text-email {
+  @apply text-base font-normal leading-7 text-[#475467];
+}
+
+.menu-account-chevron {
+  @apply flex-none text-base mx-2;
+}
+
+.menu-card {
+  @apply p-5 text-white bg-[#20419A] rounded-lg mx-8 mb-8;
+}
+
+.menu-card-label {
+  @apply text-sm leading-6 font-normal;
+}
+
+.menu-card-value {
+  @apply text-3xl leading-10 font-[500];
+}
+
+.menu-features {
+  @apply py-1 space-y-4;
+}
+
+.menu-feature {
+  @apply px-8 flex gap-x-2 items-center;
+}
+
+.menu-divider-normal {
+  @apply h-[1px] bg-[#F2F4F7];
+}
+
+.menu-divider-big {
+  @apply h-[0.5em] bg-[#F2F4F7];
+}
+
+.menu-feature-icon {
+  @apply text-base text-[#20419A] h-7 w-7 bg-[#060D1F]/[0.2] rounded-circle flex items-center justify-center;
+}
+
+.menu-feature-text {
+  @apply text-base leading-7 font-[500];
+}
+
+.menu-footer {
+  @apply flex items-center justify-between px-8 py-6
+}
+
+.menu-footer-logout {
+  @apply font-[500] leading-7 text-red-500
+}
