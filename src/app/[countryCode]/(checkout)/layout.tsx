@@ -9,7 +9,7 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="checkout-wrapper">
+    <div className="checkout">
       <div className="checkout-nav">
         <nav className="checkout-nav-background">
           <div className="checkout-nav-back">
@@ -19,7 +19,7 @@ export default function CheckoutLayout({
           <div className="checkout-nav-whitespace"></div>
         </nav>
       </div>
-      <div className="checkout-container">{children}</div>
+      <div className="checkout-body">{children}</div>
     </div>
   )
 }

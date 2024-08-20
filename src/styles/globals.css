@@ -136,9 +136,9 @@
   @apply txt-medium font-[500] bg-yellow-200 text-yellow-600 p-2 rounded-md my-2;
 }
 
-/* CHECKOUT */  
+/* CHECKOUT NAVBAR */  
 
-.checkout-wrapper {
+.checkout {
   @apply w-full bg-white relative small:min-h-screen;
 }
 
@@ -162,6 +162,116 @@
   @apply flex-1 basis-0;
 }
 
-.checkout-container {
+.checkout-body {
   @apply relative;
+}
+
+/* CHECKOUT BODY */
+
+.checkout-background {
+  @apply content-container flex flex-col md:flex-row gap-5 py-8;
+}
+
+.checkout-wrapper {
+  @apply w-full md:w-2/3;
+}
+
+.checkout-details {
+  @apply space-y-4;
+}
+
+.checkout-total {
+  @apply min-w-0 md:min-w-[26em];
+}
+
+.checkout-shipping-methods {
+  @apply flex items-center h-12;
+}
+
+.checkout-shipping-method {
+  @apply h-full flex-1 rounded-circle flex items-center justify-center;
+}
+
+.checkout-shipping-address {
+  @apply flex items-center
+}
+
+.checkout-heading {
+  @apply text-base font-[500]
+}
+
+.checkout-packing {
+  @apply space-y-3
+}
+
+.checkout-options {
+  @apply flex flex-col gap-2
+}
+
+.checkout-option {
+  @apply flex items-center gap-2
+}
+
+.checkout-option-label {
+  @apply flex-1 basis-0
+}
+
+.checkout-divider-normal {
+  @apply h-[1px] bg-[#F2F4F7]
+}
+
+.checkout-divider-big {
+  @apply h-2 bg-[#F2F4F7]
+}
+
+.checkout-dishes {
+  @apply space-y-3 
+}
+
+.checkout-dishes-list {
+  @apply flex flex-col gap-2
+}
+
+.checkout-dishes-line {
+  @apply flex items-center gap-2
+}
+
+.checkout-additional-dishes {
+  @apply space-y-3
+}
+
+.checkout-additional-dishes-list {
+  @apply flex gap-4 overflow-y-auto no-scrollbar
+}
+
+.checkout-additional-dishes-line {
+  @apply relative flex items-start gap-3 min-w-[16em]
+}
+
+.checkout-dish-image {
+  @apply h-24 w-24 bg-gray-400 rounded-md
+}
+
+.checkout-payment-method {
+  @apply space-y-3
+}
+
+.checkout-discount {
+  @apply space-y-3
+}
+
+.checkout-discount-code {
+  @apply flex gap-2
+}
+
+.checkout-discount-input{
+@apply flex-1 border border-[#F2F4F7] rounded-md px-3 py-2
+}
+
+.checkout-discount-button {
+  @apply px-4 py-2 bg-[#20419A] text-white rounded-md
+}
+
+.checkout-trading-condition {
+  @apply flex gap-2
 }

@@ -1,13 +1,16 @@
 import { Metadata } from "next"
 import { cookies } from "next/headers"
 import { notFound } from "next/navigation"
-import { LineItem } from "@medusajs/medusa"
+import { Cart, LineItem } from "@medusajs/medusa"
 
 import { enrichLineItems } from "@modules/cart/actions"
 import Wrapper from "@modules/checkout/components/payment-wrapper"
 import CheckoutForm from "@modules/checkout/templates/checkout-form"
 import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
 import { getCart } from "@lib/data"
+import MyCheckoutForm from "@modules/checkout/templates/checkout-form/my-checkout-form"
+import MyCheckoutSummary from "@modules/checkout/templates/checkout-summary/my-checkout-summary"
+import MyWrapper from "@modules/checkout/components/payment-wrapper/my-wrapper"
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -38,11 +41,24 @@ export default async function Checkout() {
   }
 
   return (
-    <div className="grid grid-cols-1 small:grid-cols-[1fr_416px] content-container gap-x-40 py-12">
+    <div className="checkout-background">
       <Wrapper cart={cart}>
-        <CheckoutForm />
+        <MyCheckoutForm />
       </Wrapper>
-      <CheckoutSummary />
+      <MyCheckoutSummary />
     </div>
   )
 }
+
+const MedusaCheckout = ({
+  cart,
+}: {
+  cart: Omit<Cart, "refundable_amount" | "refunded_total">
+}) => (
+  <div className="grid grid-cols-1 small:grid-cols-[1fr_416px] content-container gap-x-40 py-12">
+    <Wrapper cart={cart}>
+      <CheckoutForm />
+    </Wrapper>
+    <CheckoutSummary />
+  </div>
+)
