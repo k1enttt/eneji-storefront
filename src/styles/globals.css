@@ -168,8 +168,16 @@
 
 /* CHECKOUT BODY */
 
+.checkout-container {
+  @apply max-w-[1440px] w-full mx-auto px-0 md:px-8 lg:px-24;
+}
+
+.checkout-mobile-container {
+  @apply max-w-md md:max-w-[1440px] w-full px-4 md:px-0;
+}
+
 .checkout-background {
-  @apply content-container flex flex-col md:flex-row gap-5 py-8;
+  @apply flex flex-col md:flex-row gap-5 py-4 md:py-8 checkout-container;
 }
 
 .checkout-wrapper {
@@ -185,7 +193,7 @@
 }
 
 .checkout-shipping-methods {
-  @apply flex items-center h-12;
+  @apply flex items-center h-12 checkout-mobile-container;
 }
 
 .checkout-shipping-method {
@@ -193,7 +201,7 @@
 }
 
 .checkout-shipping-address {
-  @apply flex items-center
+  @apply flex items-center checkout-mobile-container
 }
 
 .checkout-heading {
@@ -201,7 +209,7 @@
 }
 
 .checkout-packing {
-  @apply space-y-3
+  @apply space-y-3 checkout-mobile-container
 }
 
 .checkout-options {
@@ -225,7 +233,7 @@
 }
 
 .checkout-dishes {
-  @apply space-y-3 
+  @apply space-y-3 checkout-mobile-container
 }
 
 .checkout-dishes-list {
@@ -237,7 +245,7 @@
 }
 
 .checkout-additional-dishes {
-  @apply space-y-3
+  @apply space-y-3 checkout-mobile-container
 }
 
 .checkout-additional-dishes-list {
@@ -253,11 +261,15 @@
 }
 
 .checkout-payment-method {
-  @apply space-y-3
+  @apply space-y-3 checkout-mobile-container
 }
 
 .checkout-discount {
-  @apply space-y-3
+  @apply space-y-3 checkout-mobile-container
+}
+
+.checkout-note {
+  @apply space-y-3 checkout-mobile-container
 }
 
 .checkout-discount-code {
@@ -273,5 +285,29 @@
 }
 
 .checkout-trading-condition {
-  @apply flex gap-2
+  @apply flex gap-2 checkout-mobile-container
+}
+
+.checkout-total {
+  @apply space-y-3
+}
+
+.checkout-total-line {
+  @apply flex items-center justify-between text-[#475467]
+}
+
+.checkout-total-sale {
+  @apply flex items-center justify-between text-[#20419A]
+}
+
+.checkout-total-subtotal {
+  @apply space-y-1 checkout-mobile-container
+}
+
+.checkout-total-final {
+  @apply flex items-center justify-between checkout-mobile-container
+}
+
+.checkout-total-submit {
+  @apply max-w-[1440px] mx-4 md:mx-0
 }

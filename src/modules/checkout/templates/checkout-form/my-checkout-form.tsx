@@ -268,8 +268,13 @@ const MyCheckoutForm = () => {
         <div>
           <i className="fa-solid fa-book text-[#20419A]"></i>
         </div>
-        <div>Bằng việc nhấn "Đặt đơn", bạn đồng ý tuân thủ theo <a className="text-[#20419A]">Điều kiện giao dịch</a> chung của Eneji Station</div>
+        <div>
+          Bằng việc nhấn "Đặt đơn", bạn đồng ý tuân thủ theo{" "}
+          <a className="text-[#20419A]">Điều kiện giao dịch</a> chung của Eneji
+          Station
+        </div>
       </div>
+      <div className="checkout-divider-normal md:hidden block"></div>
     </div>
   )
 }
