@@ -10,7 +10,6 @@ import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
 import { getCart } from "@lib/data"
 import MyCheckoutForm from "@modules/checkout/templates/checkout-form/my-checkout-form"
 import MyCheckoutSummary from "@modules/checkout/templates/checkout-summary/my-checkout-summary"
-import MyWrapper from "@modules/checkout/components/payment-wrapper/my-wrapper"
 
 export const metadata: Metadata = {
   title: "Checkout",

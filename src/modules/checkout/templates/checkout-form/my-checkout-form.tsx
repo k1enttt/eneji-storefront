@@ -1,109 +1,83 @@
-"use client"
+import {
+  createPaymentSessions,
+  getCustomer,
+  listCartShippingMethods,
+} from "@lib/data"
+import { getCheckoutStep } from "@lib/util/get-checkout-step"
 import { Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
-import { clx } from "@medusajs/ui"
-import CheckboxRound from "@modules/products/components/check-box/check-box-round"
+import MyItemsPreviewTemplate from "@modules/cart/templates/my-item-preview"
+import MyAddresses from "@modules/checkout/components/addresses/my-addresses"
+import MyNote from "@modules/checkout/components/note"
+import MyPacking from "@modules/checkout/components/packing"
+import MyPayment from "@modules/checkout/components/payment/my-payment"
+import MyShipping from "@modules/checkout/components/shipping/my-shipping"
 import AddButton from "@modules/products/components/dish-preview/add-button"
-import { useState } from "react"
+import { cookies } from "next/headers"
+import { CartWithCheckoutStep } from "types/global"
 
-const MyCheckoutForm = () => {
-  const [shippingMethod, setShippingMethod] = useState<
-    "giao-tan-noi" | "den-nha-hang"
-  >("giao-tan-noi")
-  const [packing, setPacking] = useState<"hop-giay" | "khong-hop-giay">(
-    "hop-giay"
+const MyCheckoutForm = async () => {
+  const cartId = cookies().get("_medusa_cart_id")?.value
+
+  if (!cartId) {
+    return null
+  }
+
+  // create payment sessions and get cart
+  const cart = (await createPaymentSessions(cartId).then(
+    (cart) => cart
+  )) as CartWithCheckoutStep
+
+  if (!cart) {
+    return null
+  }
+
+  cart.checkout_step = cart && getCheckoutStep(cart)
+
+  // get available shipping methods
+  const availableShippingMethods = await listCartShippingMethods(cart.id).then(
+    (methods) => methods?.filter((m) => !m.is_return)
   )
-  const [paymentMethod, setPaymentMethod] = useState<"cod" | "momo" | "eneji">(
-    "cod"
-  )
-  const [textareaContent, setTextareaContent] = useState("")
+
+  if (!availableShippingMethods) {
+    return null
+  }
+
+  // get customer if logged in
+  const customer = await getCustomer()
+
+  // Get checkout data
+  const shippingMethodId: string = availableShippingMethods
+    ? availableShippingMethods[0].name || ""
+    : ""
+  const shippingAddress: {
+    first_name: string
+    last_name: string
+    address_1: string
+    company: string
+    postal_code: string
+    city: string
+    country_code: string
+    province: string
+    email: string
+    phone: string
+  } = {} as any
 
   return (
     <div className="checkout-details">
-      <div className="checkout-shipping-methods">
-        <button
-          onClick={() => setShippingMethod("giao-tan-noi")}
-          className={clx(
-            "checkout-shipping-method",
-            shippingMethod == "giao-tan-noi"
-              ? "bg-[#20419A] text-white font-bold"
-              : "font-[500]"
-          )}
-        >
-          <div className="checkout-shipping-text">Giao tận nơi</div>
-        </button>
-        <button
-          onClick={() => setShippingMethod("den-nha-hang")}
-          className={clx(
-            "checkout-shipping-method",
-            shippingMethod == "den-nha-hang"
-              ? "bg-[#20419A] text-white font-bold"
-              : "font-[500]"
-          )}
-        >
-          <div className="checkout-shipping-text">Đến nhà hàng</div>
-        </button>
-      </div>
-      <div className="checkout-shipping-address">
-        <div className="flex-1">
-          <div className="text-sm text-[#475467]">Địa chỉ</div>
-          <div>2/29 Cao Thắng, Phường 05, Quận 3, TP.HCM</div>
-        </div>
-        <div className="flex-none text-base h-6 w-6 flex items-center justify-center">
-          <i className="fa-solid fa-chevron-right"></i>
-        </div>
-      </div>
+      <MyShipping
+        cart={cart}
+        availableShippingMethods={availableShippingMethods}
+        className="checkout-shipping-methods"
+      />
+      <MyAddresses className="checkout-shipping-address" />
+
       <div className="checkout-divider-big"></div>
-      <div className="checkout-packing">
-        <div className="checkout-heading">Chọn cách đóng gói</div>
-        <div className="checkout-options">
-          <div className="checkout-option">
-            <CheckboxRound
-              checked={packing == "hop-giay"}
-              onChange={() =>
-                packing == "khong-hop-giay" && setPacking("hop-giay")
-              }
-            />
-            <div className="checkout-option-label">Hộp giấy</div>
-            <div>+10.000đ</div>
-          </div>
-          <div className="checkout-divider-normal"></div>
-          <div className="checkout-option">
-            <CheckboxRound
-              checked={packing == "khong-hop-giay"}
-              onChange={() =>
-                packing == "hop-giay" && setPacking("khong-hop-giay")
-              }
-            />
-            <div className="checkout-option-label">Khay ăn</div>
-            <div>0đ</div>
-          </div>
-        </div>
-      </div>
+      <MyPacking className="checkout-packing" />
+
       <div className="checkout-divider-big"></div>
-      <div className="checkout-dishes">
-        <div className="checkout-heading">Món ăn</div>
-        <div className="checkout-dishes-list">
-          <div className="checkout-dishes-line">
-            <div>1x</div>
-            <div className="flex-1 base-0">
-              <div>Gà quay sốt nấm - Su xào - Canh</div>
-              <div className="text-sm text-[#475467]">Topping: bánh mì</div>
-              <div className="text-sm text-[#475467]">Ghi chú: không hành</div>
-            </div>
-            <div>40.000đ</div>
-          </div>
-          <div className="checkout-divider-normal"></div>
-          <div className="checkout-dishes-line">
-            <div>1x</div>
-            <div className="flex-1 base-0">
-              <div>Bánh mì kẹp</div>
-            </div>
-            <div>40.000đ</div>
-          </div>
-        </div>
-        <div className="text-sm text-[#20419A] font-[500]">Thêm món</div>
-      </div>
+      <MyItemsPreviewTemplate items={cart.items} className="checkout-dishes" />
+      
       <div className="checkout-divider-big"></div>
       <div className="checkout-additional-dishes">
         <div className="checkout-heading">Chọn thêm món</div>
@@ -196,47 +170,8 @@ const MyCheckoutForm = () => {
         <div className="text-sm text-[#20419A] font-[500]">Thêm món</div>
       </div>
       <div className="checkout-divider-big"></div>
-      <div className="checkout-payment-method">
-        <div className="checkout-heading">Phương thức thanh toán</div>
-        <div className="checkout-options">
-          <div className="checkout-option">
-            <CheckboxRound
-              checked={paymentMethod == "cod"}
-              onChange={() => paymentMethod != "cod" && setPaymentMethod("cod")}
-            />
-            <div className="checkout-option-label">Tiền mặt (COD)</div>
-            <div>
-              <i className="fa-solid fa-money-bill"></i>
-            </div>
-          </div>
-          <div className="checkout-divider-normal"></div>
-          <div className="checkout-option">
-            <CheckboxRound
-              checked={paymentMethod == "momo"}
-              onChange={() =>
-                paymentMethod != "momo" && setPaymentMethod("momo")
-              }
-            />
-            <div className="checkout-option-label">Momo</div>
-            <div>
-              <i className="fa-solid fa-wallet text-[#A50064]"></i>
-            </div>
-          </div>
-          <div className="checkout-divider-normal"></div>
-          <div className="checkout-option">
-            <CheckboxRound
-              checked={paymentMethod == "eneji"}
-              onChange={() =>
-                paymentMethod != "eneji" && setPaymentMethod("eneji")
-              }
-            />
-            <div className="checkout-option-label">Thẻ Eneji</div>
-            <div>
-              <i className="fa-solid fa-coins text-[#F79009]"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MyPayment className="checkout-payment-method" />
+
       <div className="checkout-divider-big"></div>
       <div className="checkout-discount">
         <div className="checkout-heading">Nhập mã khuyến mãi</div>
@@ -250,19 +185,8 @@ const MyCheckoutForm = () => {
         </div>
       </div>
       <div className="checkout-divider-normal"></div>
-      <div className="checkout-note">
-        <div className="flex gap-x-2 items-end justify-start">
-          <div className="checkout-heading">Ghi chú</div>
-          <div className="bullet leading-6"></div>
-          <div className="text-sm leading-6">Không bắt buộc</div>
-        </div>
-        <textarea
-          value={textareaContent}
-          onChange={(e) => setTextareaContent(e.target.value)}
-          placeholder="Gửi lời nhắn đến nhà hàng!"
-          className="w-full h-20 p-2 border border-[#F2F4F7] rounded-md"
-        ></textarea>
-      </div>
+      <MyNote className="checkout-note" />
+
       <div className="checkout-divider-normal"></div>
       <div className="checkout-trading-condition">
         <div>

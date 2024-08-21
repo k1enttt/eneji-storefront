@@ -151,7 +151,7 @@
 }
 
 .checkout-nav-back {
-  @apply flex items-center text-base w-8 h-8 flex-1 basis-0;
+  @apply flex items-center text-base w-8 h-8;
 }
 
 .checkout-nav-title {

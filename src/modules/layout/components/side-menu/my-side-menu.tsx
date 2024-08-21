@@ -8,7 +8,7 @@ import BurgerButton from "./burger-button"
 import LoginDialog from "@modules/login/templates/login-dialog"
 import "./my-side-menu.css"
 import { useParams } from "next/navigation"
-import { signOut } from "@modules/account/actions"
+import { mySignOut } from "@modules/account/actions"
 
 const SideMenuItems = {
   Home: "/",
@@ -28,7 +28,7 @@ const MySideMenu = ({
   const { countryCode } = useParams() as { countryCode: string }
 
   const handleLogout = async () => {
-    await signOut(countryCode)
+    await mySignOut(countryCode)
   }
 
   useEffect(() => {

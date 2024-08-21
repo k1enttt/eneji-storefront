@@ -91,3 +91,5 @@ export type Option = {
   price: number
   selected: boolean
 }
+
+export type MultiSelectOption = { label: string; selected: boolean }

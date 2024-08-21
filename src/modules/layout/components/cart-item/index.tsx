@@ -6,6 +6,7 @@ import MyDeleteButton from "@modules/common/components/delete-button/my-delete-b
 import { formatVietnamPrice } from "@lib/util/format-price"
 import { updateLineItem } from "@modules/cart/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
+import { MultiSelectOption } from "types/global"
 
 const CartItem = ({ item }: { item: LineItem }) => {
   const [quantity, setQuantity] = useState(item.quantity || 0)
@@ -13,7 +14,7 @@ const CartItem = ({ item }: { item: LineItem }) => {
 
   const { order_note, multi_select_option } = item.metadata as {
     order_note: string
-    multi_select_option: { label: string; selected: boolean }[]
+    multi_select_option: MultiSelectOption[]
   }
 
   const options = multi_select_option
