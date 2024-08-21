@@ -1,9 +1,9 @@
 "use client"
-import { Cart, Customer } from "@medusajs/medusa"
+import { Cart } from "@medusajs/medusa"
 import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing"
-import { Button, clx, RadioGroup } from "@medusajs/ui"
-import { useParams } from "next/navigation"
-import { useState } from "react"
+import { clx } from "@medusajs/ui"
+import { useEffect, useState } from "react"
+import { setShippingMethod } from "@modules/checkout/actions"
 
 type ShippingProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
@@ -19,32 +19,48 @@ const MyShipping: React.FC<ShippingProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const params = useParams()
+  const [shippingMethodState, setShippingMethodState] = useState<
+    string | undefined
+  >(availableShippingMethods ? availableShippingMethods[0].id : undefined)
 
-  const countryCode = params.countryCode as string
+  const set = async (id: string) => {
+    setIsLoading(true)
+    await setShippingMethod(id)
+      .then(() => {
+        setIsLoading(false)
+        setShippingMethodState(id)
+      })
+      .catch((err) => {
+        setError(err.toString())
+        setIsLoading(false)
+      })
+  }
 
-  const availableShippingMethodNames =
-    availableShippingMethods?.map((method) => method.name) || []
+  const handleChange = (value: string) => {
+    set(value)
+  }
 
-  const [shippingMethod, setShippingMethod] = useState<string | undefined>(
-    availableShippingMethodNames[0]
-  )
+  useEffect(() => {
+    console.error(error)
+  }, [error])
 
   return (
-    <div className={className || ""}>
-      {availableShippingMethodNames.map((method) => (
-        <button
-          onClick={() => setShippingMethod(method)}
-          className={clx(
-            "checkout-shipping-method",
-            shippingMethod == method
-              ? "bg-[#20419A] text-white font-bold"
-              : "font-[500]"
-          )}
-        >
-          <div className="checkout-shipping-text">{method}</div>
-        </button>
-      ))}
+    <div className={clx(className || "", isLoading && "opacity-50")}>
+      {availableShippingMethods &&
+        availableShippingMethods.map((method) => (
+          <button
+            disabled={isLoading}
+            onClick={() => method.id && handleChange(method.id)}
+            className={clx(
+              "checkout-shipping-method",
+              shippingMethodState == method.id
+                ? "bg-[#20419A] text-white font-bold"
+                : "font-[500]"
+            )}
+          >
+            <div className="checkout-shipping-text">{method.name}</div>
+          </button>
+        ))}
     </div>
   )
 }

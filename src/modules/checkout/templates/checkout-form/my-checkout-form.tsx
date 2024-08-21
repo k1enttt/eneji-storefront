@@ -46,23 +46,6 @@ const MyCheckoutForm = async () => {
   // get customer if logged in
   const customer = await getCustomer()
 
-  // Get checkout data
-  const shippingMethodId: string = availableShippingMethods
-    ? availableShippingMethods[0].name || ""
-    : ""
-  const shippingAddress: {
-    first_name: string
-    last_name: string
-    address_1: string
-    company: string
-    postal_code: string
-    city: string
-    country_code: string
-    province: string
-    email: string
-    phone: string
-  } = {} as any
-
   return (
     <div className="checkout-details">
       <MyShipping
