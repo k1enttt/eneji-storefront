@@ -181,11 +181,7 @@
 }
 
 .checkout-wrapper {
-  @apply w-full md:w-2/3;
-}
-
-.checkout-details {
-  @apply space-y-4;
+  @apply w-full md:w-2/3 space-y-4;
 }
 
 .checkout-total {
@@ -201,7 +197,7 @@
 }
 
 .checkout-shipping-address {
-  @apply flex items-center checkout-mobile-container
+  @apply flex flex-col items-start gap-2 checkout-mobile-container
 }
 
 .checkout-heading {

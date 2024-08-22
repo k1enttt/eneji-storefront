@@ -6,14 +6,12 @@ import { useEffect, useState } from "react"
 import { setShippingMethod } from "@modules/checkout/actions"
 
 type ShippingProps = {
-  cart: Omit<Cart, "refundable_amount" | "refunded_total">
   availableShippingMethods: PricedShippingOption[] | null
   className?: string
 }
 
 const MyShipping: React.FC<ShippingProps> = ({
   className,
-  cart,
   availableShippingMethods,
 }) => {
   const [isLoading, setIsLoading] = useState(false)

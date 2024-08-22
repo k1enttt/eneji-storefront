@@ -7,6 +7,7 @@ import Divider from "@modules/common/components/divider"
 import { cookies } from "next/headers"
 import { getCart } from "@lib/data"
 
+/** Dùng để hiển thị thông tin tiền thanh toán và nút đặt đơn */
 const CheckoutSummary = async () => {
   const cartId = cookies().get("_medusa_cart_id")?.value
 

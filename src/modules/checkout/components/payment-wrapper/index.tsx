@@ -19,6 +19,7 @@ const stripePromise = stripeKey ? loadStripe(stripeKey) : null
 
 const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
 
+/** Dùng để cung cấp payment session cho component con */
 const Wrapper: React.FC<WrapperProps> = ({ cart, children }) => {
   const paymentSession = cart.payment_session as PaymentSession
 

@@ -1,66 +1,58 @@
+import { Customer, Region } from "@medusajs/medusa"
 import {
-  createPaymentSessions,
-  getCustomer,
-  listCartShippingMethods,
-} from "@lib/data"
-import { getCheckoutStep } from "@lib/util/get-checkout-step"
-import { Region } from "@medusajs/medusa"
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+  PricedProduct,
+  PricedShippingOption,
+} from "@medusajs/medusa/dist/types/pricing"
 import MyItemsPreviewTemplate from "@modules/cart/templates/my-item-preview"
-import MyAddresses from "@modules/checkout/components/addresses/my-addresses"
+import MyShippingAddresses from "@modules/checkout/components/shipping-address/my-shipping-addresses"
 import MyNote from "@modules/checkout/components/note"
 import MyPacking from "@modules/checkout/components/packing"
 import MyPayment from "@modules/checkout/components/payment/my-payment"
 import MyShipping from "@modules/checkout/components/shipping/my-shipping"
 import AddButton from "@modules/products/components/dish-preview/add-button"
-import { cookies } from "next/headers"
 import { CartWithCheckoutStep } from "types/global"
+import { Dispatch, SetStateAction } from "react"
 
-const MyCheckoutForm = async () => {
-  const cartId = cookies().get("_medusa_cart_id")?.value
-
-  if (!cartId) {
-    return null
-  }
-
-  // create payment sessions and get cart
-  const cart = (await createPaymentSessions(cartId).then(
-    (cart) => cart
-  )) as CartWithCheckoutStep
-
+const MyCheckoutForm = ({
+  setFormData,
+  formData,
+  cart,
+  customer,
+  availableShippingMethods,
+}: {
+  formData: any
+  setFormData: Dispatch<SetStateAction<any>>
+  cart: CartWithCheckoutStep | undefined
+  customer: Omit<Customer, "password_hash"> | null
+  availableShippingMethods: PricedShippingOption[] | undefined
+}) => {
   if (!cart) {
     return null
   }
-
-  cart.checkout_step = cart && getCheckoutStep(cart)
-
-  // get available shipping methods
-  const availableShippingMethods = await listCartShippingMethods(cart.id).then(
-    (methods) => methods?.filter((m) => !m.is_return)
-  )
 
   if (!availableShippingMethods) {
     return null
   }
 
-  // get customer if logged in
-  const customer = await getCustomer()
-
   return (
-    <div className="checkout-details">
+    <div className="checkout-wrapper">
       <MyShipping
-        cart={cart}
         availableShippingMethods={availableShippingMethods}
         className="checkout-shipping-methods"
       />
-      <MyAddresses className="checkout-shipping-address" />
+      <MyShippingAddresses
+        customer={customer}
+        formData={formData}
+        setFormData={setFormData}
+        className="checkout-shipping-address"
+      />
 
       <div className="checkout-divider-big"></div>
       <MyPacking className="checkout-packing" />
 
       <div className="checkout-divider-big"></div>
       <MyItemsPreviewTemplate items={cart.items} className="checkout-dishes" />
-      
+
       <div className="checkout-divider-big"></div>
       <div className="checkout-additional-dishes">
         <div className="checkout-heading">Chọn thêm món</div>

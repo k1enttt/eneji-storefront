@@ -11,6 +11,7 @@ import Shipping from "@modules/checkout/components/shipping"
 import { cookies } from "next/headers"
 import { CartWithCheckoutStep } from "types/global"
 
+/** Dùng để điển các thông tin giao hàng và thanh toán */
 export default async function CheckoutForm() {
   const cartId = cookies().get("_medusa_cart_id")?.value
 

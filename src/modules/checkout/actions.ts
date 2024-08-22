@@ -145,6 +145,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
       phone: formData.get("billing_address.phone"),
     } as StorePostCartsCartReq
 
+  console.log("cart data", data)
   try {
     await updateCart(cartId, data)
     revalidateTag("cart")

@@ -7,9 +7,13 @@ import { enrichLineItems } from "@modules/cart/actions"
 import Wrapper from "@modules/checkout/components/payment-wrapper"
 import CheckoutForm from "@modules/checkout/templates/checkout-form"
 import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
-import { getCart } from "@lib/data"
-import MyCheckoutForm from "@modules/checkout/templates/checkout-form/my-checkout-form"
-import MyCheckoutSummary from "@modules/checkout/templates/checkout-summary/my-checkout-summary"
+import {
+  getCart,
+  getCustomer,
+  listCartShippingMethods,
+} from "@lib/data"
+import { CartWithCheckoutStep } from "types/global"
+import MyCheckout from "@modules/checkout/components/my-checkout"
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -39,12 +43,20 @@ export default async function Checkout() {
     return notFound()
   }
 
+  // get available shipping methods
+  const availableShippingMethods = await listCartShippingMethods(cart.id).then(
+    (methods) => methods?.filter((m) => !m.is_return)
+  )
+
+  // get customer if logged in
+  const customer = await getCustomer()
+
   return (
     <div className="checkout-background">
-      <Wrapper cart={cart}>
-        <MyCheckoutForm />
-      </Wrapper>
-      <MyCheckoutSummary />
+      <MyCheckout
+        cart={cart as CartWithCheckoutStep}
+        customer={customer}
+        availableShippingMethods={availableShippingMethods} />
     </div>
   )
 }

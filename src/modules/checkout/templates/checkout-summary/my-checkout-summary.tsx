@@ -1,4 +1,4 @@
-const MyCheckoutSummary = () => {
+const MyCheckoutSummary = ({formData}:{formData: any}) => {
   return (
     <div className="checkout-total">
       <div className="checkout-total-subtotal">
@@ -21,7 +21,7 @@ const MyCheckoutSummary = () => {
         <div className="font-bold text-[#20419A]">40.000đ</div>
       </div>
       <div className="checkout-total-submit">
-        <button className="bg-[#20419A] w-full text-white py-2 px-3 rounded-md font-[500] flex items-center justify-center">Đặt đơn</button>
+        <button type="submit" className="bg-[#20419A] w-full text-white py-2 px-3 rounded-md font-[500] flex items-center justify-center">Đặt đơn</button>
       </div>
     </div>
   )
