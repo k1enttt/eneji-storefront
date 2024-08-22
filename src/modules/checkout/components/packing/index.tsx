@@ -1,11 +1,35 @@
 "use client"
 import CheckboxRound from "@modules/products/components/check-box/check-box-round"
-import { useState } from "react"
+import { Dispatch, useEffect, useState } from "react"
 
-const MyPacking = ({ className }: { className?: string }) => {
-  const [packing, setPacking] = useState<"hop-giay" | "khong-hop-giay">(
+const MyPacking = ({
+  className,
+  formData,
+  setFormData,
+}: {
+  className?: string
+  formData: any
+  setFormData: Dispatch<any>
+}) => {
+  const [packing, setPacking] = useState<"hop-giay" | "khay-an">(
     "hop-giay"
   )
+
+  const handleChange = (value: string) => {
+    setPacking(value as "hop-giay" | "khay-an")
+    setFormData({
+      ...formData,
+      "metadata.packing": value,
+    })
+    console.log("Packing changed to: ", formData["metadata.packing"])
+  }
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      "metadata.packing": packing,
+    })
+  }, [])
 
   return (
     <div className={className || ""}>
@@ -15,7 +39,7 @@ const MyPacking = ({ className }: { className?: string }) => {
           <CheckboxRound
             checked={packing == "hop-giay"}
             onChange={() =>
-              packing == "khong-hop-giay" && setPacking("hop-giay")
+              packing == "khay-an" && handleChange("hop-giay")
             }
           />
           <div className="checkout-option-label">Hộp giấy</div>
@@ -24,9 +48,9 @@ const MyPacking = ({ className }: { className?: string }) => {
         <div className="checkout-divider-normal"></div>
         <div className="checkout-option">
           <CheckboxRound
-            checked={packing == "khong-hop-giay"}
+            checked={packing == "khay-an"}
             onChange={() =>
-              packing == "hop-giay" && setPacking("khong-hop-giay")
+              packing == "hop-giay" && handleChange("khay-an")
             }
           />
           <div className="checkout-option-label">Khay ăn</div>

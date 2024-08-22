@@ -23,10 +23,7 @@ const MyShippingAddresses: React.FC<MyShippingAddressesProps> = ({
       ...formData,
       [e.target.name]: e.target.value,
     })
-    console.log("form changed", `[${e.target.name}]: ${e.target.value}`)
   }
-
-  const [text, setText] = useState("")
 
   //TODO: Dùng 'customer' để lấy sổ địa chỉ đã lưu của khách hàng
 

@@ -96,7 +96,7 @@ export async function addToCart({
     return "Missing product variant ID"
   }
 
-  console.log("Line item", {
+  console.log("A item added to cart", {
     cartId: cart.id,
     variantId,
     quantity,

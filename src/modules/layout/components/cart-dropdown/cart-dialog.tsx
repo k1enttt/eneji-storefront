@@ -26,7 +26,7 @@ const CartDialog = ({
       Promise.all(
         items.map(async (item) => {
           await deleteLineItem(item.id).then(() =>
-            console.log("Deleted", item.title)
+            console.log("A item is deleted: ", item.title)
           )
         })
       ).finally(() => {

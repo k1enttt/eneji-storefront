@@ -35,16 +35,6 @@ const RegisterComponent = ({
       return
     }
 
-    console.log({
-      first_name: payload.get("first_name"),
-      last_name: payload.get("last_name"),
-      email: payload.get("email"),
-      password: payload.get("password"),
-      employee_code: payload.get("employee_code"),
-      phone: payload.get("phone"),
-      branch: payload.get("branch"),
-    })
-
     // Register customer
     formAction(payload)
 

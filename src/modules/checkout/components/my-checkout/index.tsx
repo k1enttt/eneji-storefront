@@ -23,6 +23,8 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
     "shipping_address.address_1": cart?.shipping_address?.address_1 || "",
     "shipping_address.country_code": "vn",
     "shipping_address.phone": cart?.shipping_address?.phone || "",
+    "metadata.packing": "",
+    "metadata.order_note": "",
   })
 
   return (

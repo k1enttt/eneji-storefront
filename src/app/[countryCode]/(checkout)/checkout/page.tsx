@@ -43,6 +43,8 @@ export default async function Checkout() {
     return notFound()
   }
 
+  console.log("Cart", cart)
+
   // get available shipping methods
   const availableShippingMethods = await listCartShippingMethods(cart.id).then(
     (methods) => methods?.filter((m) => !m.is_return)

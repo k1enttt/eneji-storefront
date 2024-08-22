@@ -11,7 +11,7 @@ import MyPayment from "@modules/checkout/components/payment/my-payment"
 import MyShipping from "@modules/checkout/components/shipping/my-shipping"
 import AddButton from "@modules/products/components/dish-preview/add-button"
 import { CartWithCheckoutStep } from "types/global"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch } from "react"
 
 const MyCheckoutForm = ({
   setFormData,
@@ -21,7 +21,7 @@ const MyCheckoutForm = ({
   availableShippingMethods,
 }: {
   formData: any
-  setFormData: Dispatch<SetStateAction<any>>
+  setFormData: Dispatch<any>
   cart: CartWithCheckoutStep | undefined
   customer: Omit<Customer, "password_hash"> | null
   availableShippingMethods: PricedShippingOption[] | undefined
@@ -48,7 +48,7 @@ const MyCheckoutForm = ({
       />
 
       <div className="checkout-divider-big"></div>
-      <MyPacking className="checkout-packing" />
+      <MyPacking formData={formData} setFormData={setFormData} className="checkout-packing" />
 
       <div className="checkout-divider-big"></div>
       <MyItemsPreviewTemplate items={cart.items} className="checkout-dishes" />

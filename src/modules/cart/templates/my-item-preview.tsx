@@ -9,7 +9,6 @@ const MyItemsPreviewTemplate = ({
   className?: string
   items: LineItem[]
 }) => {
-  console.log(items)
   /*
   title
   description
