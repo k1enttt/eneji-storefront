@@ -21,7 +21,6 @@ const MyPacking = ({
       ...formData,
       "metadata.packing": value,
     })
-    console.log("Packing changed to: ", formData["metadata.packing"])
   }
 
   useEffect(() => {

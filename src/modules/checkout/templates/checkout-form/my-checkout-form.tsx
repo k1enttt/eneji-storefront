@@ -12,6 +12,7 @@ import MyShipping from "@modules/checkout/components/shipping/my-shipping"
 import AddButton from "@modules/products/components/dish-preview/add-button"
 import { CartWithCheckoutStep } from "types/global"
 import { Dispatch } from "react"
+import MyDiscountCode from "@modules/checkout/components/discount-code/my-discount-code"
 
 const MyCheckoutForm = ({
   setFormData,
@@ -34,8 +35,10 @@ const MyCheckoutForm = ({
     return null
   }
 
+  console.log("Cart at Checkout form", cart)
+
   return (
-    <div className="checkout-wrapper">
+    <>
       <MyShipping
         availableShippingMethods={availableShippingMethods}
         className="checkout-shipping-methods"
@@ -145,20 +148,11 @@ const MyCheckoutForm = ({
         <div className="text-sm text-[#20419A] font-[500]">Thêm món</div>
       </div>
       <div className="checkout-divider-big"></div>
-      <MyPayment className="checkout-payment-method" />
+      <MyPayment cart={cart} className="checkout-payment-method" />
 
       <div className="checkout-divider-big"></div>
-      <div className="checkout-discount">
-        <div className="checkout-heading">Nhập mã khuyến mãi</div>
-        <div className="checkout-discount-code">
-          <input
-            type="text"
-            placeholder="Hãy nhập mã"
-            className="checkout-discount-input"
-          />
-          <button className="checkout-discount-button">Áp dụng</button>
-        </div>
-      </div>
+      <MyDiscountCode cart={cart} className="checkout-discount" />
+      
       <div className="checkout-divider-normal"></div>
       <MyNote className="checkout-note" />
 
@@ -174,7 +168,7 @@ const MyCheckoutForm = ({
         </div>
       </div>
       <div className="checkout-divider-normal md:hidden block"></div>
-    </div>
+    </>
   )
 }
 

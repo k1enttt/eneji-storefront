@@ -8,6 +8,7 @@ import Wrapper from "@modules/checkout/components/payment-wrapper"
 import CheckoutForm from "@modules/checkout/templates/checkout-form"
 import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
 import {
+  createPaymentSessions,
   getCart,
   getCustomer,
   listCartShippingMethods,
@@ -43,8 +44,6 @@ export default async function Checkout() {
     return notFound()
   }
 
-  console.log("Cart", cart)
-
   // get available shipping methods
   const availableShippingMethods = await listCartShippingMethods(cart.id).then(
     (methods) => methods?.filter((m) => !m.is_return)
@@ -53,10 +52,16 @@ export default async function Checkout() {
   // get customer if logged in
   const customer = await getCustomer()
 
+  // create payment sessions and get cart
+  const cartWithPaymentSessions = (await createPaymentSessions(cart.id).then(
+    (cart) => cart
+  )) as CartWithCheckoutStep
+
   return (
     <div className="checkout-background">
       <MyCheckout
-        cart={cart as CartWithCheckoutStep}
+        cart={cart}
+        cartWithPaymentSessions={cartWithPaymentSessions}
         customer={customer}
         availableShippingMethods={availableShippingMethods} />
     </div>
