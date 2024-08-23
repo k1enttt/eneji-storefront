@@ -26,7 +26,6 @@ const MyCheckoutSummary = ({
     !cart.shipping_address.address_1 ||
     !cart.shipping_address.first_name ||
     !cart.shipping_address.phone ||
-    !cart.billing_address ||
     !cart.email ||
     cart.shipping_methods.length < 1
       ? true

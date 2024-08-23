@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { cookies } from "next/headers"
-import { notFound } from "next/navigation"
+import { notFound, useParams } from "next/navigation"
 import { Cart, LineItem } from "@medusajs/medusa"
 
 import { enrichLineItems } from "@modules/cart/actions"
@@ -11,10 +11,12 @@ import {
   createPaymentSessions,
   getCart,
   getCustomer,
+  getRegion,
   listCartShippingMethods,
 } from "@lib/data"
 import { CartWithCheckoutStep } from "types/global"
 import MyCheckout from "@modules/checkout/components/my-checkout"
+import { getPricedProducts, getWeeklyMenu } from "app/[countryCode]/(main)/page"
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -37,7 +39,11 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function Checkout() {
+export default async function Checkout({
+  params: { countryCode },
+}: {
+  params: { countryCode: string }
+}) {
   const cart = await fetchCart()
 
   if (!cart) {
@@ -57,13 +63,23 @@ export default async function Checkout() {
     (cart) => cart
   )) as CartWithCheckoutStep
 
+  // get weekly menu
+  const weeklyMenu = await getWeeklyMenu(countryCode)
+
+  const region = await getRegion(countryCode)
+  if (!region) throw new Error("Region not found")
+
+  const pricedWeeklyMenu = await getPricedProducts(weeklyMenu, region)
+
   return (
     <div className="checkout-background">
       <MyCheckout
         cart={cart}
         cartWithPaymentSessions={cartWithPaymentSessions}
         customer={customer}
-        availableShippingMethods={availableShippingMethods} />
+        availableShippingMethods={availableShippingMethods}
+        weeklyMenu={{ products: weeklyMenu, pricedProducts: pricedWeeklyMenu, region }}
+      />
     </div>
   )
 }

@@ -70,13 +70,13 @@ const getCollectionsWithProducts = cache(
   }
 )
 
-const getWeeklyMenu = cache(async (countryCode: string) => {
+export const getWeeklyMenu = cache(async (countryCode: string) => {
   const queryParams = { limit: 5 }
   const products = await getProductsList({ queryParams, countryCode })
   return products.response.products
 })
 
-const getPricedProducts = cache(
+export const getPricedProducts = cache(
   async (products: ProductPreviewType[], region: Region) => {
     const pricedProducts = await Promise.all(
       products.map((product) =>

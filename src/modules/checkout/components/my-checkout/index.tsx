@@ -1,10 +1,13 @@
 "use client"
-import { Cart, Customer } from "@medusajs/medusa"
-import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing"
+import { Cart, Customer, Region } from "@medusajs/medusa"
+import {
+  PricedProduct,
+  PricedShippingOption,
+} from "@medusajs/medusa/dist/types/pricing"
 import MyCheckoutForm from "@modules/checkout/templates/checkout-form/my-checkout-form"
 import MyCheckoutSummary from "@modules/checkout/templates/checkout-summary/my-checkout-summary"
 import { useState } from "react"
-import { CartWithCheckoutStep } from "types/global"
+import { CartWithCheckoutStep, ProductPreviewType } from "types/global"
 import Wrapper from "../payment-wrapper"
 
 type MyCheckoutProps = {
@@ -12,6 +15,11 @@ type MyCheckoutProps = {
   cartWithPaymentSessions: CartWithCheckoutStep
   customer: Omit<Customer, "password_hash"> | null
   availableShippingMethods: PricedShippingOption[] | undefined
+  weeklyMenu: {
+    products: ProductPreviewType[]
+    pricedProducts: (PricedProduct | null)[]
+    region: Region
+  }
 }
 
 const MyCheckout: React.FC<MyCheckoutProps> = ({
@@ -19,6 +27,7 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
   cartWithPaymentSessions,
   customer,
   availableShippingMethods,
+  weeklyMenu,
 }) => {
   const [formData, setFormData] = useState({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
@@ -45,6 +54,7 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
           availableShippingMethods={availableShippingMethods}
           formData={formData}
           setFormData={setFormData}
+          weeklyMenu={weeklyMenu}
         />
       </Wrapper>
       <MyCheckoutSummary data={cart} formData={formData} />
