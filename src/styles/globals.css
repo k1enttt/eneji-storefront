@@ -143,7 +143,7 @@
 }
 
 .checkout-nav {
-  @apply h-16 bg-white border-b border-[#E4E7EC];
+  @apply h-16 bg-white border-b border-[#E4E7EC] sticky top-0 z-10;
 }
 
 .checkout-nav-background {
@@ -220,11 +220,11 @@
   @apply flex-1 basis-0
 }
 
-.checkout-divider-normal {
+.divider-normal {
   @apply h-[1px] bg-[#F2F4F7]
 }
 
-.checkout-divider-big {
+.divider-big {
   @apply h-2 bg-[#F2F4F7]
 }
 
@@ -306,4 +306,46 @@
 
 .checkout-total-submit {
   @apply max-w-[1440px] mx-4 md:mx-0
+}
+
+/* ORDER COMPLETED PAGG */
+
+.confirm-h1 {
+  @apply font-[500] text-2xl
+}
+
+.confirm-h2 {
+  @apply font-medium text-base
+}
+
+.confirm-h3 {
+  @apply font-medium text-sm
+}
+
+.confirm-normal-text {
+  @apply font-normal text-base
+}
+
+.confirm-subtitle {
+  @apply font-normal text-sm text-[#475467]
+}
+
+.confirm-button-text {
+  @apply font-medium text-base text-[#20419A]
+}
+
+.confirm-bar-line {
+  @apply h-[6px] bg-[#98A2B3] flex-1 basis-0
+}
+
+.confirm-bar-line-active {
+  @apply h-[6px] bg-[#20419A] flex-1 basis-0
+}
+
+.confirm-bar-dot {
+  @apply w-4 h-4 bg-[#98A2B3] rounded-full
+}
+
+.confirm-bar-dot-active {
+  @apply w-4 h-4 bg-[#20419A] rounded-full
 }

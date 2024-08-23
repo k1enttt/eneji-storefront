@@ -42,7 +42,7 @@ const MyPacking = ({
           <div className="checkout-option-label">Hộp giấy</div>
           <div>+10.000đ</div>
         </div>
-        <div className="checkout-divider-normal"></div>
+        <div className="divider-normal"></div>
         <div className="checkout-option">
           <CheckboxRound
             checked={packing == "khay-an"}

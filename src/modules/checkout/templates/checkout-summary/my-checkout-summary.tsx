@@ -20,7 +20,25 @@ const MyCheckoutSummary = ({
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
+  const notReady =
+    !cart ||
+    !cart.shipping_address ||
+    !cart.shipping_address.address_1 ||
+    !cart.shipping_address.first_name ||
+    !cart.shipping_address.phone ||
+    !cart.billing_address ||
+    !cart.email ||
+    cart.shipping_methods.length < 1
+      ? true
+      : false
+
   const onPaymentCompleted = async () => {
+    if (notReady) {
+      setErrorMessage("Vui lòng điền đầy đủ thông tin")
+      setSubmitting(false)
+      return
+    }
+
     await placeOrder().catch((err) => {
       setErrorMessage(err.toString())
       setSubmitting(false)
@@ -80,7 +98,7 @@ const MyCheckoutSummary = ({
             <div>-{formatVietnamPrice(discount_total)}</div>
           </div>
         )}
-        <div className="checkout-divider-normal"></div>
+        <div className="divider-normal"></div>
       </div>
       <div className="checkout-total-final">
         <div className="font-[500]">Tổng cộng</div>

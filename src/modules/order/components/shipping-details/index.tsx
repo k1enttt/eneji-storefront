@@ -46,9 +46,9 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
         <div className="flex flex-col w-1/3" data-testid="shipping-method-summary">
           <Text className="txt-medium-plus text-ui-fg-base mb-1">Method</Text>
           <Text className="txt-medium text-ui-fg-subtle">
-            {order.shipping_methods[0] ? order.shipping_methods[0].shipping_option.name : "Không thể đọc shipping_option"} (
+            {order.shipping_methods[0].shipping_option.name} (
             {formatAmount({
-              amount: order.shipping_methods[0] ? order.shipping_methods[0].price : 0,
+              amount: order.shipping_methods[0].price,
               region: order.region,
               includeTaxes: false,
             })

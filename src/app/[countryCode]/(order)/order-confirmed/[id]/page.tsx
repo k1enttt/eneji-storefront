@@ -5,6 +5,7 @@ import { LineItem, Order } from "@medusajs/medusa"
 import { enrichLineItems } from "@modules/cart/actions"
 import { notFound } from "next/navigation"
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
+import MyOrderCompletedTemplate from "@modules/order/templates/my-order-completed-template"
 
 type Props = {
   params: { id: string }
@@ -32,9 +33,8 @@ export const metadata: Metadata = {
   description: "You purchase was successful",
 }
 
-export default async function OrderConfirmedPage({ params }: Props) {
+export default async function MyOrderConfirmedPage({ params }: Props) {
   const { order } = await getOrder(params.id)
 
-  // return <MyOrderCompletedTemplate order={order} />
-  return <OrderCompletedTemplate order={order} />
+  return <MyOrderCompletedTemplate order={order} />
 }

@@ -57,7 +57,7 @@ const MyPayment = ({
             })
             .map((payment_session, index) => {
               const dividerComponent = index > 0 && (
-                <div className="checkout-divider-normal"></div>
+                <div className="divider-normal"></div>
               )
               return (
                 <>

@@ -181,6 +181,8 @@ export async function setMyAddresses(formData: any) {
     email: formData["email"],
   } as StorePostCartsCartReq
 
+  data.billing_address = data.shipping_address
+
   try {
     await updateCart(cartId, data)
     revalidateTag("cart")
@@ -252,12 +254,11 @@ export async function placeOrder() {
     throw error
   }
 
-  console.log("After place order\n",cart)
-
   if (cart?.type === "order") {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()
     cookies().set("_medusa_cart_id", "", { maxAge: -1 })
-    redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
+    // redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
+    redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
   }
 
   return cart

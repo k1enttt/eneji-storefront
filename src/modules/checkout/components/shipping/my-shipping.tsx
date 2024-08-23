@@ -38,6 +38,11 @@ const MyShipping: React.FC<ShippingProps> = ({ availableShippingMethods }) => {
     console.error(error)
   }, [error])
 
+  useEffect(() => {
+    if (availableShippingMethods && availableShippingMethods[0].id)
+      set(availableShippingMethods[0].id)
+  }, [])
+
   return (
     <div
       className={clx("checkout-shipping-methods", isLoading && "opacity-50")}
