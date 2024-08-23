@@ -9,10 +9,8 @@ import { useEffect, useState } from "react"
 type PaymentMethod = "manual"
 
 const MyPayment = ({
-  className,
   cart,
 }: {
-  className?: string
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
 }) => {
   const [paymentMethodState, setPaymentMethodState] =
@@ -48,7 +46,7 @@ const MyPayment = ({
   }, [error])
 
   return (
-    <div className={className || ""}>
+    <div className="checkout-payment-method">
       <div className="checkout-heading">Phương thức thanh toán</div>
       {cart?.payment_sessions?.length && (
         <div

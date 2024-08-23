@@ -22,12 +22,18 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
 }) => {
   const [formData, setFormData] = useState({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
-    "shipping_address.last_name": "",
     "shipping_address.address_1": cart?.shipping_address?.address_1 || "",
-    "shipping_address.country_code": "vn",
     "shipping_address.phone": cart?.shipping_address?.phone || "",
+    email: cart?.email || "",
     "metadata.packing": "",
     "metadata.order_note": "",
+    // Other fields are not used in the form
+    "shipping_address.last_name": "",
+    "shipping_address.company": "",
+    "shipping_address.postal_code": "",
+    "shipping_address.city": "",
+    "shipping_address.country_code": "vn",
+    "shipping_address.province": "",
   })
 
   return (
@@ -41,7 +47,7 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
           setFormData={setFormData}
         />
       </Wrapper>
-      <MyCheckoutSummary formData={formData} />
+      <MyCheckoutSummary data={cart} formData={formData} />
     </>
   )
 }

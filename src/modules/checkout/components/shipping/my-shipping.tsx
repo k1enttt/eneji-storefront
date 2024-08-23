@@ -7,13 +7,9 @@ import { setShippingMethod } from "@modules/checkout/actions"
 
 type ShippingProps = {
   availableShippingMethods: PricedShippingOption[] | null
-  className?: string
 }
 
-const MyShipping: React.FC<ShippingProps> = ({
-  className,
-  availableShippingMethods,
-}) => {
+const MyShipping: React.FC<ShippingProps> = ({ availableShippingMethods }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -43,7 +39,9 @@ const MyShipping: React.FC<ShippingProps> = ({
   }, [error])
 
   return (
-    <div className={clx(className || "", isLoading && "opacity-50")}>
+    <div
+      className={clx("checkout-shipping-methods", isLoading && "opacity-50")}
+    >
       {availableShippingMethods &&
         availableShippingMethods.map((method) => (
           <button

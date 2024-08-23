@@ -158,6 +158,59 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
   )
 }
 
+export async function setMyAddresses(formData: any) {
+  if (!formData) return "No form data received"
+
+  const cartId = cookies().get("_medusa_cart_id")?.value
+
+  if (!cartId) return { message: "No cartId cookie found" }
+
+  const data = {
+    shipping_address: {
+      first_name: formData['shipping_address.first_name'],
+      last_name: formData["shipping_address.last_name"],
+      address_1: formData["shipping_address.address_1"],
+      address_2: "",
+      company: formData["shipping_address.company"],
+      postal_code: formData["shipping_address.postal_code"],
+      city: formData["shipping_address.city"],
+      country_code: formData["shipping_address.country_code"],
+      province: formData["shipping_address.province"],
+      phone: formData["shipping_address.phone"],
+    },
+    email: formData["email"],
+  } as StorePostCartsCartReq
+
+  try {
+    await updateCart(cartId, data)
+    revalidateTag("cart")
+  } catch (error: any) {
+    return error.toString()
+  }
+}
+
+export async function setPackingMethodAndNote(formData: any) {
+  if (!formData) return "No form data received"
+
+  const cartId = cookies().get("_medusa_cart_id")?.value
+
+  if (!cartId) return { message: "No cartId cookie found" }
+
+  const data = {
+    context: {
+      packing: formData["metadata.packing"],
+      order_note: formData["metadata.order_note"],
+    },
+  } as StorePostCartsCartReq
+
+  try {
+    await updateCart(cartId, data)
+    revalidateTag("cart")
+  } catch (error: any) {
+    return error.toString()
+  }
+}
+
 export async function setShippingMethod(shippingMethodId: string) {
   const cartId = cookies().get("_medusa_cart_id")?.value
 
@@ -198,6 +251,8 @@ export async function placeOrder() {
   } catch (error: any) {
     throw error
   }
+
+  console.log("After place order\n",cart)
 
   if (cart?.type === "order") {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()

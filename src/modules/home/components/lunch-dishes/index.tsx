@@ -73,9 +73,9 @@ const LunchDishes = ({
         <div className="txt-medium mr-1">Kết thúc trong </div>
         <TimeBlock time={remainingTime} />
       </div>
-      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5 mt-4 lg:mt-6">
-        {todayProducts.length > 0 &&
-          todayProducts.map((product, index) => (
+      {todayProducts.length > 0 && (
+        <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-4 md:gap-5 mt-4 lg:mt-6">
+          {todayProducts.map((product, index) => (
             <li key={product.id}>
               <DishPreview
                 dishPreview={product}
@@ -85,7 +85,8 @@ const LunchDishes = ({
               />
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
       {todayProducts.length == 0 && (
         <Text className="warning-text">Không có món ăn nào cho hôm nay</Text>
       )}

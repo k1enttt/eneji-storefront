@@ -1,8 +1,15 @@
 'use client'
-import { useState } from "react"
+import { Dispatch, useState } from "react"
 
-const MyNote = ({ className }: { className?: string }) => {
-  const [textareaContent, setTextareaContent] = useState("")
+const MyNote = ({ formDataState }: { formDataState: {formData: any, setFormData: Dispatch<any>} }) => {
+  const { formData, setFormData } = formDataState
+
+  const handleChange = (value: string) => {
+    setFormData({
+      ...formData,
+      "metadata.order_note": value,
+    })
+  }
 
   return (
     <div className="checkout-note">
@@ -12,8 +19,8 @@ const MyNote = ({ className }: { className?: string }) => {
         <div className="text-sm leading-6">Không bắt buộc</div>
       </div>
       <textarea
-        value={textareaContent}
-        onChange={(e) => setTextareaContent(e.target.value)}
+        value={formData["metadata.order_note"]}
+        onChange={(e) => handleChange(e.target.value)}
         placeholder="Gửi lời nhắn đến nhà hàng!"
         className="w-full h-20 p-2 border border-[#F2F4F7] rounded-md"
       ></textarea>

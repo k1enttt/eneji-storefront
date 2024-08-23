@@ -2,13 +2,7 @@ import { formatVietnamPrice } from "@lib/util/format-price"
 import { LineItem } from "@medusajs/medusa"
 import { MultiSelectOption } from "types/global"
 
-const MyItemsPreviewTemplate = ({
-  className,
-  items,
-}: {
-  className?: string
-  items: LineItem[]
-}) => {
+const MyItemsPreviewTemplate = ({ items }: { items: LineItem[] }) => {
   /*
   title
   description
@@ -26,15 +20,18 @@ const MyItemsPreviewTemplate = ({
   }
 
   return (
-    <div className={className || ""}>
+    <div className="checkout-dishes">
       <div className="checkout-heading">Món ăn</div>
       <div className="checkout-dishes-list">
         {items.map((item, index) => (
           <div key={index} className="checkout-dishes-line">
             <div>{item.quantity}x</div>
             <div className="flex-1 base-0">
-              <div>{item.title} - {item.description}</div>
-              {(item.metadata.multi_select_option as MultiSelectOption[]).length > 0 && (
+              <div>
+                {item.title} - {item.description}
+              </div>
+              {(item.metadata.multi_select_option as MultiSelectOption[])
+                .length > 0 && (
                 <div className="text-sm text-[#475467]">
                   Topping:{" "}
                   {mapOptionValue(
@@ -42,9 +39,11 @@ const MyItemsPreviewTemplate = ({
                   )}
                 </div>
               )}
-              {(item.metadata.order_note as string) && <div className="text-sm text-[#475467]">
-                Ghi chú: {item.metadata.order_note as string}
-              </div>}
+              {(item.metadata.order_note as string) && (
+                <div className="text-sm text-[#475467]">
+                  Ghi chú: {item.metadata.order_note as string}
+                </div>
+              )}
             </div>
             <div>{formatVietnamPrice(item.subtotal || 0)}</div>
           </div>

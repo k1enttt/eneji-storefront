@@ -39,22 +39,18 @@ const MyCheckoutForm = ({
 
   return (
     <>
-      <MyShipping
-        availableShippingMethods={availableShippingMethods}
-        className="checkout-shipping-methods"
-      />
+      <MyShipping availableShippingMethods={availableShippingMethods} />
       <MyShippingAddresses
         customer={customer}
         formData={formData}
         setFormData={setFormData}
-        className="checkout-shipping-address"
       />
 
       <div className="checkout-divider-big"></div>
-      <MyPacking formData={formData} setFormData={setFormData} className="checkout-packing" />
+      <MyPacking formData={formData} setFormData={setFormData} />
 
       <div className="checkout-divider-big"></div>
-      <MyItemsPreviewTemplate items={cart.items} className="checkout-dishes" />
+      <MyItemsPreviewTemplate items={cart.items} />
 
       <div className="checkout-divider-big"></div>
       <div className="checkout-additional-dishes">
@@ -148,13 +144,15 @@ const MyCheckoutForm = ({
         <div className="text-sm text-[#20419A] font-[500]">Thêm món</div>
       </div>
       <div className="checkout-divider-big"></div>
-      <MyPayment cart={cart} className="checkout-payment-method" />
+      <MyPayment cart={cart} />
 
       <div className="checkout-divider-big"></div>
-      <MyDiscountCode cart={cart} className="checkout-discount" />
-      
+      <MyDiscountCode cart={cart} />
+
       <div className="checkout-divider-normal"></div>
-      <MyNote className="checkout-note" />
+      <MyNote
+        formDataState={{ formData, setFormData }}
+      />
 
       <div className="checkout-divider-normal"></div>
       <div className="checkout-trading-condition">

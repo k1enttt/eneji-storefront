@@ -3,11 +3,9 @@ import CheckboxRound from "@modules/products/components/check-box/check-box-roun
 import { Dispatch, useEffect, useState } from "react"
 
 const MyPacking = ({
-  className,
   formData,
   setFormData,
 }: {
-  className?: string
   formData: any
   setFormData: Dispatch<any>
 }) => {
@@ -31,7 +29,7 @@ const MyPacking = ({
   }, [])
 
   return (
-    <div className={className || ""}>
+    <div className="checkout-packing">
       <div className="checkout-heading">Chọn cách đóng gói</div>
       <div className="checkout-options">
         <div className="checkout-option">

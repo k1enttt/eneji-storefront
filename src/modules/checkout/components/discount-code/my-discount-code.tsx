@@ -9,10 +9,8 @@ import { formatVietnamPrice } from "@lib/util/format-price"
 import { clx } from "@medusajs/ui"
 
 const MyDiscountCode = ({
-  className,
   cart,
 }: {
-  className?: string
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
 }) => {
   const { discounts, region } = cart
@@ -52,7 +50,7 @@ const MyDiscountCode = ({
 
   return (
     <>
-      <div className={className || ""}>
+      <div className="checkout-discount">
         <div className="checkout-heading">Nhập mã khuyến mãi</div>
         <form action={formAction} className="checkout-discount-code">
           <input

@@ -3,8 +3,8 @@ import { Metadata } from "next"
 import { retrieveOrder } from "@lib/data"
 import { LineItem, Order } from "@medusajs/medusa"
 import { enrichLineItems } from "@modules/cart/actions"
-import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
 import { notFound } from "next/navigation"
+import MyOrderCompletedTemplate from "@modules/order/templates/my-order-completed-template"
 
 type Props = {
   params: { id: string }
@@ -35,5 +35,6 @@ export const metadata: Metadata = {
 export default async function OrderConfirmedPage({ params }: Props) {
   const { order } = await getOrder(params.id)
 
-  return <OrderCompletedTemplate order={order} />
+  return <MyOrderCompletedTemplate order={order} />
+  // return <OrderCompletedTemplate order={order} />
 }
