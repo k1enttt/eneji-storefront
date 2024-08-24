@@ -21,7 +21,7 @@ export default function Cancel() {
                 <div className="h-20 w-20 bg-[#20419A]/[0.2] rounded-full flex items-center justify-center">
                   <Phone size={24} color="#20419A" />
                 </div>
-                <div className="font-bold text-base">Không thể hủy</div>
+                <div className="font-bold text-base">Liên hệ chủ quán</div>
               </div>
               <div>
                 <div className="text-sm font-normal leading-6 text-[#334155]">Mọi thắc mắc xin liên hệ hotline:</div>
