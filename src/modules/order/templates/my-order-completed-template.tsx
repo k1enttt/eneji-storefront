@@ -5,7 +5,6 @@ import ItemPreview from "@modules/cart/components/item-preview"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import FireBurner from "@modules/common/icons/fire-burner"
 import HouseCircleCheck from "@modules/common/icons/house-circle-check"
-import { title } from "process"
 import { MultiSelectOption } from "types/global"
 import Cancel from "../components/cancel"
 
@@ -192,7 +191,8 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
           <div className="confirm-subtitle">Giao đúng giờ</div>
         </div>
       </div>
-      <div className="flex-1 basis-1/3 space-y-4">
+      <div className="flex-1 basis-1/3 space-y-4 bg-white sticky bottom-0">
+        <div className="divider-normal md:hidden block"></div>
         <div className="checkout-total-subtotal">
           <div className="checkout-total-line">
             <div>Tiền hàng (Tạm tính)</div>

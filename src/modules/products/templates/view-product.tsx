@@ -15,6 +15,7 @@ import Counter from "../components/counter"
 import CloseButton from "../components/close-button"
 import { Option } from "types/global"
 import OptionsList from "../components/option-multiple"
+import LoadingPage from "@modules/common/components/loading"
 
 const ViewProduct = ({
   className,
@@ -201,6 +202,7 @@ const ViewProduct = ({
       )}
       ref={actionsRef}
     >
+      {isAdding && <LoadingPage />}
       {/* DISH IMAGE */}
       <div className="flex-none w-full h-24 md:h-32 lg:h-[12rem] flex items-center justify-center overflow-hidden">
         {product.thumbnail && (

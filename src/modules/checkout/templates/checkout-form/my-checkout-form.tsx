@@ -10,7 +10,7 @@ import MyPacking from "@modules/checkout/components/packing"
 import MyPayment from "@modules/checkout/components/payment/my-payment"
 import MyShipping from "@modules/checkout/components/shipping/my-shipping"
 import AddButton from "@modules/products/components/dish-preview/add-button"
-import { CartWithCheckoutStep, ProductPreviewType } from "types/global"
+import { CartWithCheckoutStep, CheckoutFormData, ProductPreviewType } from "types/global"
 import { Dispatch } from "react"
 import MyDiscountCode from "@modules/checkout/components/discount-code/my-discount-code"
 import Link from "next/link"
@@ -25,7 +25,7 @@ const MyCheckoutForm = ({
   availableShippingMethods,
   weeklyMenu,
 }: {
-  formData: any
+  formData: CheckoutFormData
   setFormData: Dispatch<any>
   cart: CartWithCheckoutStep | undefined
   customer: Omit<Customer, "password_hash"> | null

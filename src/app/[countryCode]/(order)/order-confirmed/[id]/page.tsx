@@ -6,6 +6,8 @@ import { enrichLineItems } from "@modules/cart/actions"
 import { notFound } from "next/navigation"
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
 import MyOrderCompletedTemplate from "@modules/order/templates/my-order-completed-template"
+import { Suspense } from "react"
+import LoadingPage from "@modules/common/components/loading"
 
 type Props = {
   params: { id: string }
@@ -36,5 +38,9 @@ export const metadata: Metadata = {
 export default async function MyOrderConfirmedPage({ params }: Props) {
   const { order } = await getOrder(params.id)
 
-  return <MyOrderCompletedTemplate order={order} />
+  return (
+    <Suspense>
+      <MyOrderCompletedTemplate order={order} />{" "}
+    </Suspense>
+  )
 }

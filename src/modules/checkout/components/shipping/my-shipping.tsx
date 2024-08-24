@@ -1,5 +1,4 @@
 "use client"
-import { Cart } from "@medusajs/medusa"
 import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing"
 import { clx } from "@medusajs/ui"
 import { useEffect, useState } from "react"
