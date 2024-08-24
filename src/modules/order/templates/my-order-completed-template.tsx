@@ -7,6 +7,7 @@ import FireBurner from "@modules/common/icons/fire-burner"
 import HouseCircleCheck from "@modules/common/icons/house-circle-check"
 import { title } from "process"
 import { MultiSelectOption } from "types/global"
+import Cancel from "../components/cancel"
 
 type MyOrderCompletedTemplateProps = {
   order: Order
@@ -35,13 +36,13 @@ const statusString: { [key: string]: StatusStringProps } = {
     title: "Đang giao hàng",
     subtitle: "Tài xế đang giao món ăn cho bạn",
     bar_level: 3,
-    icon: <FastDelivery size={56} />,
+    icon: <FastDelivery size={56} color="#20419A" />,
   },
   shipped: {
     title: "Đã đến điểm giao",
     subtitle: "Đơn hàng đã giao đến bạn",
     bar_level: 4,
-    icon: <HouseCircleCheck size={56} />,
+    icon: <HouseCircleCheck size={56} color="#20419A" />,
   },
 }
 
@@ -94,9 +95,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
               {orderStatus.subtitle}
             </div>
           </div>
-          <button className="confirm-button-text p-2">
-            {orderStatus.icon ? orderStatus.icon : <div>Hủy</div>}
-          </button>
+          {orderStatus.icon ? orderStatus.icon : <Cancel />}
         </div>
         <div className="flex items-center">
           <div className="confirm-bar-dot-active"></div>
@@ -181,7 +180,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
         <div className="flex items-center justify-between">
           <div className="confirm-h2">Hình thức thanh toán</div>
           <div className="confirm-subtitle">
-            {mapPaymentName(order.payments[0].provider_id)}
+            {mapPaymentName(payment.provider_id)}
           </div>
         </div>
         <div className="divider-big"></div>
