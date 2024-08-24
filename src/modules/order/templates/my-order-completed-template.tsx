@@ -2,6 +2,9 @@ import { paymentInfoMap } from "@lib/constants"
 import { formatVietnamPrice } from "@lib/util/format-price"
 import { LineItem, Order } from "@medusajs/medusa"
 import ItemPreview from "@modules/cart/components/item-preview"
+import FastDelivery from "@modules/common/icons/fast-delivery"
+import FireBurner from "@modules/common/icons/fire-burner"
+import HouseCircleCheck from "@modules/common/icons/house-circle-check"
 import { title } from "process"
 import { MultiSelectOption } from "types/global"
 
@@ -9,60 +12,14 @@ type MyOrderCompletedTemplateProps = {
   order: Order
 }
 
-const lineItems: {
-  quantity: number
+type StatusStringProps = {
   title: string
-  description: string
-  metadata: {
-    multi_select_option: {
-      label: string
-      selected: boolean
-    }[]
-    order_note: string
-  }
-  subtotal: number
-}[] = [
-  {
-    quantity: 1,
-    title: "Bún bò Huế",
-    description: "Bún bò Huế thơm ngon",
-    metadata: {
-      multi_select_option: [
-        {
-          label: "Topping 1",
-          selected: true,
-        },
-        {
-          label: "Topping 2",
-          selected: true,
-        },
-      ],
-      order_note: "Không ớt",
-    },
-    subtotal: 50000,
-  },
-  {
-    quantity: 2,
-    title: "Mì quảng",
-    description: "Mì quảng thơm ngon",
-    metadata: {
-      multi_select_option: [
-        {
-          label: "Topping 1",
-          selected: true,
-        },
-        {
-          label: "Topping 2",
-          selected: true,
-        },
-      ],
-      order_note: "Không ớt",
-    },
-    subtotal: 50000,
-  },
-]
+  subtitle: string
+  bar_level: number
+  icon?: JSX.Element
+}
 
-const statusString = {
+const statusString: { [key: string]: StatusStringProps } = {
   not_paid: {
     title: "Đang xử lý",
     subtitle: "Đơn hàng của bạn đang được xử lý",
@@ -72,16 +29,19 @@ const statusString = {
     title: "Đang chuẩn bị",
     subtitle: "Nhà hàng đang chuẩn bị món ăn",
     bar_level: 2,
+    icon: <FireBurner size={56} color="#20419A" />,
   },
   fulfilled: {
     title: "Đang giao hàng",
     subtitle: "Tài xế đang giao món ăn cho bạn",
     bar_level: 3,
+    icon: <FastDelivery size={56} />,
   },
   shipped: {
     title: "Đã đến điểm giao",
     subtitle: "Đơn hàng đã giao đến bạn",
     bar_level: 4,
+    icon: <HouseCircleCheck size={56} />,
   },
 }
 
@@ -134,7 +94,9 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
               {orderStatus.subtitle}
             </div>
           </div>
-          <button className="confirm-button-text p-2">Hủy</button>
+          <button className="confirm-button-text p-2">
+            {orderStatus.icon ? orderStatus.icon : <div>Hủy</div>}
+          </button>
         </div>
         <div className="flex items-center">
           <div className="confirm-bar-dot-active"></div>
@@ -195,8 +157,9 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
             const divider = index == 0 ? "" : "divider-normal"
             return (
               <>
-                <div className={divider}></div>
+                <div key={index + order.items.length} className={divider}></div>
                 <ItemPreview
+                  key={index}
                   index={index}
                   item={item}
                   mapOptionValue={mapOptionValue}
@@ -217,7 +180,9 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
         <div className="divider-big"></div>
         <div className="flex items-center justify-between">
           <div className="confirm-h2">Hình thức thanh toán</div>
-          <div className="confirm-subtitle">{mapPaymentName(order.payments[0].provider_id)}</div>
+          <div className="confirm-subtitle">
+            {mapPaymentName(order.payments[0].provider_id)}
+          </div>
         </div>
         <div className="divider-big"></div>
         {/* TODO: Hiển thị nội dung ghi chú */}
@@ -241,16 +206,20 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
             <div>{formatVietnamPrice(order.tax_total || 0)}</div>
           </div>
 
-          { order.discount_total > 0 && <div className="checkout-total-sale">
-            <div>Giảm giá</div>
-            <div>-{formatVietnamPrice(order.discount_total)}</div>
-          </div>}
+          {order.discount_total > 0 && (
+            <div className="checkout-total-sale">
+              <div>Giảm giá</div>
+              <div>-{formatVietnamPrice(order.discount_total)}</div>
+            </div>
+          )}
 
           <div className="divider-normal"></div>
         </div>
         <div className="checkout-total-final">
           <div className="font-[500]">Tổng cộng</div>
-          <div className="font-bold text-[#20419A]">{formatVietnamPrice(order.total)}</div>
+          <div className="font-bold text-[#20419A]">
+            {formatVietnamPrice(order.total)}
+          </div>
         </div>
       </div>
     </div>
