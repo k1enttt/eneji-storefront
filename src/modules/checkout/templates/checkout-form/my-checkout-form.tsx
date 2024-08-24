@@ -10,12 +10,17 @@ import MyPacking from "@modules/checkout/components/packing"
 import MyPayment from "@modules/checkout/components/payment/my-payment"
 import MyShipping from "@modules/checkout/components/shipping/my-shipping"
 import AddButton from "@modules/products/components/dish-preview/add-button"
-import { CartWithCheckoutStep, CheckoutFormData, ProductPreviewType } from "types/global"
+import {
+  CartWithCheckoutStep,
+  CheckoutFormData,
+  ProductPreviewType,
+} from "types/global"
 import { Dispatch } from "react"
 import MyDiscountCode from "@modules/checkout/components/discount-code/my-discount-code"
 import Link from "next/link"
 import { formatVietnamPrice } from "@lib/util/format-price"
 import { getProductPrice } from "@lib/util/get-product-price"
+import Image from "next/image"
 
 const MyCheckoutForm = ({
   setFormData,
@@ -43,10 +48,6 @@ const MyCheckoutForm = ({
   if (!availableShippingMethods) {
     return null
   }
-
-  console.log("Cart at Checkout form", cart)
-
-  console.log(weeklyMenu.products)
 
   return (
     <>
@@ -79,13 +80,15 @@ const MyCheckoutForm = ({
               <div key={index} className="checkout-additional-dishes-line">
                 <div className="checkout-additional-dishes-image">
                   {product.thumbnail ? (
-                    <img
-                      width={100}
-                      height={100}
-                      src={product.thumbnail}
-                      alt={product.title}
-                      className="rounded-lg"
-                    />
+                    <div>
+                      <Image
+                        width={100}
+                        height={100}
+                        src={product.thumbnail}
+                        alt={product.title}
+                        className="rounded-lg"
+                      />
+                    </div>
                   ) : (
                     <div className="checkout-dish-image"></div>
                   )}

@@ -78,16 +78,13 @@ const MyCheckoutSummary = ({
     setSubmitting(true)
     setErrorMessage(null)
 
-
     // handle payment
     onPaymentCompleted()
   }
 
   return (
     <div className="checkout-total">
-      {
-        submitting && (<LoadingPage />)
-      }
+      {submitting && <LoadingPage />}
       <div className="checkout-total-subtotal">
         <div className="checkout-total-line">
           <div>Tiền hàng (Tạm tính)</div>
@@ -127,10 +124,12 @@ const MyCheckoutSummary = ({
           Đặt đơn
         </button>
       </div>
-      <ErrorMessage
-        error={errorMessage}
-        data-testid="manual-payment-error-message"
-      />
+      <div className="checkout-mobile-container">
+        <ErrorMessage
+          error={errorMessage}
+          data-testid="manual-payment-error-message"
+        />
+      </div>
     </div>
   )
 }
