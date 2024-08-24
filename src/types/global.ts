@@ -93,3 +93,12 @@ export type Option = {
 }
 
 export type MultiSelectOption = { label: string; selected: boolean }
+
+export type CheckoutFormData = {
+  "shipping_address.first_name": string
+  "shipping_address.address_1": string
+  "shipping_address.phone": string
+  email: string
+  "metadata.packing": string
+  "metadata.order_note": string
+}

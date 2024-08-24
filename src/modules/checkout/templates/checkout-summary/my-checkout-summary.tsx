@@ -7,13 +7,15 @@ import {
   setPackingMethodAndNote,
 } from "@modules/checkout/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
+import LoadingPage from "@modules/common/components/loading"
 import { useState } from "react"
+import { CheckoutFormData } from "types/global"
 
 const MyCheckoutSummary = ({
   formData,
   data: cart,
 }: {
-  formData: any
+  formData: CheckoutFormData
   data: Omit<Cart, "refundable_amount" | "refunded_total"> | Order
 }) => {
   const { subtotal, discount_total, tax_total, shipping_total, total } = cart
@@ -23,38 +25,52 @@ const MyCheckoutSummary = ({
   const notReady =
     !cart ||
     !cart.shipping_address ||
-    !cart.shipping_address.address_1 ||
-    !cart.shipping_address.first_name ||
-    !cart.shipping_address.phone ||
-    !cart.email ||
+    !formData["shipping_address.address_1"] ||
+    !formData["shipping_address.first_name"] ||
+    !formData["shipping_address.phone"] ||
+    !formData.email ||
     cart.shipping_methods.length < 1
       ? true
       : false
 
   const onPaymentCompleted = async () => {
     if (notReady) {
-      setErrorMessage("Vui lòng điền đầy đủ thông tin")
+      if (!cart) {
+        setErrorMessage("Giỏ hàng trống")
+      } else if (!cart.shipping_address) {
+        setErrorMessage("Vui lòng nhập đầy đủ thông tin giao hàng")
+      } else if (!formData["shipping_address.address_1"]) {
+        setErrorMessage("Vui lòng nhập đầy đủ địa chỉ giao hàng")
+      } else if (!formData["shipping_address.first_name"]) {
+        setErrorMessage("Vui lòng nhập tên")
+      } else if (!formData["shipping_address.phone"]) {
+        setErrorMessage("Vui lòng nhập số điện thoại")
+      } else if (!formData.email) {
+        setErrorMessage("Vui lòng nhập email")
+      } else if (cart.shipping_methods.length < 1) {
+        setErrorMessage("Vui lòng chọn phương thức vận chuyển")
+      }
       setSubmitting(false)
       return
     }
 
-    await placeOrder().catch((err) => {
-      setErrorMessage(err.toString())
-      setSubmitting(false)
-    })
-  }
-
-  const onAddressesSet = async () => {
-    await setMyAddresses(formData).then((response) => {
+    await setMyAddresses(formData).then(async (response) => {
       setErrorMessage(response || null)
-      errorMessage && setSubmitting(false)
-    })
-  }
-
-  const onPackingMethodAndNoteSet = async () => {
-    await setPackingMethodAndNote(formData).then((response) => {
-      setErrorMessage(response || null)
-      errorMessage && setSubmitting(false)
+      if (errorMessage) {
+        setSubmitting(false)
+        return
+      } else
+        await setPackingMethodAndNote(formData).then(async (response) => {
+          setErrorMessage(response || null)
+          if (errorMessage) {
+            setSubmitting(false)
+            return
+          } else
+            await placeOrder().catch((err) => {
+              setErrorMessage(err.toString())
+              setSubmitting(false)
+            })
+        })
     })
   }
 
@@ -62,15 +78,6 @@ const MyCheckoutSummary = ({
     setSubmitting(true)
     setErrorMessage(null)
 
-    // set addresses
-    onAddressesSet()
-
-    // set packing method and order note
-    // Medusa does not support update metadata of cart, so we update it in context of cart instead.
-    // Github issue: https://github.com/medusajs/medusa/issues/5764
-    // update() of Medusa Client: https://docs.medusajs.com/references/js-client/CartsResource#update
-    if (!errorMessage) onPackingMethodAndNoteSet()
-    else return
 
     // handle payment
     onPaymentCompleted()
@@ -78,6 +85,9 @@ const MyCheckoutSummary = ({
 
   return (
     <div className="checkout-total">
+      {
+        submitting && (<LoadingPage />)
+      }
       <div className="checkout-total-subtotal">
         <div className="checkout-total-line">
           <div>Tiền hàng (Tạm tính)</div>

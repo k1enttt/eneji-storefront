@@ -190,7 +190,14 @@ export async function setMyAddresses(formData: any) {
     return error.toString()
   }
 }
-
+/**
+ * set packing method and order note.
+ * Medusa does not support update metadata of cart, so we update it in context of cart instead.
+ * Github issue: https://github.com/medusajs/medusa/issues/5764
+ * update() of Medusa Client: https://docs.medusajs.com/references/js-client/CartsResource#update
+ * @param formData any
+ * @returns 
+ */
 export async function setPackingMethodAndNote(formData: any) {
   if (!formData) return "No form data received"
 
