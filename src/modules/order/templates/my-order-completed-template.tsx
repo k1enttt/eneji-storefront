@@ -86,9 +86,9 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
   )
 
   return (
-    <div className="flex gap-5 content-container py-4">
+    <div className="checkout-container flex flex-col md:flex-row gap-5 py-4">
       <div className="flex-1 basis-2/3 space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="checkout-mobile-container flex items-center justify-between">
           <div>
             <div className="confirm-h1">{orderStatus.title}</div>
             <div className="confirm-normal-text text-[#475467]">
@@ -97,7 +97,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
           </div>
           {orderStatus.icon ? orderStatus.icon : <Cancel />}
         </div>
-        <div className="flex items-center">
+        <div className="checkout-mobile-container flex items-center">
           <div className="confirm-bar-dot-active"></div>
           <div className="confirm-bar-line-active"></div>
           <div
@@ -136,21 +136,23 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
             }
           ></div>
         </div>
-        <div className="flex items-center gap-2 confirm-normal-text p-2 rounded-md border border-yellow-400">
-          <i className="fa-solid fa-truck-fast text-[#20419A]"></i>
-          <div>
-            Dự kiến giao đơn <span className="font-bold">10:40</span>
+        <div className="checkout-mobile-container">
+          <div className="flex items-center gap-2 confirm-normal-text p-2 rounded-md border border-yellow-400">
+            <i className="fa-solid fa-truck-fast text-[#20419A]"></i>
+            <div>
+              Dự kiến giao đơn <span className="font-bold">10:40</span>
+            </div>
           </div>
         </div>
         <div className="divider-big"></div>
-        <div className="space-y-1">
+        <div className="checkout-mobile-container space-y-1">
           <div className="confirm-subtitle">Giao đến</div>
           <div className="confirm-normal-text">
             {order.shipping_address?.address_1}
           </div>
         </div>
         <div className="divider-big"></div>
-        <div className="space-y-2">
+        <div className="checkout-mobile-container space-y-2">
           <div className="confirm-h2">Món ăn</div>
           {order.items.map((item, index) => {
             const divider = index == 0 ? "" : "divider-normal"
@@ -169,7 +171,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
         </div>
         <div className="divider-big"></div>
         {/* TODO: Hiển thị cách đóng gói */}
-        <div className="space-y-2">
+        <div className="checkout-mobile-container space-y-2">
           <div className="confirm-h2">Cách đóng gói</div>
           <div className="confirm-subtitle flex items-center justify-between">
             <div>Khay ăn</div>
@@ -177,7 +179,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
           </div>
         </div>
         <div className="divider-big"></div>
-        <div className="flex items-center justify-between">
+        <div className="checkout-mobile-container flex items-center justify-between">
           <div className="confirm-h2">Hình thức thanh toán</div>
           <div className="confirm-subtitle">
             {mapPaymentName(payment.provider_id)}
@@ -185,7 +187,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
         </div>
         <div className="divider-big"></div>
         {/* TODO: Hiển thị nội dung ghi chú */}
-        <div className="space-y-1">
+        <div className="checkout-mobile-container space-y-1">
           <div className="confirm-h3">Ghi chú</div>
           <div className="confirm-subtitle">Giao đúng giờ</div>
         </div>
