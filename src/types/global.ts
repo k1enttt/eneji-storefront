@@ -99,6 +99,21 @@ export type CheckoutFormData = {
   "shipping_address.address_1": string
   "shipping_address.phone": string
   email: string
-  "metadata.packing": string
-  "metadata.order_note": string
+  "shipping_address.metadata.packing": CheckoutPackingMethod
+  "shipping_address.metadata.order_note": string
+  /*
+  Other fields are not used in the form
+    "shipping_address.last_name": "",
+    "shipping_address.company": "",
+    "shipping_address.postal_code": "",
+    "shipping_address.city": "",
+    "shipping_address.country_code": "vn",
+    "shipping_address.province": "",
+   */
+}
+
+export type CheckoutPackingMethod = {
+  id: string
+  title: string
+  price: number
 }

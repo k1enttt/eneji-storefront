@@ -1,12 +1,27 @@
 "use client"
 import CheckboxRound from "@modules/products/components/check-box/check-box-round"
 import { Dispatch, useEffect, useState } from "react"
+import { CheckoutFormData } from "types/global"
+
+const mapPackingMethod = (packingId: string) => {
+  return packingId == "hop-giay"
+    ? {
+        id: packingId,
+        title: "Hộp giấy",
+        price: 10000,
+      }
+    : {
+        id: packingId,
+        title: "Khay ăn",
+        price: 0,
+      }
+}
 
 const MyPacking = ({
   formData,
   setFormData,
 }: {
-  formData: any
+  formData: CheckoutFormData
   setFormData: Dispatch<any>
 }) => {
   const [packing, setPacking] = useState<"hop-giay" | "khay-an">(
@@ -17,14 +32,14 @@ const MyPacking = ({
     setPacking(value as "hop-giay" | "khay-an")
     setFormData({
       ...formData,
-      "metadata.packing": value,
+      "shipping_address.metadata.packing": mapPackingMethod(value),
     })
   }
 
   useEffect(() => {
     setFormData({
       ...formData,
-      "metadata.packing": packing,
+      "shipping_address.metadata.packing": mapPackingMethod(packing),
     })
   }, [])
 

@@ -84,7 +84,6 @@ const CartDialog = ({
               <button
                 type="button"
                 disabled={totalItems === 0}
-                onClick={() => {}}
                 className={clx("flex cart-order-button", totalItems === 0 && "opacity-50")}
               >
                 <div className="flex-none font-normal text-sm leading-6">

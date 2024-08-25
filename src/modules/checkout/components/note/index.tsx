@@ -1,13 +1,14 @@
 'use client'
-import { Dispatch, useState } from "react"
+import { Dispatch } from "react"
+import { CheckoutFormData } from "types/global"
 
-const MyNote = ({ formDataState }: { formDataState: {formData: any, setFormData: Dispatch<any>} }) => {
+const MyNote = ({ formDataState }: { formDataState: {formData: CheckoutFormData, setFormData: Dispatch<any>} }) => {
   const { formData, setFormData } = formDataState
 
   const handleChange = (value: string) => {
     setFormData({
       ...formData,
-      "metadata.order_note": value,
+      "shipping_address.metadata.order_note": value,
     })
   }
 
@@ -19,7 +20,7 @@ const MyNote = ({ formDataState }: { formDataState: {formData: any, setFormData:
         <div className="text-sm leading-6">Không bắt buộc</div>
       </div>
       <textarea
-        value={formData["metadata.order_note"]}
+        value={formData["shipping_address.metadata.order_note"]}
         onChange={(e) => handleChange(e.target.value)}
         placeholder="Gửi lời nhắn đến nhà hàng!"
         className="w-full h-20 p-2 border border-[#F2F4F7] rounded-md"

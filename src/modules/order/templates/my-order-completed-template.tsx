@@ -5,7 +5,7 @@ import ItemPreview from "@modules/cart/components/item-preview"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import FireBurner from "@modules/common/icons/fire-burner"
 import HouseCircleCheck from "@modules/common/icons/house-circle-check"
-import { MultiSelectOption } from "types/global"
+import { CheckoutPackingMethod, MultiSelectOption } from "types/global"
 import Cancel from "../components/cancel"
 
 type MyOrderCompletedTemplateProps = {
@@ -78,6 +78,12 @@ const mapOptionValue = (options: MultiSelectOption[]) => {
 
 const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
   const payment = order.payments[0]
+  let packing: CheckoutPackingMethod | null = null
+  let orderNote = ""
+  if (order.shipping_address.metadata) {
+    packing = order.shipping_address.metadata.packing as CheckoutPackingMethod || null
+    orderNote = order.shipping_address.metadata.order_note as string || ""
+  }
 
   const orderStatus = mapStatusString(
     order.fulfillment_status,
@@ -169,13 +175,12 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
           })}
         </div>
         <div className="divider-big"></div>
-        {/* TODO: Hiển thị cách đóng gói */}
         <div className="checkout-mobile-container space-y-2">
           <div className="confirm-h2">Cách đóng gói</div>
-          <div className="confirm-subtitle flex items-center justify-between">
-            <div>Khay ăn</div>
-            <div>0đ</div>
-          </div>
+          {packing && <div className="confirm-subtitle flex items-center justify-between">
+            <div>{packing.title}</div>
+            <div>{formatVietnamPrice(packing.price)}</div>
+          </div>}
         </div>
         <div className="divider-big"></div>
         <div className="checkout-mobile-container flex items-center justify-between">
@@ -188,7 +193,7 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
         {/* TODO: Hiển thị nội dung ghi chú */}
         <div className="checkout-mobile-container space-y-1">
           <div className="confirm-h3">Ghi chú</div>
-          <div className="confirm-subtitle">Giao đúng giờ</div>
+          <div className="confirm-subtitle">{orderNote}</div>
         </div>
       </div>
       <div className="flex-1 basis-1/3 space-y-4 bg-white sticky bottom-0">

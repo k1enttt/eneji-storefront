@@ -158,6 +158,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
   )
 }
 
+/** Update cart with shipping address */
 export async function setMyAddresses(formData: any) {
   if (!formData) return "No form data received"
 
@@ -177,6 +178,10 @@ export async function setMyAddresses(formData: any) {
       country_code: formData["shipping_address.country_code"],
       province: formData["shipping_address.province"],
       phone: formData["shipping_address.phone"],
+      metadata: {
+        packing: formData["shipping_address.metadata.packing"],
+        order_note: formData["shipping_address.metadata.order_note"],
+      }
     },
     email: formData["email"],
   } as StorePostCartsCartReq
