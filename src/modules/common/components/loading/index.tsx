@@ -1,4 +1,4 @@
-import LoadingCircles from "../loading-spinner"
+import LoadingCircles from "../loading-circles"
 
 const LoadingPage = () => {
   return (

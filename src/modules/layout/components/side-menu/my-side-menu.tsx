@@ -9,13 +9,18 @@ import LoginDialog from "@modules/login/templates/login-dialog"
 import "./my-side-menu.css"
 import { useParams } from "next/navigation"
 import { mySignOut } from "@modules/account/actions"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Search: "/search",
-  Account: "/account",
-  Cart: "/cart",
+  payment_manage: { src: "/", icon: "fa-wallet", text: "Quản lý thanh toán" },
+  support_center: {
+    src: "/",
+    icon: "fa-phone-volume",
+    text: "Trung tâm hỗ trợ",
+  },
+  orders: { src: "/account/orders", icon: "fa-clipboard", text: "Đơn hàng" },
+  promotions: { src: "/", icon: "fa-percent", text: "Khuyến mãi" },
+  terms: { src: "/", icon: "fa-list-check", text: "Điều khoản và chính sách" },
 }
 
 const MySideMenu = ({
@@ -89,47 +94,37 @@ const MySideMenu = ({
                         <div className="menu-card-label">Thẻ Eneji</div>
                         <div className="menu-card-value">40.000 đ</div>
                       </div>
-                      <div className="menu-features">
-                        <div className="menu-feature">
-                          <div className="menu-feature-icon">
-                            <i className="fa-solid fa-wallet"></i>
-                          </div>
-                          <div className="menu-feature-text">
-                            Quản lý thanh toán
-                          </div>
-                        </div>
-                        <div className="menu-divider-normal"></div>
-                        <div className="menu-feature">
-                          <div className="menu-feature-icon">
-                            <i className="fa-solid fa-phone-volume"></i>
-                          </div>
-                          <div className="menu-feature-text">
-                            Trung tâm hỗ trợ
-                          </div>
-                        </div>
-                        <div className="menu-divider-normal"></div>
-                        <div className="menu-feature">
-                          <div className="menu-feature-icon">
-                            <i className="fa-solid fa-clipboard"></i>
-                          </div>
-                          <div className="menu-feature-text">Đơn hàng</div>
-                        </div>
-                        <div className="menu-divider-normal"></div>
-                        <div className="menu-feature">
-                          <div className="menu-feature-icon">
-                            <i className="fa-solid fa-percent"></i>
-                          </div>
-                          <div className="menu-feature-text">Khuyến mãi</div>
-                        </div>
-                        <div className="menu-divider-normal"></div>
-                        <div className="menu-feature">
-                          <div className="menu-feature-icon">
-                            <i className="fa-solid fa-list-check"></i>
-                          </div>
-                          <div className="menu-feature-text">
-                            Điều khoản và chính sách
-                          </div>
-                        </div>
+                      <ul className="menu-features">
+                        {Object.entries(SideMenuItems).map(
+                          ([key, value], index) => {
+                            const divider =
+                              index > 0 ? (
+                                <li className="menu-divider-normal"></li>
+                              ) : null
+                            return (
+                              <>
+                                {divider}
+                                <li key={key}>
+                                  <LocalizedClientLink
+                                    href={value.src}
+                                    className="menu-feature"
+                                    onClick={close}
+                                    data-testid={`${key.toLowerCase()}-link`}
+                                  >
+                                    <div className="menu-feature-icon">
+                                      <i
+                                        className={`fa-solid ${value.icon}`}
+                                      ></i>
+                                    </div>
+                                    <div className="menu-feature-text">
+                                      {value.text}
+                                    </div>
+                                  </LocalizedClientLink>
+                                </li>
+                              </>
+                            )
+                          }
+                        )}
                         <div className="menu-divider-big"></div>
                         <div className="menu-feature">
                           <div className="menu-feature-icon">
@@ -138,12 +133,17 @@ const MySideMenu = ({
                           <div className="menu-feature-text">Đổi mật khẩu</div>
                         </div>
                         <div className="menu-divider-normal"></div>
-                      </div>
+                      </ul>
                       <div className="menu-footer">
                         <div className="menu-footer-version">
                           App Version - V1.00
                         </div>
-                        <button onClick={handleLogout} className="menu-footer-logout">Đăng xuất</button>
+                        <button
+                          onClick={handleLogout}
+                          className="menu-footer-logout"
+                        >
+                          Đăng xuất
+                        </button>
                       </div>
                     </div>
                   </Popover.Panel>
