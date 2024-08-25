@@ -94,37 +94,39 @@ const MySideMenu = ({
                         <div className="menu-card-label">Thẻ Eneji</div>
                         <div className="menu-card-value">40.000 đ</div>
                       </div>
-                      <ul className="menu-features">
-                        {Object.entries(SideMenuItems).map(
-                          ([key, value], index) => {
-                            const divider =
-                              index > 0 ? (
-                                <li className="menu-divider-normal"></li>
-                              ) : null
-                            return (
-                              <>
-                                {divider}
-                                <li key={key}>
-                                  <LocalizedClientLink
-                                    href={value.src}
-                                    className="menu-feature"
-                                    onClick={close}
-                                    data-testid={`${key.toLowerCase()}-link`}
-                                  >
-                                    <div className="menu-feature-icon">
-                                      <i
-                                        className={`fa-solid ${value.icon}`}
-                                      ></i>
-                                    </div>
-                                    <div className="menu-feature-text">
-                                      {value.text}
-                                    </div>
-                                  </LocalizedClientLink>
-                                </li>
-                              </>
-                            )
-                          }
-                        )}
+                      <div className="menu-features">
+                        <ul className="menu-features">
+                          {Object.entries(SideMenuItems).map(
+                            ([key, value], index) => {
+                              const divider =
+                                index > 0 ? (
+                                  <li className="menu-divider-normal"></li>
+                                ) : null
+                              return (
+                                <Fragment key={key}>
+                                  {divider}
+                                  <li>
+                                    <LocalizedClientLink
+                                      href={value.src}
+                                      className="menu-feature"
+                                      onClick={close}
+                                      data-testid={`${key.toLowerCase()}-link`}
+                                    >
+                                      <div className="menu-feature-icon">
+                                        <i
+                                          className={`fa-solid ${value.icon}`}
+                                        ></i>
+                                      </div>
+                                      <div className="menu-feature-text">
+                                        {value.text}
+                                      </div>
+                                    </LocalizedClientLink>
+                                  </li>
+                                </Fragment>
+                              )
+                            }
+                          )}
+                        </ul>
                         <div className="menu-divider-big"></div>
                         <div className="menu-feature">
                           <div className="menu-feature-icon">
@@ -133,7 +135,7 @@ const MySideMenu = ({
                           <div className="menu-feature-text">Đổi mật khẩu</div>
                         </div>
                         <div className="menu-divider-normal"></div>
-                      </ul>
+                      </div>
                       <div className="menu-footer">
                         <div className="menu-footer-version">
                           App Version - V1.00
