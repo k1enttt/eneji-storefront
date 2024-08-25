@@ -18,7 +18,7 @@ const SideMenuItems = {
     icon: "fa-phone-volume",
     text: "Trung tâm hỗ trợ",
   },
-  orders: { src: "/account/orders", icon: "fa-clipboard", text: "Đơn hàng" },
+  orders: { src: "/my-order", icon: "fa-clipboard", text: "Đơn hàng" },
   promotions: { src: "/", icon: "fa-percent", text: "Khuyến mãi" },
   terms: { src: "/", icon: "fa-list-check", text: "Điều khoản và chính sách" },
 }

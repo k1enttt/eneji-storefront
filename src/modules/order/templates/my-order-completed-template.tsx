@@ -13,7 +13,7 @@ type MyOrderCompletedTemplateProps = {
 }
 
 type StatusStringProps = {
-  title: string
+  title: "Đang xử lý" | "Đang chuẩn bị" | "Đang giao hàng" | "Đã đến điểm giao"
   subtitle: string
   bar_level: number
   icon?: JSX.Element
@@ -65,7 +65,7 @@ const mapStatusString = (
   }
 }
 
-const mapPaymentName = (providerId: string) => {
+export const mapPaymentName = (providerId: string) => {
   return paymentInfoMap[providerId]?.title
 }
 

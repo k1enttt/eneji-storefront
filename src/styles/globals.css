@@ -349,3 +349,16 @@
 .confirm-bar-dot-active {
   @apply w-4 h-4 bg-[#20419A] rounded-full
 }
+
+/* MY ORDERS PAGE */
+.my-orders-h1 {
+@apply font-medium text-base leading-7
+}
+
+.my-orders-normal-text {
+  @apply font-normal text-base leading-7
+}
+
+.my-orders-subtitle {
+  @apply font-normal text-sm leading-6 text-[#475467]
+}

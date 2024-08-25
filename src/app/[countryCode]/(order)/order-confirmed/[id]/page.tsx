@@ -4,10 +4,8 @@ import { retrieveOrder } from "@lib/data"
 import { LineItem, Order } from "@medusajs/medusa"
 import { enrichLineItems } from "@modules/cart/actions"
 import { notFound } from "next/navigation"
-import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
 import MyOrderCompletedTemplate from "@modules/order/templates/my-order-completed-template"
 import { Suspense } from "react"
-import LoadingPage from "@modules/common/components/loading"
 
 type Props = {
   params: { id: string }
@@ -40,7 +38,7 @@ export default async function MyOrderConfirmedPage({ params }: Props) {
 
   return (
     <Suspense>
-      <MyOrderCompletedTemplate order={order} />{" "}
+      <MyOrderCompletedTemplate order={order} />
     </Suspense>
   )
 }
