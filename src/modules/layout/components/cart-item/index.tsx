@@ -29,7 +29,7 @@ const CartItem = ({ item }: { item: LineItem }) => {
         <div className="w-1/3">
           <div className="cart-item-title">{item.title}</div>
           <div className="cart-item-price">
-            {formatVietnamPrice(item.total || 0)}
+            {formatVietnamPrice(item.subtotal || 0)}
           </div>
         </div>
         <div className="flex-1">

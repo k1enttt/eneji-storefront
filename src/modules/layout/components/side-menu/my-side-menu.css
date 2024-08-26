@@ -11,7 +11,7 @@
 }
 
 .menu-header-close {
-  @apply flex-none text-base mx-2 absolute;
+  @apply flex-none text-base absolute h-6 w-6;
 }
 
 .menu-header-title {

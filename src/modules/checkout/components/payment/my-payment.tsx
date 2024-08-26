@@ -43,7 +43,7 @@ const MyPayment = ({
   }, [])
 
   useEffect(() => {
-    console.error(error)
+    if (error) console.error(error)
   }, [error])
 
   return (

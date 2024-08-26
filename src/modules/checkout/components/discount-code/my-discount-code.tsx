@@ -44,10 +44,6 @@ const MyDiscountCode = ({
 
   const [message, formAction] = useFormState(submitDiscountForm, null)
 
-  useEffect(() => {
-    console.log("Discounts changed", appliedDiscount)
-  }, [appliedDiscount])
-
   return (
     <>
       <div className="checkout-discount">

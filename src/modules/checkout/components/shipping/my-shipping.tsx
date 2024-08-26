@@ -34,7 +34,7 @@ const MyShipping: React.FC<ShippingProps> = ({ availableShippingMethods }) => {
   }
 
   useEffect(() => {
-    console.error(error)
+    if (error) console.error(error)
   }, [error])
 
   useEffect(() => {
