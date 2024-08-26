@@ -3,32 +3,45 @@ import { formatVietnamPrice } from "@lib/util/format-price"
 import { Order } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import CircleXMark from "@modules/common/icons/circle-xmark"
+import FastDelivery from "@modules/common/icons/fast-delivery"
+import FileLine from "@modules/common/icons/file-line"
+import FireBurner from "@modules/common/icons/fire-burner"
+import HouseCircleCheck from "@modules/common/icons/house-circle-check"
 import { mapPaymentName } from "@modules/order/templates/my-order-completed-template"
 
-const statusString: { [key: string]: { title: string; colorStyle: string } } = {
+const statusString: { [key: string]: { title: string; textColor: string; bgColor?: string; icon?: JSX.Element } } = {
   not_paid: {
     title: "Đang xử lý",
-    colorStyle: "text-[#20419A]",
+    textColor: "text-[#20419A]",
+    icon: <FileLine size={32} color="#fff" />,
   },
   not_fulfilled: {
     title: "Đang chuẩn bị",
-    colorStyle: "text-[#20419A]",
+    textColor: "text-[#20419A]",
+    icon: <FireBurner size={32} color="#fff" />,
   },
   fulfilled: {
     title: "Đang giao hàng",
-    colorStyle: "text-yellow-500",
+    textColor: "text-yellow-500",
+    bgColor: "bg-yellow-100",
+    icon: <FastDelivery size={32} color="#ffeb3b" />,
   },
   shipped: {
     title: "Đã giao",
-    colorStyle: "text-green-500",
+    textColor: "text-green-500",
+    bgColor: "bg-green-100",
+    icon: <HouseCircleCheck size={32} color="#4caf50" />,
   },
   canceled: {
     title: "Đã hủy",
-    colorStyle: "text-red-500",
+    textColor: "text-red-500",
+    bgColor: "bg-red-100",
+    icon: <CircleXMark size={32} color="#F04438" />,
   },
 }
 
-const mapStatusString = (
+export const mapOrdersStatusString = (
   fulfillment_status: string,
   payment_status: string
 ) => {
@@ -56,11 +69,11 @@ const MyOrderOverview = ({ orders }: { orders: Order[] }) => {
     <div className="content-container py-6 md:py-8">
       {orders &&
         orders.map((order, index) => {
-          const orderStatus = mapStatusString(
+          const orderStatus = mapOrdersStatusString(
             order.fulfillment_status,
             order.payment_status
           )
-          const color = orderStatus.colorStyle || ""
+          const color = orderStatus.textColor || ""
           const itemsQuantity = order.items.reduce(
             (acc, item) => acc + item.quantity,
             0

@@ -7,6 +7,7 @@ import FireBurner from "@modules/common/icons/fire-burner"
 import HouseCircleCheck from "@modules/common/icons/house-circle-check"
 import { CheckoutPackingMethod, MultiSelectOption } from "types/global"
 import Cancel from "../components/cancel"
+import { Fragment } from "react"
 
 type MyOrderCompletedTemplateProps = {
   order: Order
@@ -45,7 +46,7 @@ const statusString: { [key: string]: StatusStringProps } = {
   },
 }
 
-const mapStatusString = (
+export const mapStatusString = (
   fulfillment_status: string,
   payment_status: string
 ) => {
@@ -69,20 +70,14 @@ export const mapPaymentName = (providerId: string) => {
   return paymentInfoMap[providerId]?.title
 }
 
-const mapOptionValue = (options: MultiSelectOption[]) => {
-  return options
-    .filter((option) => option.selected)
-    .map((option) => option.label)
-    .join(", ")
-}
-
 const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
   const payment = order.payments[0]
   let packing: CheckoutPackingMethod | null = null
   let orderNote = ""
   if (order.shipping_address.metadata) {
-    packing = order.shipping_address.metadata.packing as CheckoutPackingMethod || null
-    orderNote = order.shipping_address.metadata.order_note as string || ""
+    packing =
+      (order.shipping_address.metadata.packing as CheckoutPackingMethod) || null
+    orderNote = (order.shipping_address.metadata.order_note as string) || ""
   }
 
   const orderStatus = mapStatusString(
@@ -162,25 +157,22 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
           {order.items.map((item, index) => {
             const divider = index == 0 ? "" : "divider-normal"
             return (
-              <>
-                <div key={index + order.items.length} className={divider}></div>
-                <ItemPreview
-                  key={index}
-                  index={index}
-                  item={item}
-                  mapOptionValue={mapOptionValue}
-                />
-              </>
+              <Fragment key={index}>
+                <div className={divider}></div>
+                <ItemPreview index={index} item={item} />
+              </Fragment>
             )
           })}
         </div>
         <div className="divider-big"></div>
         <div className="checkout-mobile-container space-y-2">
           <div className="confirm-h2">Cách đóng gói</div>
-          {packing && <div className="confirm-subtitle flex items-center justify-between">
-            <div>{packing.title}</div>
-            <div>{formatVietnamPrice(packing.price)}</div>
-          </div>}
+          {packing && (
+            <div className="confirm-subtitle flex items-center justify-between">
+              <div>{packing.title}</div>
+              <div>{formatVietnamPrice(packing.price)}</div>
+            </div>
+          )}
         </div>
         <div className="divider-big"></div>
         <div className="checkout-mobile-container flex items-center justify-between">
@@ -190,7 +182,6 @@ const MyOrderCompletedTemplate = ({ order }: MyOrderCompletedTemplateProps) => {
           </div>
         </div>
         <div className="divider-big"></div>
-        {/* TODO: Hiển thị nội dung ghi chú */}
         <div className="checkout-mobile-container space-y-1">
           <div className="confirm-h3">Ghi chú</div>
           <div className="confirm-subtitle">{orderNote}</div>

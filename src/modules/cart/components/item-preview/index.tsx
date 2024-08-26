@@ -3,14 +3,19 @@ import { LineItem } from "@medusajs/medusa"
 import { map } from "lodash"
 import { MultiSelectOption } from "types/global"
 
+const mapOptionValue = (options: MultiSelectOption[]) => {
+  return options
+    .filter((option) => option.selected)
+    .map((option) => option.label)
+    .join(", ")
+}
+
 const ItemPreview = ({
   index,
   item,
-  mapOptionValue,
 }: {
   index: number
   item: LineItem
-  mapOptionValue: (options: MultiSelectOption[]) => string
 }) => {
   const options = mapOptionValue(
     item.metadata.multi_select_option as MultiSelectOption[]
