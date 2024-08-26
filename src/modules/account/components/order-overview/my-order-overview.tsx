@@ -10,7 +10,14 @@ import FireBurner from "@modules/common/icons/fire-burner"
 import HouseCircleCheck from "@modules/common/icons/house-circle-check"
 import { mapPaymentName } from "@modules/order/templates/my-order-completed-template"
 
-const statusString: { [key: string]: { title: string; textColor: string; bgColor?: string; icon?: JSX.Element } } = {
+const statusString: {
+  [key: string]: {
+    title: string
+    textColor: string
+    bgColor?: string
+    icon?: JSX.Element
+  }
+} = {
   not_paid: {
     title: "Đang xử lý",
     textColor: "text-[#20419A]",
@@ -81,7 +88,10 @@ const MyOrderOverview = ({ orders }: { orders: Order[] }) => {
 
           return (
             <div key={index} className={index > 0 ? "pt-5" : ""}>
-              <LocalizedClientLink href={`/my-order/details/${order.id}`}className="bg-white border border-gray-400 rounded-md w-full px-3 py-4 flex items-center text-start">
+              <LocalizedClientLink
+                href={`/my-order/details/${order.id}`}
+                className="bg-white border border-gray-400 rounded-md w-full px-5 py-4 flex items-center text-start"
+              >
                 <div className="flex-1 basis-0">
                   <div className="flex items-center gap-1">
                     <div className={clx("my-orders-h1", color)}>

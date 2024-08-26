@@ -80,10 +80,10 @@ const MySideMenu = ({
                         <div className="menu-account-avatar"></div>
                         <div className="menu-account-text">
                           <div className="menu-account-text-name">
-                            Họ và tên
+                            {customer?.first_name} {customer?.last_name}
                           </div>
                           <div className="menu-account-text-email">
-                            hovaten@gmail.com
+                            {customer?.email}
                           </div>
                         </div>
                         <div className="menu-account-chevron">
@@ -92,7 +92,7 @@ const MySideMenu = ({
                       </div>
                       <div className="menu-card">
                         <div className="menu-card-label">Thẻ Eneji</div>
-                        <div className="menu-card-value">40.000 đ</div>
+                        <div className="menu-card-value">0 đ</div>
                       </div>
                       <div className="menu-features">
                         <ul className="menu-features">

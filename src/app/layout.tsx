@@ -1,3 +1,4 @@
+import BottomMenu from "@modules/layout/components/bottom-menu"
 import { Metadata } from "next"
 import "styles/globals.css"
 
@@ -7,11 +8,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 }
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(
+  props: { children: React.ReactNode },
+) {
   return (
     <html lang="en" data-mode="light">
       <body>
         <main className="relative">{props.children}</main>
+        <BottomMenu />
       </body>
     </html>
   )
