@@ -31,6 +31,7 @@ const BottomMenu = () => {
           const isOpened = isCurrentPage(option.path)
           return (
             <Link
+              key={index}
               href={option.path}
               className={clx(
                 "flex-1 h-full flex items-center justify-center text-grey-50",
@@ -41,7 +42,9 @@ const BottomMenu = () => {
                 <div className="h-6 w-6 flex items-center justify-center">
                   <i className={`fa-solid fa-${option.icon} text-xl`}></i>
                 </div>
-                <div className={clx("text-xs", isOpened && "font-medium")}>{option.name}</div>
+                <div className={clx("text-xs", isOpened && "font-medium")}>
+                  {option.name}
+                </div>
               </div>
             </Link>
           )

@@ -58,6 +58,11 @@ const Wrapper: React.FC<WrapperProps> = ({ cart, children }) => {
     )
   }
 
+  // Tạo payment session cho ZaloPay ở đây
+  if (paymentSession?.provider_id === "zalopay") {
+    return <div>{children}</div>
+  }
+
   return <div className="checkout-wrapper">{children}</div>
 }
 

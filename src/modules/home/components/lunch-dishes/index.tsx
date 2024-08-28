@@ -16,6 +16,8 @@ const LunchDishes = ({
   region: Region
   timeline: TimelineProps
 }) => {
+  if (!products || products.length === 0) return null
+
   // Get today's products
   const today = getCurrentDate()
   const todayProducts = products.filter(
