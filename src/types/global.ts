@@ -96,6 +96,7 @@ export type MultiSelectOption = { label: string; selected: boolean }
 
 export type CheckoutFormData = {
   "shipping_address.first_name": string
+  "shipping_address.last_name": string,
   "shipping_address.address_1": string
   "shipping_address.phone": string
   email: string
@@ -103,7 +104,6 @@ export type CheckoutFormData = {
   "shipping_address.metadata.order_note": string
   /*
   Other fields are not used in the form
-    "shipping_address.last_name": "",
     "shipping_address.company": "",
     "shipping_address.postal_code": "",
     "shipping_address.city": "",

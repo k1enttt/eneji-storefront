@@ -145,7 +145,6 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
       phone: formData.get("billing_address.phone"),
     } as StorePostCartsCartReq
 
-
   try {
     await updateCart(cartId, data)
     revalidateTag("cart")
@@ -168,7 +167,7 @@ export async function setMyAddresses(formData: any) {
 
   const data = {
     shipping_address: {
-      first_name: formData['shipping_address.first_name'],
+      first_name: formData["shipping_address.first_name"],
       last_name: formData["shipping_address.last_name"],
       address_1: formData["shipping_address.address_1"],
       address_2: "",
@@ -181,7 +180,7 @@ export async function setMyAddresses(formData: any) {
       metadata: {
         packing: formData["shipping_address.metadata.packing"],
         order_note: formData["shipping_address.metadata.order_note"],
-      }
+      },
     },
     email: formData["email"],
   } as StorePostCartsCartReq
@@ -201,7 +200,7 @@ export async function setMyAddresses(formData: any) {
  * Github issue: https://github.com/medusajs/medusa/issues/5764
  * update() of Medusa Client: https://docs.medusajs.com/references/js-client/CartsResource#update
  * @param formData any
- * @returns 
+ * @returns
  */
 export async function setPackingMethodAndNote(formData: any) {
   if (!formData) return "No form data received"
@@ -274,4 +273,27 @@ export async function placeOrder() {
   }
 
   return cart
+}
+
+export async function createVnPaymentUrl(params: {
+  orderId: string
+  total: number
+  returnUrl: string
+}) {
+  try {
+    const response = await fetch("http://localhost:8000/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderId: params.orderId,
+        total: params.total,
+        returnUrl: params.returnUrl,
+      }),
+    }).then((res) => res.json())
+    return { data: response.body.paymentUrl }
+  } catch (error: any) {
+    return { error: error.toString() }
+  }
 }

@@ -49,6 +49,7 @@ const MyShipping: React.FC<ShippingProps> = ({ availableShippingMethods }) => {
       {availableShippingMethods &&
         availableShippingMethods.map((method) => (
           <button
+            key={method.id}
             disabled={isLoading}
             onClick={() => method.id && handleChange(method.id)}
             className={clx(

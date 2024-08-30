@@ -40,10 +40,12 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
     "shipping_address.phone": cart?.shipping_address?.phone || "",
     email: cart?.email || "",
     "shipping_address.metadata.packing":
-      (cart?.shipping_address?.metadata?.packing as CheckoutPackingMethod) ||
-      ({} as CheckoutPackingMethod),
+    (cart?.shipping_address?.metadata?.packing as CheckoutPackingMethod) ||
+    ({} as CheckoutPackingMethod),
     "shipping_address.metadata.order_note":
-      (cart?.shipping_address?.metadata?.order_note as string) || "",
+    (cart?.shipping_address?.metadata?.order_note as string) || "",
+    // Below fields are not used in the current implementation
+    "shipping_address.last_name": "",
   })
 
   return (
