@@ -154,6 +154,19 @@ export async function deleteDiscount(cartId: string, code: string) {
     })
 }
 
+export async function deletePaymentSession(cartId: string, providerId: string) {
+  const headers = getMedusaHeaders(["cart"])
+  
+  return medusaClient.carts.deletePaymentSession(cartId, providerId, headers)
+  .then(({ cart }) => {
+    console.log(cart.id);
+    return cart;
+  }).catch((err) => {
+    console.log(err);
+    return null;
+  });
+}
+
 export async function createPaymentSessions(cartId: string) {
   const headers = getMedusaHeaders(["cart"])
 
