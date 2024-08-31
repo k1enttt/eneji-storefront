@@ -11,12 +11,9 @@ import {
 } from "@lib/data"
 import { GiftCard, StorePostCartsCartReq } from "@medusajs/medusa"
 import { revalidateTag } from "next/cache"
-import { ReadonlyURLSearchParams, redirect } from "next/navigation"
-import { useAdminPaymentsCapturePayment } from "medusa-react"
+import { redirect } from "next/navigation"
 import { ReturnQueryFromVNPay, VerifyReturnUrl } from "vnpay"
 import { vnpay } from "@lib/services/payment/vnpay"
-import { NextResponse } from "next/server"
-import { medusaClient } from "@lib/config"
 
 export async function cartUpdate(data: StorePostCartsCartReq) {
   const cartId = cookies().get("_medusa_cart_id")?.value
@@ -209,22 +206,19 @@ export async function setMyAddresses(formData: any) {
  */
 let MEDUSA_BACKEND_URL = "http://localhost:9000"
 export async function setPaymentCaptured(orderId: string, countryCode: string) {
-  let message = null
-  await fetch(`${MEDUSA_BACKEND_URL}/store/custom/orders/capture/${orderId}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((response) => {
-      if (response.error) {
-        message = response.error
-      } else {
-        redirect(`/${countryCode}/order-confirmed/${orderId}`)
+  try {
+    await fetch(
+      `${MEDUSA_BACKEND_URL}/store/custom/orders/capture/${orderId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    })
-  return { error: message }
+    )
+  } catch (error: any) {
+    throw new Error(error)
+  }
 }
 
 export async function setShippingMethod(shippingMethodId: string) {
@@ -272,7 +266,16 @@ export async function placeOrder(isVnPay?: boolean) {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()
     cookies().set("_medusa_cart_id", "", { maxAge: -1 })
     // redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
-    if (!isVnPay) redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
+    if (isVnPay) {
+      try {
+        await setPaymentCaptured(cart.data.id, countryCode || "vn")
+        redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
+      } catch (error: any) {
+        throw error
+      }
+    } else {
+      redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
+    }
   }
 
   return cart

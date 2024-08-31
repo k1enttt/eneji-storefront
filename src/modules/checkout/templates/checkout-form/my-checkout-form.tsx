@@ -113,7 +113,7 @@ const MyCheckoutForm = ({
         </div>
       </div>
       <div className="divider-big"></div>
-      <MyPayment cart={cart} />
+      <MyPayment cart={cart} formDataState={{formData, setFormData}} />
 
       <div className="divider-big"></div>
       <MyDiscountCode cart={cart} />

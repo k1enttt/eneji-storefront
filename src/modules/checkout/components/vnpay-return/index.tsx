@@ -1,12 +1,12 @@
 "use client"
-import { placeOrder, setPaymentCaptured } from "@modules/checkout/actions"
+import { placeOrder } from "@modules/checkout/actions"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import "@fortawesome/fontawesome-free/css/all.css"
 import Spinner from "@modules/common/icons/spinner"
 
 const VnPayReturnComponent = ({
-  responseMessage: error,
+  responseMessage: errorCapturePayment,
 }: {
   responseMessage: string | undefined
 }) => {
@@ -20,17 +20,6 @@ const VnPayReturnComponent = ({
     } catch (error: any) {
       setErrorMessage(error.toString())
     }
-
-    if (cart && cart.type === "order") {
-      const countryCode = cart.data.shipping_address.country_code
-        ? cart.data.shipping_address.country_code.toLowerCase()
-        : "vn"
-      await setPaymentCaptured(cart.data.id, countryCode).then((response) => {
-        if (response.error) {
-          setErrorMessage(response.error)
-        }
-      })
-    }
   }
 
   const handleComplete = () => {
@@ -38,7 +27,7 @@ const VnPayReturnComponent = ({
   }
 
   useEffect(() => {
-    if (!error) {
+    if (!!errorCapturePayment == false) {
       handleComplete()
     }
   }, [])
@@ -48,14 +37,18 @@ const VnPayReturnComponent = ({
       <div className="shadow-lg gap-2 w-[300px] p-4 border rounded-lg flex flex-col items-center justify-center space-y-2">
         <div
           className={`text-xl font-semibold ${
-            !!error ? "text-red-500" : "text-green-500"
+            !!errorCapturePayment ? "text-red-500" : "text-green-500"
           }`}
         >
-          {!!error ? "Giao dịch thất bại" : "Giao dịch thành công"}
+          {!!errorCapturePayment
+            ? "Giao dịch thất bại"
+            : "Giao dịch thành công"}
         </div>
-        {error && <p className="font-medium">{error}</p>}
+        {errorCapturePayment && (
+          <p className="font-medium">{errorCapturePayment}</p>
+        )}
         {errorMessage && <p className="font-medium">{errorMessage}</p>}
-        {!!error ? (
+        {!!errorCapturePayment ? (
           <button
             onClick={() => router.push("/vn/checkout")}
             className="hover:text-blue-500"

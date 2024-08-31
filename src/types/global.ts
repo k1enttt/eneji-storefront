@@ -96,12 +96,13 @@ export type MultiSelectOption = { label: string; selected: boolean }
 
 export type CheckoutFormData = {
   "shipping_address.first_name": string
-  "shipping_address.last_name": string,
+  "shipping_address.last_name": string
   "shipping_address.address_1": string
   "shipping_address.phone": string
   email: string
   "shipping_address.metadata.packing": CheckoutPackingMethod
   "shipping_address.metadata.order_note": string
+  "shipping_address.metadata.is_vnpayment": boolean
   /*
   Other fields are not used in the form
     "shipping_address.company": "",

@@ -69,13 +69,6 @@ const MyCheckoutSummary = ({
     })
   }
 
-  const handleSubmit = () => {
-    setSubmitting(true)
-    setErrorMessage(null)
-
-    onPaymentCompleted()
-  }
-
   const onVnPaymentCompleted = async () => {
     if (notReady) {
       if (!cart) {
@@ -124,12 +117,14 @@ const MyCheckoutSummary = ({
     })
   }
 
-  const handleVnPaySubmit = () => {
+  const handleSubmit = () => {
     setSubmitting(true)
     setErrorMessage(null)
+    const isVnPayment = formData["shipping_address.metadata.is_vnpayment"]
+    console.log("isVnPayment:", isVnPayment)
 
-    // handle payment
-    onVnPaymentCompleted()
+    if (isVnPayment) onVnPaymentCompleted()
+    else onPaymentCompleted()
   }
 
   return (
@@ -174,18 +169,7 @@ const MyCheckoutSummary = ({
           Đặt đơn
         </button>
       </div>
-      <div className="checkout-total-submit">
-        <button
-          onClick={handleVnPaySubmit}
-          disabled={submitting}
-          className={clx(
-            "bg-[#20419A] w-full text-white py-2 px-3 rounded-md font-[500] flex items-center justify-center",
-            submitting && "opacity-50"
-          )}
-        >
-          Đặt đơn với vnpay
-        </button>
-      </div>
+
       <div className="checkout-mobile-container">
         <ErrorMessage
           error={errorMessage}

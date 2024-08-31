@@ -31,6 +31,10 @@ export const paymentInfoMap: Record<
     icon: <Cash />,
   },
   // Add more payment providers here
+  vnpay: {
+    title: "VNPay",
+    icon: <CreditCard />,
+  },
 }
 
 // Add currencies that don't need to be divided by 100

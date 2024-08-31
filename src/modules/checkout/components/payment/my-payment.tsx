@@ -5,14 +5,17 @@ import { clx } from "@medusajs/ui"
 import { setPaymentMethod } from "@modules/checkout/actions"
 import LoadingPage from "@modules/common/components/loading"
 import CheckboxRound from "@modules/products/components/check-box/check-box-round"
-import { Fragment, useEffect, useState } from "react"
+import { Dispatch, Fragment, useEffect, useState } from "react"
+import { CheckoutFormData } from "types/global"
 
-type PaymentMethod = "manual"
+type PaymentMethod = "manual" | "vnpay"
 
 const MyPayment = ({
   cart,
+  formDataState
 }: {
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
+  formDataState: {formData: CheckoutFormData, setFormData: Dispatch<any>}
 }) => {
   const [paymentMethodState, setPaymentMethodState] =
     useState<PaymentMethod>("manual")
@@ -28,17 +31,24 @@ const MyPayment = ({
       })
   }
 
+  const updateVNPay = (value: boolean) => {
+    const vnpayData = {
+      ...formDataState.formData,
+      "shipping_address.metadata.is_vnpayment": value
+    }
+    formDataState.setFormData(vnpayData)
+  }
+
   const handleChange = (providerId: PaymentMethod) => {
     setPaymentMethodState(providerId)
+    updateVNPay(providerId == "vnpay") // Ghi chú rằng phương thức VNPay có được chọn hay không
     setError(null)
-    set(providerId)
+    if (providerId != "vnpay") set(providerId) 
   }
 
   useEffect(() => {
     if (cart?.payment_sessions?.length) {
-      handleChange(
-        cart.payment_sessions[0].provider_id as PaymentMethod
-      )
+      handleChange(cart.payment_sessions[0].provider_id as PaymentMethod)
     }
   }, [])
 
@@ -91,6 +101,22 @@ const MyPayment = ({
                   </Fragment>
                 )
               })}
+            {cart.payment_sessions.length > 0 && (
+              <div className="divider-normal"></div>
+            )}
+            <div className="checkout-option">
+              <CheckboxRound
+                checked={paymentMethodState == "vnpay"}
+                onChange={() =>
+                  paymentMethodState != "vnpay" &&
+                  handleChange("vnpay" as PaymentMethod)
+                }
+              />
+              <div className="checkout-option-label">
+                {paymentInfoMap["vnpay"].title}
+              </div>
+              <div>{paymentInfoMap["vnpay"].icon}</div>
+            </div>
           </div>
         )}
       </div>

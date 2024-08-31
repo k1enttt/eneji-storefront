@@ -44,6 +44,7 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
     ({} as CheckoutPackingMethod),
     "shipping_address.metadata.order_note":
     (cart?.shipping_address?.metadata?.order_note as string) || "",
+    "shipping_address.metadata.is_vnpayment": false,
     // Below fields are not used in the current implementation
     "shipping_address.last_name": "",
   })
