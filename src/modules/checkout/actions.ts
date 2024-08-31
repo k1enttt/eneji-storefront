@@ -208,7 +208,7 @@ export async function setMyAddresses(formData: any) {
  * @returns
  */
 let MEDUSA_BACKEND_URL = "http://localhost:9000"
-export async function setPaymentCaptured(orderId: string) {
+export async function setPaymentCaptured(orderId: string, countryCode: string) {
   let message = null
   await fetch(`${MEDUSA_BACKEND_URL}/store/custom/orders/capture/${orderId}`, {
     method: "POST",
@@ -220,6 +220,8 @@ export async function setPaymentCaptured(orderId: string) {
     .then((response) => {
       if (response.error) {
         message = response.error
+      } else {
+        redirect(`/${countryCode}/order-confirmed/${orderId}`)
       }
     })
   return { error: message }
@@ -252,7 +254,7 @@ export async function setPaymentMethod(providerId: string) {
   }
 }
 
-export async function placeOrder() {
+export async function placeOrder(isVnPay?: boolean) {
   const cartId = cookies().get("_medusa_cart_id")?.value
 
   if (!cartId) throw new Error("No cartId cookie found")
@@ -270,10 +272,7 @@ export async function placeOrder() {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()
     cookies().set("_medusa_cart_id", "", { maxAge: -1 })
     // redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
-    await setPaymentCaptured(cart?.data.id).then((response) => {
-      if (response.error) throw new Error(response.error)
-    })
-    redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
+    if (!isVnPay) redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
   }
 
   return cart

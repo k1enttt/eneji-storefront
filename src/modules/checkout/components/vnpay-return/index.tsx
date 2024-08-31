@@ -1,5 +1,5 @@
 "use client"
-import { placeOrder } from "@modules/checkout/actions"
+import { placeOrder, setPaymentCaptured } from "@modules/checkout/actions"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import "@fortawesome/fontawesome-free/css/all.css"
@@ -14,9 +14,23 @@ const VnPayReturnComponent = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const onPaymentCompleted = async () => {
-    await placeOrder().catch((err) => {
-      setErrorMessage(err.toString())
-    })
+    let cart
+    try {
+      cart = await placeOrder(true)
+    } catch (error: any) {
+      setErrorMessage(error.toString())
+    }
+
+    if (cart && cart.type === "order") {
+      const countryCode = cart.data.shipping_address.country_code
+        ? cart.data.shipping_address.country_code.toLowerCase()
+        : "vn"
+      await setPaymentCaptured(cart.data.id, countryCode).then((response) => {
+        if (response.error) {
+          setErrorMessage(response.error)
+        }
+      })
+    }
   }
 
   const handleComplete = () => {
@@ -32,7 +46,11 @@ const VnPayReturnComponent = ({
   return (
     <div className="fixed top-0 bottom-0 w-full h-full flex items-center justify-center">
       <div className="shadow-lg gap-2 w-[300px] p-4 border rounded-lg flex flex-col items-center justify-center space-y-2">
-        <div className={`text-xl font-semibold ${(!!error) ? "text-red-500" : "text-green-500"}`}>
+        <div
+          className={`text-xl font-semibold ${
+            !!error ? "text-red-500" : "text-green-500"
+          }`}
+        >
           {!!error ? "Giao dịch thất bại" : "Giao dịch thành công"}
         </div>
         {error && <p className="font-medium">{error}</p>}
@@ -52,7 +70,8 @@ const VnPayReturnComponent = ({
             <span>
               <Spinner />
             </span>
-            Đang xử lý đơn hàng...</div>
+            Đang xử lý đơn hàng...
+          </div>
         )}
       </div>
     </div>
