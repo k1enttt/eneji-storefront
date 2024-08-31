@@ -60,7 +60,7 @@ const MyCheckout: React.FC<MyCheckoutProps> = ({
           weeklyMenu={weeklyMenu}
         />
       </Wrapper>
-      <MyCheckoutSummary data={cart} formData={formData} />
+      <MyCheckoutSummary customer={customer} data={cart} formData={formData} />
     </>
   )
 }

@@ -13,5 +13,9 @@ type Params = {
 export default async function VnPayReturn(params: Params) {
   const { searchParams } = params
   const message = await checkVnPayReturn(searchParams)
-  return <VnPayReturnComponent responseMessage={message?.error} />
+  return (
+    <div className="">
+      <VnPayReturnComponent responseMessage={message?.error} />
+    </div>
+  )
 }

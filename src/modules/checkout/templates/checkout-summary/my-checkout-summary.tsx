@@ -8,20 +8,17 @@ import {
 } from "@modules/checkout/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import LoadingPage from "@modules/common/components/loading"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { CheckoutFormData } from "types/global"
 
 const MyCheckoutSummary = ({
   formData,
   data: cart,
-  customer
 }: {
   formData: CheckoutFormData
   data: Omit<Cart, "refundable_amount" | "refunded_total"> | Order
   customer: Omit<Customer, "password_hash"> | null
 }) => {
-  const searchParams = useSearchParams()
   const { subtotal, discount_total, tax_total, shipping_total, total } = cart
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -127,13 +124,6 @@ const MyCheckoutSummary = ({
     })
   }
 
-  const onPlacedOrder = async () => {
-    await placeOrder().catch((err) => {
-      setErrorMessage(err.toString())
-      setSubmitting(false)
-    })
-  }
-
   const handleVnPaySubmit = () => {
     setSubmitting(true)
     setErrorMessage(null)
@@ -141,14 +131,6 @@ const MyCheckoutSummary = ({
     // handle payment
     onVnPaymentCompleted()
   }
-
-  useEffect(() => {
-    const isPaid = searchParams.get("isPaid")
-    if (!isPaid) return
-    setSubmitting(true)
-    setErrorMessage(null)
-    onPlacedOrder()
-  }, [])
 
   return (
     <div className="checkout-total">
