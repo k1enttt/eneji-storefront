@@ -1,15 +1,13 @@
 import { formatVietnamPrice } from "@lib/util/format-price"
-import { Cart, Order } from "@medusajs/medusa"
+import { Cart, Customer, Order } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
 import {
   createVnPaymentUrl,
   placeOrder,
   setMyAddresses,
-  setPackingMethodAndNote,
 } from "@modules/checkout/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import LoadingPage from "@modules/common/components/loading"
-import { set } from "lodash"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { CheckoutFormData } from "types/global"
@@ -17,15 +15,18 @@ import { CheckoutFormData } from "types/global"
 const MyCheckoutSummary = ({
   formData,
   data: cart,
+  customer
 }: {
   formData: CheckoutFormData
   data: Omit<Cart, "refundable_amount" | "refunded_total"> | Order
+  customer: Omit<Customer, "password_hash"> | null
 }) => {
   const searchParams = useSearchParams()
   const { subtotal, discount_total, tax_total, shipping_total, total } = cart
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
+  // check customer data if you want to authenticate the user before placing the order
   const notReady =
     !cart ||
     !cart.shipping_address ||
@@ -64,16 +65,9 @@ const MyCheckoutSummary = ({
         setSubmitting(false)
         return
       } else
-        await setPackingMethodAndNote(formData).then(async (response) => {
-          setErrorMessage(response || null)
-          if (errorMessage) {
-            setSubmitting(false)
-            return
-          } else
-            await placeOrder().catch((err) => {
-              setErrorMessage(err.toString())
-              setSubmitting(false)
-            })
+        await placeOrder().catch((err) => {
+          setErrorMessage(err.toString())
+          setSubmitting(false)
         })
     })
   }
@@ -82,7 +76,6 @@ const MyCheckoutSummary = ({
     setSubmitting(true)
     setErrorMessage(null)
 
-    // handle payment
     onPaymentCompleted()
   }
 
@@ -110,16 +103,15 @@ const MyCheckoutSummary = ({
     const vnPaymentData = {
       orderId: cart.id,
       total: cart.total || 0,
-      returnUrl: "http://localhost:8000/vn/fallback",
+      returnUrl: "http://localhost:8000/vn/vnpay-return",
     }
 
-    console.log("Đang cập nhật thông tin giao hàng")
     await setMyAddresses(formData).then(async (response) => {
       setErrorMessage(response || null)
       if (errorMessage) {
         setSubmitting(false)
         return
-      } else console.log("Đang thiết lập thanh toán vnpay")
+      }
       await createVnPaymentUrl(vnPaymentData).then(async (response) => {
         setErrorMessage(response ? response.error || null : null)
         if (errorMessage) {
@@ -130,10 +122,6 @@ const MyCheckoutSummary = ({
             window.location.href = response.data
           }
           setSubmitting(false)
-          // await placeOrder().catch((err) => {
-          //   setErrorMessage(err.toString())
-          //   setSubmitting(false)
-          // })
         }
       })
     })
@@ -159,7 +147,7 @@ const MyCheckoutSummary = ({
     if (!isPaid) return
     setSubmitting(true)
     setErrorMessage(null)
-    onPlacedOrder();
+    onPlacedOrder()
   }, [])
 
   return (

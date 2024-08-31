@@ -11,7 +11,12 @@ import {
 } from "@lib/data"
 import { GiftCard, StorePostCartsCartReq } from "@medusajs/medusa"
 import { revalidateTag } from "next/cache"
-import { redirect } from "next/navigation"
+import { ReadonlyURLSearchParams, redirect } from "next/navigation"
+import { useAdminPaymentsCapturePayment } from "medusa-react"
+import { ReturnQueryFromVNPay, VerifyReturnUrl } from "vnpay"
+import { vnpay } from "@lib/services/payment/vnpay"
+import { NextResponse } from "next/server"
+import { medusaClient } from "@lib/config"
 
 export async function cartUpdate(data: StorePostCartsCartReq) {
   const cartId = cookies().get("_medusa_cart_id")?.value
@@ -202,26 +207,22 @@ export async function setMyAddresses(formData: any) {
  * @param formData any
  * @returns
  */
-export async function setPackingMethodAndNote(formData: any) {
-  if (!formData) return "No form data received"
-
-  const cartId = cookies().get("_medusa_cart_id")?.value
-
-  if (!cartId) return { message: "No cartId cookie found" }
-
-  const data = {
-    context: {
-      packing: formData["metadata.packing"],
-      order_note: formData["metadata.order_note"],
+let MEDUSA_BACKEND_URL = "http://localhost:9000"
+export async function setPaymentCaptured(orderId: string) {
+  let message = null
+  await fetch(`${MEDUSA_BACKEND_URL}/store/custom/orders/capture/${orderId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  } as StorePostCartsCartReq
-
-  try {
-    await updateCart(cartId, data)
-    revalidateTag("cart")
-  } catch (error: any) {
-    return error.toString()
-  }
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      if (response.error) {
+        message = response.error
+      }
+    })
+  return { error: message }
 }
 
 export async function setShippingMethod(shippingMethodId: string) {
@@ -269,6 +270,9 @@ export async function placeOrder() {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()
     cookies().set("_medusa_cart_id", "", { maxAge: -1 })
     // redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
+    await setPaymentCaptured(cart?.data.id).then((response) => {
+      if (response.error) throw new Error(response.error)
+    })
     redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
   }
 
@@ -296,4 +300,29 @@ export async function createVnPaymentUrl(params: {
   } catch (error: any) {
     return { error: error.toString() }
   }
+}
+
+export async function checkVnPayReturn(vnp_Params: ReturnQueryFromVNPay) {
+  let verify: VerifyReturnUrl
+  try {
+    // Sử dụng try-catch để bắt lỗi nếu query không hợp lệ, không đủ dữ liệu
+    verify = vnpay.verifyReturnUrl(vnp_Params as ReturnQueryFromVNPay)
+    if (!verify.isVerified) {
+      return {
+        error: "Xác thực tính toàn vẹn dữ liệu không thành công",
+      }
+    }
+    if (!verify.isSuccess) {
+      return {
+        error: "Đơn hàng thanh toán không thành công",
+      }
+    }
+  } catch (error) {
+    return {
+      error: "Dữ liệu không hợp lệ",
+    }
+  }
+
+  // Kiểm tra thông tin đơn hàng và xử lý
+  return
 }

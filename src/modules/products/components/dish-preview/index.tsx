@@ -69,18 +69,15 @@ export default function DishPreview({
         </div>
 
         <div className="flex flex-col txt-compact-medium mt-2 justify-between">
-          <Text
-            className="font-semibold"
-            data-testid="product-title"
-          >
+          <Text className="font-semibold" data-testid="product-title">
             {dishPreview.title}
           </Text>
           <div className="flex items-center gap-x-2 font-bold">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
-          {leftDishes && leftDishes > 0 && (
-            <Text className="text-ui-fg-muted">Còn {leftDishes}</Text>
-          )}
+          <Text className="text-ui-fg-muted">
+            {leftDishes > 0 ? `Còn ${leftDishes}` : "Hết hàng"}
+          </Text>
         </div>
       </div>
     )
@@ -101,18 +98,15 @@ export default function DishPreview({
         </div>
 
         <div className="flex flex-col justify-start txt-compact-medium mt-4">
-          <Text
-            className="font-semibold"
-            data-testid="product-title"
-          >
+          <Text className="font-semibold" data-testid="product-title">
             {dishPreview.title}
           </Text>
           <div className="items-center gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
-          {leftDishes > 0 && (
-            <Text className="text-ui-fg-muted">Còn {leftDishes}</Text>
-          )}
+          <Text className="text-ui-fg-muted">
+            {leftDishes > 0 ? `Còn ${leftDishes}` : "Hết hàng"}
+          </Text>
         </div>
       </div>
     )

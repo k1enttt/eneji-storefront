@@ -6,9 +6,9 @@ export async function POST(req: NextRequest) {
   const payload = await req.json();
   const { orderId, total, returnUrl } = payload;
 
-  // Expire time is 20 minutes
+  // Expire time is 1 day
   const expireTime = new Date();
-  expireTime.setMinutes(expireTime.getMinutes() + 20);
+  expireTime.setDate(expireTime.getDate() + 1);
 
   const ipAddr =
     req.headers.get("X-Forwarded-For")?.split(",")[0] ||

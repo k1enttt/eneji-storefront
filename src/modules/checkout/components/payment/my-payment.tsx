@@ -5,7 +5,7 @@ import { clx } from "@medusajs/ui"
 import { setPaymentMethod } from "@modules/checkout/actions"
 import LoadingPage from "@modules/common/components/loading"
 import CheckboxRound from "@modules/products/components/check-box/check-box-round"
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 
 type PaymentMethod = "manual"
 
@@ -67,7 +67,7 @@ const MyPayment = ({
                   <div className="divider-normal"></div>
                 )
                 return (
-                  <>
+                  <Fragment key={index}>
                     {dividerComponent}
                     <div className="checkout-option">
                       <CheckboxRound
@@ -88,7 +88,7 @@ const MyPayment = ({
                         {paymentInfoMap[payment_session.provider_id].icon}
                       </div>
                     </div>
-                  </>
+                  </Fragment>
                 )
               })}
           </div>

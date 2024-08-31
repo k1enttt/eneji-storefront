@@ -19,9 +19,9 @@ const MyItemsPreviewTemplate = ({ items }: { items: LineItem[] }) => {
       <div className="checkout-dishes-list">
         {items.map((item, index) => (
           <ItemPreview
+            key={item.id}
             index={index}
             item={item}
-            mapOptionValue={mapOptionValue}
           />
         ))}
       </div>
