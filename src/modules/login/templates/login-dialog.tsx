@@ -5,11 +5,10 @@ import { useEffect, useState } from "react"
 import LoginComponent from "../login"
 import RegisterComponent from "../register"
 
-const LoginDialog = ({closeDialog}:{closeDialog: () => void}) => {
+const LoginDialog = ({ closeDialog }: { closeDialog: () => void }) => {
   // Get search params 'isLogin' and 'callbackUrl' from the URL
   const searchParams = useSearchParams()
   const isLogin = searchParams.get("isLogin") || "1"
-  const callbackUrl = searchParams.get("callbackUrl") || "/"
   const router = useRouter()
   const pathname = usePathname()
 

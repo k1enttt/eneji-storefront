@@ -90,32 +90,17 @@ const MyCheckoutSummary = ({
       return
     }
 
-    const vnPaymentData = {
-      orderId: cart.id,
-      total: cart.total || 0,
-      returnUrl: "https://enejistorefront.kienttt.site/vn/vnpay-return", 
-      // use enejistorefront.kienttt.site when in production
-      // use localhost:3000 when in development
-    }
-
-    await setMyAddresses(formData).then(async (response) => {
-      setErrorMessage(response || null)
-      if (errorMessage) {
-        setSubmitting(false)
-        return
-      }
-      await createVnPaymentUrl(vnPaymentData).then(async (response) => {
-        setErrorMessage(response ? response.error || null : null)
-        if (errorMessage) {
-          setSubmitting(false)
-          return
-        } else {
-          if (response && response.data) {
-            window.location.href = response.data
-          }
-          setSubmitting(false)
-        }
-      })
+    console.log("Cập nhật thông tin giao hàng")
+    await setMyAddresses(formData).catch((error) => {
+      setErrorMessage(error || null)
+      setSubmitting(false)
+      return
+    })
+    console.log("Đặt đơn hàng")
+    await placeOrder(true).catch((err) => {
+      setErrorMessage(err.toString())
+      setSubmitting(false)
+      return
     })
   }
 

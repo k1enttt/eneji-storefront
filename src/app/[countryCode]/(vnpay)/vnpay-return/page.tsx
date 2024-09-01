@@ -12,10 +12,14 @@ type Params = {
 }
 export default async function VnPayReturn(params: Params) {
   const { searchParams } = params
+  const { vnp_TxnRef } = searchParams
   const message = await checkVnPayReturn(searchParams)
   return (
     <div className="">
-      <VnPayReturnComponent responseMessage={message?.error} />
+      <VnPayReturnComponent
+        orderId={vnp_TxnRef}
+        responseMessage={message?.error}
+      />
     </div>
   )
 }

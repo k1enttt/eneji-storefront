@@ -4,7 +4,11 @@ import { ProductCode, VnpLocale, dateFormat } from "vnpay";
 
 export async function POST(req: NextRequest) {
   const payload = await req.json();
-  const { orderId, total, returnUrl } = payload;
+  const { orderId, total, returnUrl } = payload as {
+    orderId: string;
+    total: number;
+    returnUrl: string;
+  };
 
   // Expire time is 1 day
   const expireTime = new Date();
@@ -18,9 +22,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const paymentUrl = vnpay.buildPaymentUrl({
-      vnp_Amount: total || 0,
+      vnp_Amount: total,
       vnp_IpAddr: ipAddr,
-      vnp_TxnRef: orderId || "",
+      vnp_TxnRef: orderId,
       vnp_OrderInfo: "Thanh toan don hang #" + orderId,
       vnp_OrderType: ProductCode.Food_Consumption,
       vnp_ReturnUrl: returnUrl || "http://localhost:8000/fallback",

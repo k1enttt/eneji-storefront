@@ -20,10 +20,9 @@ const LoginComponent = ({
 
   const handleSubmit = (payload: FormData) => {
     setIsSubmitting(true)
-    formAction(payload)
-    closeLogin()
-  }
 
+    formAction(payload)
+  }
   return (
     <div className="fixed top-0 z-50 bg-black/50 h-full w-full flex items-center justify-center pointer-events-none">
       <div className="w-full md:w-[375px] bg-white h-full md:h-fit pb-4 rounded-none md:rounded-xl overflow-hidden pointer-events-auto">
@@ -66,16 +65,25 @@ const LoginComponent = ({
                 className="w-full h-10 rounded-md p-2 bg-[#F2F4F7] border-none shadow-md"
               />
             </div>
-            <ErrorMessage error={message} data-testid="register-error" />
-            <div className="h-fit flex-1 flex flex-col justify-end">
+            {message && (
+              <div className="pb-2 px-2 rounded-md bg-red-100">
+                <ErrorMessage error={message} data-testid="register-error" />
+              </div>
+            )}
+            <div className="pt-2 h-fit flex-1 flex flex-col justify-end">
               <SubmitButton
                 login
                 message={message}
                 isSubmitting={isSubmitting}
                 setIsSubmitting={setIsSubmitting}
+                close={closeLogin}
                 className="font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
               ></SubmitButton>
-              <button type="button" onClick={openRegister} className="font-semibold w-full h-10 text-center p-2 text-[#20419A]">
+              <button
+                type="button"
+                onClick={openRegister}
+                className="font-semibold w-full h-10 text-center p-2 text-[#20419A]"
+              >
                 Đăng ký
               </button>
             </div>
