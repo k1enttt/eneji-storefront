@@ -1,13 +1,10 @@
-import DishPreview from "@modules/products/components/dish-preview"
 import { clx, Text } from "@medusajs/ui"
-import { ProductPreviewType } from "types/global"
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
-import { Region } from "@medusajs/medusa"
 import Link from "next/link"
 import PostPreview from "@modules/products/components/post-review"
 import { Blog } from "@lib/data/data"
 
 const News = ({ products }: { products: Blog[] }) => {
+  const previewNews = products.slice(0, 4)
   return (
     <div className="content-container pb-5 lg:pb-6">
       <div className="flex justify-start md:justify-between">
@@ -31,7 +28,7 @@ const News = ({ products }: { products: Blog[] }) => {
       </div>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 w-full gap-4 lg:gap-5">
-        {products.map((product, index) => (
+        {previewNews.map((product, index) => (
           <li
             key={product.id}
             className={clx("w-full h-full", index > 1 && "hidden md:block")}

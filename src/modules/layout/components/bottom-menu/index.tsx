@@ -1,9 +1,22 @@
 "use client"
+import { Customer } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
-import Link from "next/link"
-import { useParams, usePathname, useSearchParams } from "next/navigation"
+import LoginDialog from "@modules/login/templates/login-dialog"
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation"
+import { useState } from "react"
 
-const menuOptions = [
+type MenuOption = {
+  name: string
+  icon: string
+  path: string
+}
+
+const menuOptions: MenuOption[] = [
   { name: "Home", icon: "home", path: "/" },
   { name: "Khuyến mãi", icon: "tag", path: "#" },
   { name: "Menu", icon: "list", path: "/view-more?type=weekly-menu" },
@@ -11,10 +24,17 @@ const menuOptions = [
   { name: "Tài khoản", icon: "user", path: "#" },
 ]
 
-const BottomMenu = () => {
+const BottomMenu = ({
+  customer,
+}: {
+  customer: Omit<Customer, "password_hash"> | null
+}) => {
+  const router = useRouter()
   const pathname = usePathname()
   const queryParams = useSearchParams()
   const { countryCode } = useParams()
+  const [isOpenLoginDialog, setIsOpenLoginDialog] = useState(!!customer)
+
   const isCurrentPage = (path: string) => {
     if (path === "/") {
       return pathname === `/${countryCode}` || pathname === `/${countryCode}/`
@@ -24,15 +44,26 @@ const BottomMenu = () => {
     return currentPath == `/${countryCode}${path}`
   }
 
+  const handleClick = (option: MenuOption) => {
+    if (option.name === "Tài khoản" || option.name === "Đơn hàng") {
+      if (!customer) {
+        setIsOpenLoginDialog(true)
+        return;
+      }
+    }
+    router.push(option.path)
+  }
+
   return (
-    <div className="md:hidden block sticky bottom-0 left-0 h-20 w-full bg-white">
+    <div className="md:hidden block sticky bottom-0 left-0 h-20 w-full bg-white z-40">
       <div className="w-full h-full flex">
         {menuOptions.map((option, index) => {
           const isOpened = isCurrentPage(option.path)
           return (
-            <Link
+            <button
               key={index}
-              href={option.path}
+              // href={option.path}
+              onClick={() => handleClick(option)}
               className={clx(
                 "flex-1 h-full flex items-center justify-center text-grey-50",
                 isOpened && "text-[#20419A]"
@@ -46,10 +77,15 @@ const BottomMenu = () => {
                   {option.name}
                 </div>
               </div>
-            </Link>
+            </button>
           )
         })}
       </div>
+      {
+        isOpenLoginDialog && (
+          <LoginDialog closeDialog={() => setIsOpenLoginDialog(false)} />
+        )
+      }
     </div>
   )
 }

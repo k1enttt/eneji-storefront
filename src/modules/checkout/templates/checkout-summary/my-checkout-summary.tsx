@@ -93,7 +93,9 @@ const MyCheckoutSummary = ({
     const vnPaymentData = {
       orderId: cart.id,
       total: cart.total || 0,
-      returnUrl: "http://localhost:8000/vn/vnpay-return",
+      returnUrl: "https://enejistorefront.kienttt.site/vn/vnpay-return", 
+      // use enejistorefront.kienttt.site when in production
+      // use localhost:3000 when in development
     }
 
     await setMyAddresses(formData).then(async (response) => {
