@@ -165,7 +165,7 @@ export async function setMyAddresses(formData: any) {
 
   const cartId = cookies().get("_medusa_cart_id")?.value
 
-  if (!cartId) return { message: "No cartId cookie found" }
+  if (!cartId) throw new Error("No cartId cookie found")
 
   const data = {
     shipping_address: {
@@ -193,7 +193,7 @@ export async function setMyAddresses(formData: any) {
     await updateCart(cartId, data)
     revalidateTag("cart")
   } catch (error: any) {
-    return error.toString()
+    throw error
   }
 }
 /**
@@ -205,7 +205,7 @@ export async function setMyAddresses(formData: any) {
  * @returns
  */
 let MEDUSA_BACKEND_URL = "http://localhost:9000"
-export async function setPaymentCaptured(orderId: string, countryCode: string) {
+export async function setPaymentCaptured(orderId: string) {
   try {
     await fetch(
       `${MEDUSA_BACKEND_URL}/store/custom/orders/capture/${orderId}`,
@@ -265,14 +265,22 @@ export async function placeOrder(isVnPay?: boolean) {
   if (cart?.type === "order") {
     const countryCode = cart.data.shipping_address?.country_code?.toLowerCase()
     cookies().set("_medusa_cart_id", "", { maxAge: -1 })
-    // redirect(`/${countryCode}/order/confirmed/${cart?.data.id}`)
     if (isVnPay) {
-      try {
-        await setPaymentCaptured(cart.data.id, countryCode || "vn")
-        redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
-      } catch (error: any) {
-        throw error
+      const vnPaymentData = {
+        orderId: cart.data.id,
+        total: cart.data.total || 0,
+        returnUrl: "http://localhost:8000/vn/vnpay-return",
+        // use enejistorefront.kienttt.site when in production
+        // use localhost:8000 when in development
       }
+      console.log("Tạo url thanh toán")
+      await createVnPaymentUrl(vnPaymentData).then((response)=> {
+        console.log("Tạo url thanh toán thành công:", response)
+        redirect(response.data)
+      }).catch((error) => {
+        throw error
+      })
+  
     } else {
       redirect(`/${countryCode}/order-confirmed/${cart?.data.id}`)
     }
@@ -300,7 +308,7 @@ export async function createVnPaymentUrl(params: {
     }).then((res) => res.json())
     return { data: response.body.paymentUrl }
   } catch (error: any) {
-    return { error: error.toString() }
+    throw error
   }
 }
 

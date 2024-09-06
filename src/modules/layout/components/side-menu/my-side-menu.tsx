@@ -57,7 +57,7 @@ const MySideMenu = ({
                 </div>
 
                 <Transition
-                  show={open && isLogin}
+                  show={open}
                   as={Fragment}
                   enter="transition ease-out duration-150"
                   enterFrom="opacity-0"
@@ -67,95 +67,100 @@ const MySideMenu = ({
                   leaveTo="opacity-0"
                 >
                   <Popover.Panel className="menu-blur-background">
-                    <div className="menu-white-container">
-                      <div className="menu-header">
-                        <button onClick={close} className="menu-header-close">
-                          <i className="fa-solid fa-arrow-left"></i>
-                        </button>
-                        <div className="menu-header-title">
-                          Thông tin tài khoản
-                        </div>
-                      </div>
-                      <div className="menu-account">
-                        <div className="menu-account-avatar"></div>
-                        <div className="menu-account-text">
-                          <div className="menu-account-text-name">
-                            {customer?.first_name} {customer?.last_name}
-                          </div>
-                          <div className="menu-account-text-email">
-                            {customer?.email}
+                    {isLogin && (
+                      <div className="menu-white-container">
+                        <div className="menu-header">
+                          <button onClick={close} className="menu-header-close">
+                            <i className="fa-solid fa-arrow-left"></i>
+                          </button>
+                          <div className="menu-header-title">
+                            Thông tin tài khoản
                           </div>
                         </div>
-                        <div className="menu-account-chevron">
-                          <i className="fa-solid fa-chevron-right"></i>
-                        </div>
-                      </div>
-                      <div className="menu-card">
-                        <div className="menu-card-label">Thẻ Eneji</div>
-                        <div className="menu-card-value">0 đ</div>
-                      </div>
-                      <div className="menu-features">
-                        <ul className="menu-features">
-                          {Object.entries(SideMenuItems).map(
-                            ([key, value], index) => {
-                              const divider =
-                                index > 0 ? (
-                                  <li className="menu-divider-normal"></li>
-                                ) : null
-                              return (
-                                <Fragment key={key}>
-                                  {divider}
-                                  <li>
-                                    <LocalizedClientLink
-                                      href={value.src}
-                                      className="menu-feature"
-                                      onClick={close}
-                                      data-testid={`${key.toLowerCase()}-link`}
-                                    >
-                                      <div className="menu-feature-icon">
-                                        <i
-                                          className={`fa-solid ${value.icon}`}
-                                        ></i>
-                                      </div>
-                                      <div className="menu-feature-text">
-                                        {value.text}
-                                      </div>
-                                    </LocalizedClientLink>
-                                  </li>
-                                </Fragment>
-                              )
-                            }
-                          )}
-                        </ul>
-                        <div className="menu-divider-big"></div>
-                        <div className="menu-feature">
-                          <div className="menu-feature-icon">
-                            <i className="fa-solid fa-lock"></i>
+                        <div className="menu-account">
+                          <div className="menu-account-avatar"></div>
+                          <div className="menu-account-text">
+                            <div className="menu-account-text-name">
+                              {customer?.first_name} {customer?.last_name}
+                            </div>
+                            <div className="menu-account-text-email">
+                              {customer?.email}
+                            </div>
                           </div>
-                          <div className="menu-feature-text">Đổi mật khẩu</div>
+                          <div className="menu-account-chevron">
+                            <i className="fa-solid fa-chevron-right"></i>
+                          </div>
                         </div>
-                        <div className="menu-divider-normal"></div>
-                      </div>
-                      <div className="menu-footer">
-                        <div className="menu-footer-version">
-                          App Version - V1.00
+                        <div className="menu-card">
+                          <div className="menu-card-label">Thẻ Eneji</div>
+                          <div className="menu-card-value">0 đ</div>
                         </div>
-                        <button
-                          onClick={handleLogout}
-                          className="menu-footer-logout"
-                        >
-                          Đăng xuất
-                        </button>
+                        <div className="menu-features">
+                          <ul className="menu-features">
+                            {Object.entries(SideMenuItems).map(
+                              ([key, value], index) => {
+                                const divider =
+                                  index > 0 ? (
+                                    <li className="menu-divider-normal"></li>
+                                  ) : null
+                                return (
+                                  <Fragment key={key}>
+                                    {divider}
+                                    <li>
+                                      <LocalizedClientLink
+                                        href={value.src}
+                                        className="menu-feature"
+                                        onClick={close}
+                                        data-testid={`${key.toLowerCase()}-link`}
+                                      >
+                                        <div className="menu-feature-icon">
+                                          <i
+                                            className={`fa-solid ${value.icon}`}
+                                          ></i>
+                                        </div>
+                                        <div className="menu-feature-text">
+                                          {value.text}
+                                        </div>
+                                      </LocalizedClientLink>
+                                    </li>
+                                  </Fragment>
+                                )
+                              }
+                            )}
+                          </ul>
+                          <div className="menu-divider-big"></div>
+                          <div className="menu-feature">
+                            <div className="menu-feature-icon">
+                              <i className="fa-solid fa-lock"></i>
+                            </div>
+                            <div className="menu-feature-text">
+                              Đổi mật khẩu
+                            </div>
+                          </div>
+                          <div className="menu-divider-normal"></div>
+                        </div>
+                        <div className="menu-footer">
+                          <div className="menu-footer-version">
+                            App Version - V1.00
+                          </div>
+                          <button
+                            onClick={handleLogout}
+                            className="menu-footer-logout"
+                          >
+                            Đăng xuất
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
+                    {!isLogin && <LoginDialog closeDialog={close} />}
                   </Popover.Panel>
                 </Transition>
 
-                {open && !isLogin && (
+                {/* {open && !isLogin && (
                   <Popover.Panel>
                     <LoginDialog closeDialog={close} />
                   </Popover.Panel>
-                )}
+                )} */}
               </>
             )
           }}

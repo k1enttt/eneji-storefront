@@ -69,11 +69,12 @@ const MyCheckoutForm = ({
         <div className="checkout-heading">Chọn thêm món</div>
         <div className="checkout-additional-dishes-list">
           {weeklyMenu.products.map((product, index) => {
-            if (!weeklyMenu.pricedProducts[index]) {
+            const pricedProduct = weeklyMenu.pricedProducts[index]
+            if (!pricedProduct) {
               return null
             }
             const { cheapestPrice } = getProductPrice({
-              product: weeklyMenu.pricedProducts[index],
+              product: pricedProduct,
               region: weeklyMenu.region,
             })
             return (
@@ -100,7 +101,7 @@ const MyCheckoutForm = ({
                   </div>
                   <AddButton
                     disabled
-                    product={weeklyMenu.pricedProducts[index]}
+                    product={pricedProduct}
                     region={weeklyMenu.region}
                   />
                 </div>
@@ -127,7 +128,7 @@ const MyCheckoutForm = ({
           <i className="fa-solid fa-book text-[#20419A]"></i>
         </div>
         <div>
-          Bằng việc nhấn "Đặt đơn", bạn đồng ý tuân thủ theo{" "}
+          Bằng việc nhấn &quot;Đặt đơn&quot;, bạn đồng ý tuân thủ theo{" "}
           <a className="text-[#20419A]">Điều kiện giao dịch</a> chung của Eneji
           Station
         </div>

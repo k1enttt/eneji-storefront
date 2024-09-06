@@ -38,17 +38,12 @@ const RegisterComponent = ({
     // Register customer
     formAction(payload)
 
-    if (!message) return
-
     // Update customer metadata with additional information
     updateCustomerMetadata({}, payload).then((res) => {
       if (res.error) {
         setMetadataUpdateMessage(res.error)
       }
     })
-
-    // Close register dialog
-    closeRegister()
   }
 
   return (
@@ -176,17 +171,20 @@ const RegisterComponent = ({
                 </a>
               </span>
             </div>
-            <div className="pb-2 px-2 rounded-md bg-red-100">
-              <ErrorMessage
-                error={message || error || metadataUpdateMessage}
-                data-testid="register-error"
-              />
-            </div>
+            {message && (
+              <div className="pb-2 px-2 rounded-md bg-red-100">
+                <ErrorMessage
+                  error={message || error || metadataUpdateMessage}
+                  data-testid="register-error"
+                />
+              </div>
+            )}
             <SubmitButton
               message={message}
               metadataUpdateMessage={metadataUpdateMessage}
               isSubmitting={isSubmitting}
               setIsSubmitting={setIsSubmitting}
+              close={closeRegister}
               className="mt-2 font-semibold w-full h-10 rounded-md bg-[#20419A] flex items-center justify-center text-white mb-2"
             />
             <div className="w-full text-center p-2 ">

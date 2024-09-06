@@ -10,6 +10,7 @@ const SubmitButton = ({
   metadataUpdateMessage,
   isSubmitting,
   setIsSubmitting,
+  close,
 }: {
   className?: string
   login?: boolean
@@ -17,25 +18,45 @@ const SubmitButton = ({
   metadataUpdateMessage?: string
   isSubmitting: boolean
   setIsSubmitting: (isSubmitting: boolean) => void
+  close: () => void
 }) => {
   const { pending } = useFormStatus()
   const router = useRouter()
+  let previousState = pending
 
-  useEffect(() => {
-    if (login) {
-      if (!pending && isSubmitting) {
-        if (!message) {
-          router.push("/cart")
-        }
-        setIsSubmitting(false)
-      }
-    } else if (!pending && isSubmitting) {
-      if (!message && !metadataUpdateMessage) {
-        router.push("/cart")
-      }
-      setIsSubmitting(false)
-    }
-  }, [pending])
+  // useEffect(() => {
+  //   // Nút submit cho form đăng nhập
+  //   if (login) {
+  //     // Nếu form action đã hoàn thành và đang submit
+  //     if (!pending && isSubmitting) {
+  //       // Nếu không có lỗi
+  //       if (!message) {
+  //         // Làm gì đó
+  //       }
+  //       // setIsSubmitting(false)
+  //     }
+  //   }
+  //   // Nút submit cho form đăng ký
+  //   if (!login) {
+  //     // Nếu form action đã hoàn thành và đang submit
+  //     if (!pending && isSubmitting) {
+  //       // Nếu không có lỗi của form action (message) và lỗi cập nhật metadata (metadataUpdateMessage)
+  //       if (!message && !metadataUpdateMessage) {
+  //         // Làm gì đó
+  //       }
+  //       // setIsSubmitting(false)
+  //     }
+  //   }
+  // }, [pending])
+
+  // useEffect(() => {
+  //   console.log("pending", pending)
+  //   console.log("previousState", previousState)
+  //   if (previousState && !pending) {
+  //     close()
+  //   }
+  //   previousState = pending
+  // }, [pending])
 
   return (
     <button
