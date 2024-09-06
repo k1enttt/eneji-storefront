@@ -1,3 +1,47 @@
+<h1 align="center">
+  Eneji Station Storefront
+</h1>
+
+<p align="center">
+  Combine Medusa's modules for your commerce backend with the newest Next.js 14 features for a performant storefront.
+</p>
+
+# Cài đặt
+
+### Thiết lập các biến môi trường
+
+```shell
+cd eneji-storefront/
+```
+
+Tạo file  `.env.local` và thêm các biến môi trường sau:
+```shell
+# URL Eneji backend
+NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+
+# URL Eneji storefront
+NEXT_PUBLIC_BASE_URL=http://localhost:8000
+
+# Next.js revalidation secret của Medusa.
+REVALIDATE_SECRET=supersecret
+```
+
+### Cài đặt dependencies
+
+```shell
+npm install
+```
+
+### Bắt đầu dev
+Bắt đầu với chế độ development.
+
+```shell
+npm run dev
+```
+
+
+
+
 <p align="center">
   <a href="https://www.medusajs.com">
   <picture>
