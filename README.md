@@ -32,6 +32,10 @@ REVALIDATE_SECRET=supersecret
 npm install
 ```
 
+### Cài đặt Admin
+
+Cài đặt và khởi dộng <a href="https://github.com/k1enttt/eneji-admin">Eneji Admin</a> đóng vai trò backend server
+
 ### Bắt đầu dev
 Bắt đầu với chế độ development.
 
